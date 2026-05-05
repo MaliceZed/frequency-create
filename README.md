@@ -1,6 +1,6 @@
-# Frequency for Create
+<p align="center"><img src="./src/main/resources/logo.png" alt="Logo" width="200"></p>
 
-**Add frequency items for Create's Redstone Link!**
+<h1 align="center">Frequency for Create<br>
 
 ![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-green)
 ![NeoForge](https://img.shields.io/badge/NeoForge-21.1.190+-blue)
