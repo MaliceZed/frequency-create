@@ -1,0 +1,35 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Runtime
+run/saves/
+run/logs/
+run/crash-reports/
+run/screenshots/
+run/downloads/
+run/*.dat
+run/*.json
+run/*.txt
+run/mods/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+*.bak

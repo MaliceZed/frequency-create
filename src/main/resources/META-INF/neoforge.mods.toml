@@ -1,0 +1,34 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="Not specified"
+
+[[mods]]
+modId="frequency"
+version="0.1"
+displayName="Frequency for Create"
+displayURL="https://mazemods.net"
+logoFile="logo.png"
+credits="Create mod"
+authors="MaZe"
+description="Add items for Redstone Link"
+
+[[dependencies.frequency]]
+    modId="neoforge"
+    type="required"
+    versionRange="[21.1.190,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.frequency]]
+    modId="minecraft"
+    type="required"
+    versionRange="[1.21.1]"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.frequency]]
+    modId="create"
+    type="required"
+    versionRange="[0,)"
+    ordering="NONE"
+    side="BOTH"
