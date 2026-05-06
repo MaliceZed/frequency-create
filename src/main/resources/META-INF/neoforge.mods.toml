@@ -4,13 +4,13 @@ license="Not specified"
 
 [[mods]]
 modId="frequency"
-version="0.1"
+version="${version}"
 displayName="Frequency for Create"
-displayURL="https://mazemods.net"
+displayURL="https://github.com/MaliceZed"
 logoFile="logo.png"
 credits="Create mod"
 authors="MaZe"
-description="Add items for Redstone Link"
+description="Frequency for Create is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies."
 
 [[dependencies.frequency]]
     modId="neoforge"

@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.141'
 }
 
-version = '0.1'
+version = '0.1.1'
 base.archivesName = "frequency"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -34,4 +34,13 @@ neoForge {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    def modVersion = version
+    inputs.property 'version', modVersion
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'version': modVersion
+    }
 }
