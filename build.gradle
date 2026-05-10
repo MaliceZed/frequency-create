@@ -1,40 +1,46 @@
 plugins {
-    id 'java'
+    id 'eclipse'
+    id 'net.neoforged.moddev' version '2.0.141'
 }
 
-allprojects {
-    apply plugin: 'java'
+version = '0.1.1'
+base.archivesName = "frequency"
 
-    group = 'maze.frequency'
-    version = project.mod_version
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+neoForge {
+    version = "21.1.190"
+
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
         }
     }
 
-    repositories {
-        mavenCentral()
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://maven.neoforged.net/releases' }
-        maven { url = 'https://maven.fabricmc.net/' }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        options.encoding = 'UTF-8'
-        options.release = 17
+    mods {
+        frequency {
+            sourceSet sourceSets.main
+        }
     }
 }
 
-subprojects {
-    apply plugin: 'java'
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
 
-    // Only add common dependency for loader-specific modules
-    if (project.name != 'common') {
-        dependencies {
-            compileOnly project(':common')
-        }
+tasks.named('processResources', ProcessResources).configure {
+    def modVersion = version
+    inputs.property 'version', modVersion
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'version': modVersion
     }
 }

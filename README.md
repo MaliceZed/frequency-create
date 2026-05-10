@@ -3,8 +3,7 @@
 <h1 align="center">Frequency for Create<br>
 
 <img src="https://img.shields.io/badge/Minecraft-1.21.1-green">
-<img src="https://img.shields.io/badge/Forge-47.3.0-26303d">
-<img src="https://img.shields.io/badge/Fabric-21.1.190+-bf6134">
+<img src="https://img.shields.io/badge/NeoForge-21.1.190+-bf6134">
 <img src="https://img.shields.io/badge/Version-0.1.2-orange">
 
 ## 📖 Overview

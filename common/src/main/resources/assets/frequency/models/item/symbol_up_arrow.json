@@ -1,6 +1,0 @@
-{
-  "parent": "frequency:item/base/symbol_base",
-  "textures": {
-    "layer0": "frequency:item/symbol_arrow_up"
-  }
-}
