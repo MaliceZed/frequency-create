@@ -15,7 +15,7 @@ Frequency for Create is a quality-of-life addon for the Create mod that adds a s
 ### 🔢 Complete Symbol Set
 - **10 Digit Symbols** (0-9) - For numeric frequencies
 - **26 Letter Symbols** (A-Z) - For alphabetic frequencies  
-- **4 Arrow Symbols** (↑↓←→) - For directional indicators
+- **8 Arrow Symbols** (↑↓←→) - For directional indicators
 - **1 Empty Symbol** - For clearing frequency slots
 
 ### 🎨 Intuitive GUI
