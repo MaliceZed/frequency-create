@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="frequency"
+version="${version}"
+displayName="Frequency for Create"
+logoFile="logo.png"
+description="A quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies."
+authors="MaZe"
+displayURL="https://github.com/MaliceZed"
+
+[[dependencies.frequency]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.frequency]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.frequency]]
+    modId="create"
+    mandatory=true
+    versionRange="[0.5.1,)"
+    ordering="NONE"
+    side="BOTH"
