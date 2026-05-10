@@ -51,6 +51,10 @@ public class FrequencyModItems {
 	public static final DeferredItem<Item> SYMBOL_DOWN_ARROW;
 	public static final DeferredItem<Item> SYMBOL_LEFT_ARROW;
 	public static final DeferredItem<Item> SYMBOL_RIGHT_ARROW;
+	public static final DeferredItem<Item> SYMBOL_DARROW_UP;
+	public static final DeferredItem<Item> SYMBOL_DARROW_DOWN;
+	public static final DeferredItem<Item> SYMBOL_DARROW_LEFT;
+	public static final DeferredItem<Item> SYMBOL_DARROW_RIGHT;
 	public static final DeferredItem<Item> INCOMPLETE_SYMBOL;
 	static {
 		SYMBOL_EMPTY = REGISTRY.register("symbol_empty", SymbolEmptyItem::new);
@@ -94,6 +98,10 @@ public class FrequencyModItems {
 		SYMBOL_DOWN_ARROW = REGISTRY.register("symbol_down_arrow", SymbolDownArrowItem::new);
 		SYMBOL_LEFT_ARROW = REGISTRY.register("symbol_left_arrow", SymbolLeftArrowItem::new);
 		SYMBOL_RIGHT_ARROW = REGISTRY.register("symbol_right_arrow", SymbolRightArrowItem::new);
+		SYMBOL_DARROW_UP = REGISTRY.register("symbol_darrow_up", SymbolDarrowUpItem::new);
+		SYMBOL_DARROW_DOWN = REGISTRY.register("symbol_darrow_down", SymbolDarrowDownItem::new);
+		SYMBOL_DARROW_LEFT = REGISTRY.register("symbol_darrow_left", SymbolDarrowLeftItem::new);
+		SYMBOL_DARROW_RIGHT = REGISTRY.register("symbol_darrow_right", SymbolDarrowRightItem::new);
 		INCOMPLETE_SYMBOL = REGISTRY.register("incomplete_symbol", IncompleteSymbolItem::new);
 	}
 }

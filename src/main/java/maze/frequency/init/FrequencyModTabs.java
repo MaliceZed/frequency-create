@@ -54,6 +54,10 @@ public class FrequencyModTabs {
 				tabData.accept(FrequencyModItems.SYMBOL_DOWN_ARROW.get());
 				tabData.accept(FrequencyModItems.SYMBOL_LEFT_ARROW.get());
 				tabData.accept(FrequencyModItems.SYMBOL_RIGHT_ARROW.get());
+				tabData.accept(FrequencyModItems.SYMBOL_DARROW_UP.get());
+				tabData.accept(FrequencyModItems.SYMBOL_DARROW_DOWN.get());
+				tabData.accept(FrequencyModItems.SYMBOL_DARROW_LEFT.get());
+				tabData.accept(FrequencyModItems.SYMBOL_DARROW_RIGHT.get());
 				tabData.accept(FrequencyModItems.SYMBOL_EMPTY.get());
 			}).build());
 }

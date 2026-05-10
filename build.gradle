@@ -3,8 +3,8 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.141'
 }
 
-version = '0.1.1'
-base.archivesName = "frequency"
+version = '0.1.2'
+base.archivesName = "${project.mod_id}-${project.minecraft_version}-neoforge"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 

@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "frequency:item/base/symbol_base",
   "textures": {
     "layer0": "frequency:item/symbol_6"
   }

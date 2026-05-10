@@ -44,7 +44,6 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 				});
 			});
 
-		// Сортировка: цифры (0-9), буквы (A-Z), empty, стрелки
 		availableSymbols.sort((a, b) -> {
 			String idA = BuiltInRegistries.ITEM.getKey(a.getItem()).getPath();
 			String idB = BuiltInRegistries.ITEM.getKey(b.getItem()).getPath();
@@ -57,28 +56,30 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 	}
 
 	private int getSymbolOrder(String itemId) {
-		// Цифры 0-9: порядок 0-9
+
 		if (itemId.matches("symbol_[0-9]")) {
 			return itemId.charAt(itemId.length() - 1) - '0';
 		}
 
-		// Буквы A-Z: порядок 10-35
 		if (itemId.matches("symbol_[a-z]")) {
 			return 10 + (itemId.charAt(itemId.length() - 1) - 'a');
 		}
 
-		// Empty: порядок 36
 		if (itemId.equals("symbol_empty")) {
 			return 36;
 		}
 
-		// Стрелки: порядок 37-40
 		if (itemId.equals("symbol_up_arrow")) return 37;
 		if (itemId.equals("symbol_down_arrow")) return 38;
 		if (itemId.equals("symbol_left_arrow")) return 39;
 		if (itemId.equals("symbol_right_arrow")) return 40;
 
-		return 999; // Остальные в конец
+		if (itemId.equals("symbol_darrow_up")) return 41;
+		if (itemId.equals("symbol_darrow_down")) return 42;
+		if (itemId.equals("symbol_darrow_left")) return 43;
+		if (itemId.equals("symbol_darrow_right")) return 44;
+
+		return 999;
 	}
 
 	public List<ItemStack> getAvailableSymbols() {
