@@ -1,0 +1,62 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "forge:ingots/brass"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "item": "frequency:symbol_empty",
+      "count": 1
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "frequency:incomplete_symbol"
+        },
+        [
+          {
+            "tag": "forge:nuggets/copper"
+          }
+        ]
+      ],
+      "results": [
+        {
+          "item": "frequency:incomplete_symbol"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "frequency:incomplete_symbol"
+        }
+      ],
+      "results": [
+        {
+          "item": "frequency:incomplete_symbol"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "frequency:incomplete_symbol"
+        }
+      ],
+      "results": [
+        {
+          "item": "frequency:incomplete_symbol"
+        }
+      ]
+    }
+  ],
+  "transitionalItem": {
+    "item": "frequency:incomplete_symbol"
+  }
+}

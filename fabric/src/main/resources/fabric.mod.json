@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "frequency",
+  "version": "${version}",
+  "name": "Frequency for Create",
+  "description": "Frequency mod for Create",
+  "authors": [
+    "MaZe"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "maze.frequency.fabric.FrequencyModFabric"
+    ],
+    "client": [
+      "maze.frequency.fabric.client.ClientSetup"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}",
+    "create": ">=0.5.1"
+  }
+}
