@@ -2,9 +2,9 @@
 
 <h1 align="center">Frequency for Create<br>
 
-<img src="https://img.shields.io/badge/Minecraft-1.21.1-green">
-<img src="https://img.shields.io/badge/NeoForge-21.1.190+-bf6134">
-<img src="https://img.shields.io/badge/Version-0.1.2-orange">
+![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-green)
+![NeoForge](https://img.shields.io/badge/NeoForge-21.1.190+-blue)
+![Version](https://img.shields.io/badge/Version-0.1.2-orange)
 
 ## 📖 Overview
 
