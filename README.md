@@ -2,9 +2,9 @@
 
 <h1 align="center">Frequency for Create<br>
 
-![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-green)
-![NeoForge](https://img.shields.io/badge/NeoForge-21.1.190+-blue)
-![Version](https://img.shields.io/badge/Version-0.1-orange)
+<img src="https://img.shields.io/badge/Minecraft-1.21.1-green">
+<img src="https://img.shields.io/badge/NeoForge-21.1.190+-bf6134">
+<img src="https://img.shields.io/badge/Version-0.1.2-orange">
 
 ## 📖 Overview
 
@@ -15,7 +15,7 @@ Frequency for Create is a quality-of-life addon for the Create mod that adds a s
 ### 🔢 Complete Symbol Set
 - **10 Digit Symbols** (0-9) - For numeric frequencies
 - **26 Letter Symbols** (A-Z) - For alphabetic frequencies  
-- **4 Arrow Symbols** (↑↓←→) - For directional indicators
+- **8 Arrow Symbols** (↑↓←→) - For directional indicators
 - **1 Empty Symbol** - For clearing frequency slots
 
 ### 🎨 Intuitive GUI
