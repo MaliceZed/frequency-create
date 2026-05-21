@@ -1,107 +1,83 @@
 package maze.frequency.init;
 
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.DeferredItem;
-
 import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.Registries;
+
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import maze.frequency.item.*;
 import maze.frequency.FrequencyMod;
 
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
 public class FrequencyModItems {
-	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(FrequencyMod.MODID);
-	public static final DeferredItem<Item> SYMBOL_EMPTY;
-	public static final DeferredItem<Item> SYMBOL_0;
-	public static final DeferredItem<Item> SYMBOL_1;
-	public static final DeferredItem<Item> SYMBOL_2;
-	public static final DeferredItem<Item> SYMBOL_3;
-	public static final DeferredItem<Item> SYMBOL_4;
-	public static final DeferredItem<Item> SYMBOL_5;
-	public static final DeferredItem<Item> SYMBOL_6;
-	public static final DeferredItem<Item> SYMBOL_7;
-	public static final DeferredItem<Item> SYMBOL_8;
-	public static final DeferredItem<Item> SYMBOL_9;
-	public static final DeferredItem<Item> SYMBOL_A;
-	public static final DeferredItem<Item> SYMBOL_B;
-	public static final DeferredItem<Item> SYMBOL_C;
-	public static final DeferredItem<Item> SYMBOL_D;
-	public static final DeferredItem<Item> SYMBOL_E;
-	public static final DeferredItem<Item> SYMBOL_F;
-	public static final DeferredItem<Item> SYMBOL_G;
-	public static final DeferredItem<Item> SYMBOL_H;
-	public static final DeferredItem<Item> SYMBOL_I;
-	public static final DeferredItem<Item> SYMBOL_J;
-	public static final DeferredItem<Item> SYMBOL_K;
-	public static final DeferredItem<Item> SYMBOL_L;
-	public static final DeferredItem<Item> SYMBOL_M;
-	public static final DeferredItem<Item> SYMBOL_N;
-	public static final DeferredItem<Item> SYMBOL_O;
-	public static final DeferredItem<Item> SYMBOL_P;
-	public static final DeferredItem<Item> SYMBOL_Q;
-	public static final DeferredItem<Item> SYMBOL_R;
-	public static final DeferredItem<Item> SYMBOL_S;
-	public static final DeferredItem<Item> SYMBOL_T;
-	public static final DeferredItem<Item> SYMBOL_U;
-	public static final DeferredItem<Item> SYMBOL_V;
-	public static final DeferredItem<Item> SYMBOL_W;
-	public static final DeferredItem<Item> SYMBOL_X;
-	public static final DeferredItem<Item> SYMBOL_Y;
-	public static final DeferredItem<Item> SYMBOL_Z;
-	public static final DeferredItem<Item> SYMBOL_UP_ARROW;
-	public static final DeferredItem<Item> SYMBOL_DOWN_ARROW;
-	public static final DeferredItem<Item> SYMBOL_LEFT_ARROW;
-	public static final DeferredItem<Item> SYMBOL_RIGHT_ARROW;
-	public static final DeferredItem<Item> SYMBOL_DARROW_UP;
-	public static final DeferredItem<Item> SYMBOL_DARROW_DOWN;
-	public static final DeferredItem<Item> SYMBOL_DARROW_LEFT;
-	public static final DeferredItem<Item> SYMBOL_DARROW_RIGHT;
-	public static final DeferredItem<Item> INCOMPLETE_SYMBOL;
+	public static final DeferredRegister<Item> ITEMS =
+		DeferredRegister.create(Registries.ITEM, FrequencyMod.MODID);
+
+	public static final List<String> SYMBOL_NAMES = List.of(
+		"symbol_1", "symbol_2", "symbol_3", "symbol_4", "symbol_5",
+		"symbol_6", "symbol_7", "symbol_8", "symbol_9", "symbol_0",
+		"symbol_a", "symbol_b", "symbol_c", "symbol_d", "symbol_e",
+		"symbol_f", "symbol_g", "symbol_h", "symbol_i", "symbol_j",
+		"symbol_k", "symbol_l", "symbol_m", "symbol_n", "symbol_o",
+		"symbol_p", "symbol_q", "symbol_r", "symbol_s", "symbol_t",
+		"symbol_u", "symbol_v", "symbol_w", "symbol_x", "symbol_y",
+		"symbol_z",
+		"symbol_a_small", "symbol_b_small", "symbol_c_small", "symbol_d_small", "symbol_e_small",
+		"symbol_f_small", "symbol_g_small", "symbol_h_small", "symbol_i_small", "symbol_j_small",
+		"symbol_k_small", "symbol_l_small", "symbol_m_small", "symbol_n_small", "symbol_o_small",
+		"symbol_p_small", "symbol_q_small", "symbol_r_small", "symbol_s_small", "symbol_t_small",
+		"symbol_u_small", "symbol_v_small", "symbol_w_small", "symbol_x_small", "symbol_y_small",
+		"symbol_z_small",
+		"symbol_up_arrow", "symbol_down_arrow", "symbol_left_arrow", "symbol_right_arrow",
+		"symbol_darrow_up", "symbol_darrow_down", "symbol_darrow_left", "symbol_darrow_right",
+		"symbol_skull",
+		"symbol_creeperhead",
+		"symbol_empty"
+	);
+
+	private static final Map<String, DeferredHolder<Item, ? extends Item>> SYMBOLS = new HashMap<>();
+	public static final List<DeferredHolder<Item, ? extends Item>> ALL_SYMBOLS = new ArrayList<>();
+	public static final DeferredHolder<Item, IncompleteSymbolItem> INCOMPLETE_SYMBOL;
+
 	static {
-		SYMBOL_EMPTY = REGISTRY.register("symbol_empty", SymbolEmptyItem::new);
-		SYMBOL_0 = REGISTRY.register("symbol_0", Symbol0Item::new);
-		SYMBOL_1 = REGISTRY.register("symbol_1", Symbol1Item::new);
-		SYMBOL_2 = REGISTRY.register("symbol_2", Symbol2Item::new);
-		SYMBOL_3 = REGISTRY.register("symbol_3", Symbol3Item::new);
-		SYMBOL_4 = REGISTRY.register("symbol_4", Symbol4Item::new);
-		SYMBOL_5 = REGISTRY.register("symbol_5", Symbol5Item::new);
-		SYMBOL_6 = REGISTRY.register("symbol_6", Symbol6Item::new);
-		SYMBOL_7 = REGISTRY.register("symbol_7", Symbol7Item::new);
-		SYMBOL_8 = REGISTRY.register("symbol_8", Symbol8Item::new);
-		SYMBOL_9 = REGISTRY.register("symbol_9", Symbol9Item::new);
-		SYMBOL_A = REGISTRY.register("symbol_a", SymbolAItem::new);
-		SYMBOL_B = REGISTRY.register("symbol_b", SymbolBItem::new);
-		SYMBOL_C = REGISTRY.register("symbol_c", SymbolCItem::new);
-		SYMBOL_D = REGISTRY.register("symbol_d", SymbolDItem::new);
-		SYMBOL_E = REGISTRY.register("symbol_e", SymbolEItem::new);
-		SYMBOL_F = REGISTRY.register("symbol_f", SymbolFItem::new);
-		SYMBOL_G = REGISTRY.register("symbol_g", SymbolGItem::new);
-		SYMBOL_H = REGISTRY.register("symbol_h", SymbolHItem::new);
-		SYMBOL_I = REGISTRY.register("symbol_i", SymbolIItem::new);
-		SYMBOL_J = REGISTRY.register("symbol_j", SymbolJItem::new);
-		SYMBOL_K = REGISTRY.register("symbol_k", SymbolKItem::new);
-		SYMBOL_L = REGISTRY.register("symbol_l", SymbolLItem::new);
-		SYMBOL_M = REGISTRY.register("symbol_m", SymbolMItem::new);
-		SYMBOL_N = REGISTRY.register("symbol_n", SymbolNItem::new);
-		SYMBOL_O = REGISTRY.register("symbol_o", SymbolOItem::new);
-		SYMBOL_P = REGISTRY.register("symbol_p", SymbolPItem::new);
-		SYMBOL_Q = REGISTRY.register("symbol_q", SymbolQItem::new);
-		SYMBOL_R = REGISTRY.register("symbol_r", SymbolRItem::new);
-		SYMBOL_S = REGISTRY.register("symbol_s", SymbolSItem::new);
-		SYMBOL_T = REGISTRY.register("symbol_t", SymbolTItem::new);
-		SYMBOL_U = REGISTRY.register("symbol_u", SymbolUItem::new);
-		SYMBOL_V = REGISTRY.register("symbol_v", SymbolVItem::new);
-		SYMBOL_W = REGISTRY.register("symbol_w", SymbolWItem::new);
-		SYMBOL_X = REGISTRY.register("symbol_x", SymbolXItem::new);
-		SYMBOL_Y = REGISTRY.register("symbol_y", SymbolYItem::new);
-		SYMBOL_Z = REGISTRY.register("symbol_z", SymbolZItem::new);
-		SYMBOL_UP_ARROW = REGISTRY.register("symbol_up_arrow", SymbolUpArrowItem::new);
-		SYMBOL_DOWN_ARROW = REGISTRY.register("symbol_down_arrow", SymbolDownArrowItem::new);
-		SYMBOL_LEFT_ARROW = REGISTRY.register("symbol_left_arrow", SymbolLeftArrowItem::new);
-		SYMBOL_RIGHT_ARROW = REGISTRY.register("symbol_right_arrow", SymbolRightArrowItem::new);
-		SYMBOL_DARROW_UP = REGISTRY.register("symbol_darrow_up", SymbolDarrowUpItem::new);
-		SYMBOL_DARROW_DOWN = REGISTRY.register("symbol_darrow_down", SymbolDarrowDownItem::new);
-		SYMBOL_DARROW_LEFT = REGISTRY.register("symbol_darrow_left", SymbolDarrowLeftItem::new);
-		SYMBOL_DARROW_RIGHT = REGISTRY.register("symbol_darrow_right", SymbolDarrowRightItem::new);
-		INCOMPLETE_SYMBOL = REGISTRY.register("incomplete_symbol", IncompleteSymbolItem::new);
+		Item.Properties props = new Item.Properties().stacksTo(8);
+		for (String name : SYMBOL_NAMES) {
+			DeferredHolder<Item, ? extends Item> entry = ITEMS.register(name,
+				() -> new BaseSymbolItem(props, name));
+			SYMBOLS.put(name, entry);
+			ALL_SYMBOLS.add(entry);
+		}
+		INCOMPLETE_SYMBOL = ITEMS.register("incomplete_symbol",
+			() -> new IncompleteSymbolItem(props));
+	}
+
+	public static DeferredHolder<Item, ? extends Item> getSymbol(String name) {
+		return SYMBOLS.get(name);
+	}
+
+	public static String displayChar(String name) {
+		String suffix = name.substring("symbol_".length());
+		if (suffix.length() == 1) return suffix.toUpperCase();
+		if (suffix.matches("[a-z]_small")) {
+			return suffix.substring(0, 1);
+		}
+		return switch (suffix) {
+			case "up_arrow" -> "↑";
+			case "down_arrow" -> "↓";
+			case "left_arrow" -> "←";
+			case "right_arrow" -> "→";
+			case "darrow_up" -> "⇑";
+			case "darrow_down" -> "⇓";
+			case "darrow_left" -> "⇐";
+			case "darrow_right" -> "⇒";
+			case "skull" -> "☠";
+			case "creeperhead" -> "Creeper";
+			default -> suffix.substring(0, 1).toUpperCase() + suffix.substring(1);
+		};
 	}
 }

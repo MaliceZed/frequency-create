@@ -2,10 +2,8 @@ package maze.frequency.client.gui;
 
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 import maze.frequency.world.inventory.SymbolSwapMenu;
 import maze.frequency.network.SymbolSwapPacket;
@@ -14,140 +12,193 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class SymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
+	private static final int BUTTON_SIZE = 20;
+	private static final int SPACING = 2;
+	private static final int MAX_ITEMS_PER_ROW = 10;
+	private static final String[] CATEGORY_KEYS = {
+		"gui.frequency.category.digits",
+		"gui.frequency.category.letters",
+		"gui.frequency.category.symbols"
+	};
+	private static final boolean[] collapsed = new boolean[CATEGORY_KEYS.length];
+	static {
+		collapsed[2] = true; // symbols collapsed by default
+	}
+	private static final int CHECKBOX_SIZE = 8;
+	private static final int CHECKBOX_ROW_HEIGHT = 14;
+	private static final int CONTENT_PADDING = 8;
+	private static boolean lettersUppercase = true;
+	private int digitRows;
+	private int letterRows;
+	private int specialRows;
+	private int checkboxY;
+	private int[] categoryLabelY = new int[CATEGORY_KEYS.length];
 	private List<CategoryRow> categoryRows;
+	private List<net.minecraft.world.item.ItemStack> allDigits;
+	private List<net.minecraft.world.item.ItemStack> allUppercase;
+	private List<net.minecraft.world.item.ItemStack> allLowercase;
+	private List<net.minecraft.world.item.ItemStack> allSpecials;
+	private List<net.minecraft.world.item.ItemStack> allLetters;
 
 	private static class CategoryRow {
 		List<net.minecraft.world.item.ItemStack> items = new ArrayList<>();
-		int startIndex;
 		int y;
 	}
 
 	public SymbolSwapScreen(SymbolSwapMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title);
 		this.inventoryLabelY = 10000;
+	}
 
+	private int getRowStartX(CategoryRow row) {
+		int rowWidth = row.items.size() * (BUTTON_SIZE + SPACING) - SPACING;
+		return this.leftPos + (this.imageWidth - rowWidth) / 2;
 	}
 
 	@Override
 	protected void init() {
 		super.init();
-		this.categoryRows = new ArrayList<>();
+		this.allDigits = new ArrayList<>();
+		this.allUppercase = new ArrayList<>();
+		this.allLowercase = new ArrayList<>();
+		this.allSpecials = new ArrayList<>();
 
-		List<net.minecraft.world.item.ItemStack> symbols = this.menu.getAvailableSymbols();
-
-		CategoryRow digits1 = new CategoryRow();
-		CategoryRow digits2 = new CategoryRow();
-		CategoryRow letters1 = new CategoryRow();
-		CategoryRow letters2 = new CategoryRow();
-		CategoryRow letters3 = new CategoryRow();
-		CategoryRow arrowsAndEmpty = new CategoryRow();
-
-		List<net.minecraft.world.item.ItemStack> allDigits = new ArrayList<>();
-		List<net.minecraft.world.item.ItemStack> allLetters = new ArrayList<>();
-
-		for (int i = 0; i < symbols.size(); i++) {
-			net.minecraft.world.item.ItemStack stack = symbols.get(i);
+		for (net.minecraft.world.item.ItemStack stack : this.menu.getAvailableSymbols()) {
 			String id = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
-
 			if (id.matches("symbol_[0-9]")) {
 				allDigits.add(stack);
 			} else if (id.matches("symbol_[a-z]")) {
-				allLetters.add(stack);
-			} else if (id.contains("arrow") || id.contains("darrow") || id.equals("symbol_empty")) {
-				arrowsAndEmpty.items.add(stack);
-				if (arrowsAndEmpty.startIndex == 0 && !arrowsAndEmpty.items.isEmpty()) arrowsAndEmpty.startIndex = i;
-			}
-		}
-
-		for (int i = 0; i < allDigits.size(); i++) {
-			if (i < 5) {
-				digits1.items.add(allDigits.get(i));
+				allUppercase.add(stack);
+			} else if (id.matches("symbol_[a-z]_small")) {
+				allLowercase.add(stack);
 			} else {
-				digits2.items.add(allDigits.get(i));
+				allSpecials.add(stack);
 			}
 		}
 
-		for (int i = 0; i < allLetters.size(); i++) {
-			if (i < 9) {
-				letters1.items.add(allLetters.get(i));
-			} else if (i < 18) {
-				letters2.items.add(allLetters.get(i));
-			} else {
-				letters3.items.add(allLetters.get(i));
-			}
+		this.allLetters = lettersUppercase ? allUppercase : allLowercase;
+		digitRows = calcRows(allDigits.size());
+		letterRows = calcRows(allLetters.size());
+		specialRows = calcRows(allSpecials.size());
+
+		int fixedContentWidth = MAX_ITEMS_PER_ROW * (BUTTON_SIZE + SPACING) - SPACING + 28;
+		this.imageWidth = DynamicGuiRenderer.calculateWidth(fixedContentWidth);
+		this.leftPos = (this.width - this.imageWidth) / 2;
+		rebuildLayout();
+	}
+
+	private void splitRows(List<net.minecraft.world.item.ItemStack> items, List<CategoryRow> rows) {
+		for (int i = 0; i < items.size(); i += MAX_ITEMS_PER_ROW) {
+			CategoryRow row = new CategoryRow();
+			int end = Math.min(i + MAX_ITEMS_PER_ROW, items.size());
+			row.items = new ArrayList<>(items.subList(i, end));
+			rows.add(row);
 		}
+	}
 
-		categoryRows.add(digits1);
-		categoryRows.add(digits2);
-		categoryRows.add(letters1);
-		categoryRows.add(letters2);
-		categoryRows.add(letters3);
-		categoryRows.add(arrowsAndEmpty);
+	private int calcRows(int count) {
+		return (count + MAX_ITEMS_PER_ROW - 1) / MAX_ITEMS_PER_ROW;
+	}
 
-		int maxItemsInRow = 0;
-		for (CategoryRow row : categoryRows) {
-			if (row.items.size() > maxItemsInRow) {
-				maxItemsInRow = row.items.size();
-			}
-		}
+	private void rebuildLayout() {
+		this.categoryRows = new ArrayList<>();
+		int[] rowsPerCat = {digitRows, letterRows, specialRows};
 
-		int buttonSize = 20;
-		int spacing = 2;
-		int contentWidth = maxItemsInRow * (buttonSize + spacing) - spacing + 28;
+		if (!collapsed[0]) splitRows(allDigits, categoryRows);
+		if (!collapsed[1]) splitRows(allLetters, categoryRows);
+		if (!collapsed[2]) splitRows(allSpecials, categoryRows);
+
 		int categorySpacing = 4;
 		int rowSpacing = 22;
-		int labelOffset = 10;
+		int labelOffset = 12;
 
-		int contentHeight = 0;
-		contentHeight += 8;
-		contentHeight += labelOffset;
-		contentHeight += rowSpacing * 2;
-		contentHeight += categorySpacing;
-		contentHeight += labelOffset;
-		contentHeight += rowSpacing * 3;
-		contentHeight += categorySpacing;
-		contentHeight += labelOffset;
-		contentHeight += rowSpacing;
-		contentHeight += 8;
+		int contentHeight = CONTENT_PADDING;
+		for (int i = 0; i < CATEGORY_KEYS.length; i++) {
+			contentHeight += labelOffset;
+			if (!collapsed[i]) {
+				contentHeight += rowsPerCat[i] * rowSpacing;
+				if (i == 1) contentHeight += CHECKBOX_ROW_HEIGHT;
+			}
+			if (i < CATEGORY_KEYS.length - 1) contentHeight += categorySpacing;
+		}
+		contentHeight += CONTENT_PADDING;
 
-		this.imageWidth = DynamicGuiRenderer.calculateWidth(contentWidth);
-		this.imageHeight = DynamicGuiRenderer.calculateHeight(contentHeight);
+		this.imageHeight = Math.max(DynamicGuiRenderer.calculateHeight(contentHeight), 200);
+		this.topPos = (this.height - this.imageHeight) / 2;
 
-		int startY = this.topPos + 16 + 8 + labelOffset;
+		int startY = this.topPos + DynamicGuiRenderer.HEADER_HEIGHT + CONTENT_PADDING + labelOffset;
+		int rowIdx = 0;
+		int currentY = startY;
 
-		digits1.y = startY;
-		digits2.y = startY + rowSpacing;
-		letters1.y = startY + rowSpacing * 2 + categorySpacing + labelOffset;
-		letters2.y = startY + rowSpacing * 3 + categorySpacing + labelOffset;
-		letters3.y = startY + rowSpacing * 4 + categorySpacing + labelOffset;
-		arrowsAndEmpty.y = startY + rowSpacing * 5 + categorySpacing * 2 + labelOffset * 2;
+		for (int cat = 0; cat < CATEGORY_KEYS.length; cat++) {
+			categoryLabelY[cat] = currentY - labelOffset;
+			int catRows = rowsPerCat[cat];
+			if (!collapsed[cat]) {
+				if (cat == 1) {
+					checkboxY = currentY;
+					currentY += CHECKBOX_ROW_HEIGHT;
+				}
+				for (int i = 0; i < catRows; i++) {
+					categoryRows.get(rowIdx + i).y = currentY + i * rowSpacing;
+				}
+				rowIdx += catRows;
+				currentY += catRows * rowSpacing;
+			}
+			currentY += categorySpacing + labelOffset;
+		}
 
 		this.titleLabelX = this.leftPos + 9;
 		this.titleLabelY = this.topPos + 4;
+
+
+	}
+
+	private String categoryLabel(int cat) {
+		return Component.translatable(CATEGORY_KEYS[cat]).getString();
 	}
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
-			int buttonSize = 20;
-			int spacing = 2;
-			int globalIndex = 0;
+			int labelX = this.leftPos + 9;
+
+			for (int cat = 0; cat < CATEGORY_KEYS.length; cat++) {
+				String label = categoryLabel(cat);
+				int textWidth = this.font.width(label);
+				if (mouseX >= labelX - 4 && mouseX < labelX + 8 + textWidth + 4
+					&& mouseY >= categoryLabelY[cat] - 2
+					&& mouseY < categoryLabelY[cat] + 10) {
+					collapsed[cat] = !collapsed[cat];
+					rebuildLayout();
+					return true;
+				}
+			}
+
+			if (!collapsed[1]) {
+				if (mouseX >= labelX + 10 && mouseX < labelX + 10 + CHECKBOX_SIZE
+					&& mouseY >= checkboxY + 1 && mouseY < checkboxY + 1 + CHECKBOX_SIZE) {
+					lettersUppercase = !lettersUppercase;
+					this.allLetters = lettersUppercase ? allUppercase : allLowercase;
+					letterRows = calcRows(allLetters.size());
+					rebuildLayout();
+					return true;
+				}
+			}
 
 			for (CategoryRow row : categoryRows) {
 				if (row.items.isEmpty()) continue;
 
-				int rowWidth = row.items.size() * (buttonSize + spacing) - spacing;
-				int startX = this.leftPos + (this.imageWidth - rowWidth) / 2;
+				int startX = getRowStartX(row);
 
 				for (int i = 0; i < row.items.size(); i++) {
-					int x = startX + i * (buttonSize + spacing);
+					int x = startX + i * (BUTTON_SIZE + SPACING);
 
-					if (mouseX >= x && mouseX < x + 20 && mouseY >= row.y && mouseY < row.y + 20) {
-						SymbolSwapPacket.send(globalIndex);
+					if (mouseX >= x && mouseX < x + BUTTON_SIZE && mouseY >= row.y && mouseY < row.y + BUTTON_SIZE) {
+						int index = this.menu.getAvailableSymbols().indexOf(row.items.get(i));
+						SymbolSwapPacket.send(index);
 						this.onClose();
 						return true;
 					}
-					globalIndex++;
 				}
 			}
 		}
@@ -162,37 +213,35 @@ public class SymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
 		guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x582424, false);
 
 		int labelX = this.leftPos + 9;
-		int labelOffset = 12;
+		int iconYoff = (this.font.lineHeight - 6) / 2;
 
-		if (!categoryRows.isEmpty() && categoryRows.get(0).items.size() > 0) {
-			guiGraphics.drawString(this.font, Component.translatable("gui.frequency.category.digits"), labelX, categoryRows.get(0).y - labelOffset, 0xE2E2E2, true);
+		for (int cat = 0; cat < CATEGORY_KEYS.length; cat++) {
+			int iconU = collapsed[cat] ? 46 : 51;
+			int iconW = collapsed[cat] ? 5 : 6;
+			int iconX = collapsed[cat] ? labelX + 1 : labelX;
+			guiGraphics.blit(DynamicGuiRenderer.ATLAS, iconX, categoryLabelY[cat] + iconYoff, iconU, 0, iconW, 6, 64, 64);
+			guiGraphics.drawString(this.font, categoryLabel(cat), labelX + 8, categoryLabelY[cat], 0xF8F8EC, true);
 		}
 
-		if (categoryRows.size() > 2 && categoryRows.get(2).items.size() > 0) {
-			guiGraphics.drawString(this.font, Component.translatable("gui.frequency.category.letters"), labelX, categoryRows.get(2).y - labelOffset, 0xE2E2E2, true);
+		if (!collapsed[1]) {
+			int cbU = lettersUppercase ? 54 : 46;
+			guiGraphics.blit(DynamicGuiRenderer.ATLAS, labelX + 10, checkboxY + 1, cbU, 8, CHECKBOX_SIZE, CHECKBOX_SIZE, 64, 64);
+			guiGraphics.drawString(this.font,
+				Component.translatable(lettersUppercase ? "gui.frequency.capital" : "gui.frequency.small").getString(),
+				labelX + 22, checkboxY + 1, 0xF8F8EC, true);
 		}
-
-		if (categoryRows.size() > 5 && categoryRows.get(5).items.size() > 0) {
-			guiGraphics.drawString(this.font, Component.translatable("gui.frequency.category.symbols"), labelX, categoryRows.get(5).y - labelOffset, 0xE2E2E2, true);
-		}
-
-		int buttonSize = 20;
-		int spacing = 2;
-		int globalIndex = 0;
 
 		for (CategoryRow row : categoryRows) {
 			if (row.items.isEmpty()) continue;
 
-			int rowWidth = row.items.size() * (buttonSize + spacing) - spacing;
-			int startX = this.leftPos + (this.imageWidth - rowWidth) / 2;
+			int startX = getRowStartX(row);
 
 			for (int i = 0; i < row.items.size(); i++) {
-				int x = startX + i * (buttonSize + spacing);
+				int x = startX + i * (BUTTON_SIZE + SPACING);
 
 				DynamicGuiRenderer.renderSlot(guiGraphics, x, row.y);
 
 				guiGraphics.renderItem(row.items.get(i), x + 2, row.y + 2);
-				globalIndex++;
 			}
 		}
 	}
@@ -208,26 +257,20 @@ public class SymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
 		super.render(guiGraphics, mouseX, mouseY, partialTick);
 		this.renderTooltip(guiGraphics, mouseX, mouseY);
 
-		int buttonSize = 20;
-		int spacing = 2;
-		int globalIndex = 0;
-
 		for (CategoryRow row : categoryRows) {
 			if (row.items.isEmpty()) continue;
 
-			int rowWidth = row.items.size() * (buttonSize + spacing) - spacing;
-			int startX = this.leftPos + (this.imageWidth - rowWidth) / 2;
+			int startX = getRowStartX(row);
 
 			for (int i = 0; i < row.items.size(); i++) {
-				int x = startX + i * (buttonSize + spacing);
+				int x = startX + i * (BUTTON_SIZE + SPACING);
 
-				if (mouseX >= x && mouseX < x + 20 && mouseY >= row.y && mouseY < row.y + 20) {
+				if (mouseX >= x && mouseX < x + BUTTON_SIZE && mouseY >= row.y && mouseY < row.y + BUTTON_SIZE) {
 
 					DynamicGuiRenderer.renderSlotHover(guiGraphics, x, row.y);
 
 					guiGraphics.renderTooltip(this.font, row.items.get(i), mouseX, mouseY);
 				}
-				globalIndex++;
 			}
 		}
 	}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "N N",
+    " S ",
+    "N N"
+  ],
+  "key": {
+    "N": {
+      "tag": "c:nuggets/iron"
+    },
+    "S": {
+      "tag": "frequency:symbols"
+    }
+  },
+  "result": {
+    "id": "frequency:symbol_frame",
+    "count": 1
+  }
+}

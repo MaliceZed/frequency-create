@@ -1,13 +1,11 @@
 package maze.frequency.world.inventory;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import maze.frequency.init.FrequencyModItems;
 import maze.frequency.init.FrequencyModMenus;
 
 import java.util.List;
@@ -36,58 +34,13 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 	}
 
 	private void loadAvailableSymbols() {
-		ResourceLocation symbolsTag = ResourceLocation.fromNamespaceAndPath("frequency", "symbols");
-		BuiltInRegistries.ITEM.getTag(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, symbolsTag))
-			.ifPresent(tag -> {
-				tag.forEach(itemHolder -> {
-					availableSymbols.add(new ItemStack(itemHolder.value()));
-				});
-			});
-
-		availableSymbols.sort((a, b) -> {
-			String idA = BuiltInRegistries.ITEM.getKey(a.getItem()).getPath();
-			String idB = BuiltInRegistries.ITEM.getKey(b.getItem()).getPath();
-
-			int orderA = getSymbolOrder(idA);
-			int orderB = getSymbolOrder(idB);
-
-			return Integer.compare(orderA, orderB);
-		});
-	}
-
-	private int getSymbolOrder(String itemId) {
-
-		if (itemId.matches("symbol_[0-9]")) {
-			return itemId.charAt(itemId.length() - 1) - '0';
+		for (var symbol : FrequencyModItems.ALL_SYMBOLS) {
+			availableSymbols.add(new ItemStack(symbol.get()));
 		}
-
-		if (itemId.matches("symbol_[a-z]")) {
-			return 10 + (itemId.charAt(itemId.length() - 1) - 'a');
-		}
-
-		if (itemId.equals("symbol_empty")) {
-			return 36;
-		}
-
-		if (itemId.equals("symbol_up_arrow")) return 37;
-		if (itemId.equals("symbol_down_arrow")) return 38;
-		if (itemId.equals("symbol_left_arrow")) return 39;
-		if (itemId.equals("symbol_right_arrow")) return 40;
-
-		if (itemId.equals("symbol_darrow_up")) return 41;
-		if (itemId.equals("symbol_darrow_down")) return 42;
-		if (itemId.equals("symbol_darrow_left")) return 43;
-		if (itemId.equals("symbol_darrow_right")) return 44;
-
-		return 999;
 	}
 
 	public List<ItemStack> getAvailableSymbols() {
 		return availableSymbols;
-	}
-
-	public ItemStack getHeldItem() {
-		return heldItem;
 	}
 
 	public void swapSymbol(int symbolIndex) {

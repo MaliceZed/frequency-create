@@ -1,0 +1,21 @@
+{
+  "item_group.frequency.frequency_create_tab": "Frequency Create",
+  "item.frequency.symbol_empty": "Empty Symbol",
+  "item.frequency.incomplete_symbol": "Incomplete Symbol",
+  "gui.frequency.symbol_swap.title": "Swap",
+  "gui.frequency.category.digits": "Digits",
+  "gui.frequency.category.letters": "Letters",
+  "gui.frequency.capital": "Capital",
+  "gui.frequency.small": "Small",
+  "gui.frequency.category.symbols": "Symbols",
+  "item.frequency.symbol_creeperhead": "Creeper Symbol",
+  "block.frequency.symbol_frame": "Symbol Frame",
+  "block.frequency.symbol_frame.tooltip.summary": "A _frame_ you can use to mark your storages, builds, mechanisms and more.",
+  "block.frequency.symbol_frame.tooltip.condition1": "R-Click with a symbol",
+  "block.frequency.symbol_frame.tooltip.behaviour1": "_Sets_ the displayed symbol.",
+  "block.frequency.symbol_frame.tooltip.condition2": "R-Click",
+  "block.frequency.symbol_frame.tooltip.behaviour2": "If a _functional block_ is behind the frame - the player _interacts_ with it.",
+  "item.frequency.symbol.tooltip.summary": "A symbol item that's perfect for adjusting frequencies. Maybe.",
+  "item.frequency.symbol.tooltip.condition1": "R-Click",
+  "item.frequency.symbol.tooltip.behaviour1": "_Opens_ a menu to _swap_ the symbol."
+}

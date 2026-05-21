@@ -1,56 +1,76 @@
 package maze.frequency;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+import com.tterrag.registrate.Registrate;
 
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.network.handling.IPayloadHandler;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.fml.util.thread.SidedThreadGroups;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.api.distmarker.Dist;
 
-import net.minecraft.server.TickTask;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.FriendlyByteBuf;
 
-import maze.frequency.init.FrequencyModTabs;
+import maze.frequency.init.FrequencyModBlocks;
 import maze.frequency.init.FrequencyModItems;
+import maze.frequency.init.FrequencyModTabs;
 import maze.frequency.init.FrequencyModMenus;
 import maze.frequency.network.SymbolSwapPacket;
+import maze.frequency.network.FrameUpdatePacket;
+import maze.frequency.datagen.DataGenerators;
+import maze.frequency.compat.FrameInteractionHandler;
+import maze.frequency.compat.CreateTooltipCompat;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.Queue;
-import java.util.PriorityQueue;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Map.Entry;
 
-import it.unimi.dsi.fastutil.ints.IntObjectPair;
-import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
+
+import net.neoforged.neoforge.client.event.ModelEvent.ModifyBakingResult;
+import net.neoforged.bus.api.SubscribeEvent;
+
+import maze.frequency.client.model.SymbolFrameBakedModel;
 
 @Mod("frequency")
 public class FrequencyMod {
-	public static final Logger LOGGER = LogManager.getLogger(FrequencyMod.class);
 	public static final String MODID = "frequency";
+	public static final Registrate REGISTRATE = Registrate.create(MODID);
 
 	public FrequencyMod(IEventBus modEventBus) {
-		NeoForge.EVENT_BUS.register(this);
 		modEventBus.addListener(this::registerNetworking);
-		modEventBus.addListener(this::registerScreens);
-		FrequencyModItems.REGISTRY.register(modEventBus);
-		FrequencyModTabs.REGISTRY.register(modEventBus);
-		FrequencyModMenus.REGISTRY.register(modEventBus);
+		modEventBus.addListener(DataGenerators::gatherData);
 		addNetworkMessage(SymbolSwapPacket.TYPE, SymbolSwapPacket.STREAM_CODEC, SymbolSwapPacket::handle);
+		addNetworkMessage(FrameUpdatePacket.TYPE, FrameUpdatePacket.STREAM_CODEC, FrameUpdatePacket::handle);
+
+		FrequencyModItems.ITEMS.register(modEventBus);
+		FrequencyModTabs.TABS.register(modEventBus);
+		FrequencyModBlocks.BLOCKS.register(modEventBus);
+		FrequencyModBlocks.BLOCK_ENTITIES.register(modEventBus);
+		FrequencyModBlocks.ITEMS.register(modEventBus);
+
+		// Force-load all registration classes before GatherDataEvent fires.
+		try {
+			Class.forName("maze.frequency.init.FrequencyModTabs");
+			Class.forName("maze.frequency.init.FrequencyModItems");
+			Class.forName("maze.frequency.init.FrequencyModMenus");
+			Class.forName("maze.frequency.init.FrequencyModBlocks");
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Failed to force-load registration classes", e);
+		}
+
+		// Register game event handlers (Create wrench, symbol frame interaction)
+		FrameInteractionHandler.register();
+		// Hook into Create's tooltip system after all registries are processed
+		modEventBus.addListener((FMLClientSetupEvent event) -> CreateTooltipCompat.init());
 	}
 
-	private void registerScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
-		event.register(FrequencyModMenus.SYMBOL_SWAP.get(), maze.frequency.client.gui.SymbolSwapScreen::new);
-	}
 	private static boolean networkingRegistered = false;
 	private static final Map<CustomPacketPayload.Type<?>, NetworkMessage<?>> MESSAGES = new HashMap<>();
 
@@ -70,23 +90,23 @@ public class FrequencyMod {
 		networkingRegistered = true;
 	}
 
-	private static final Queue<IntObjectPair<Runnable>> workToBeScheduled = new ConcurrentLinkedQueue<>();
-	private static final PriorityQueue<TickTask> workQueue = new PriorityQueue<>(Comparator.comparingInt(TickTask::getTick));
+	@EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
+	public static class ClientEvents {
+		@SubscribeEvent
+		public static void onModifyBakingResult(ModifyBakingResult event) {
+			var models = event.getModels();
+			var toWrap = new ArrayList<Entry<ModelResourceLocation, BakedModel>>();
 
-	public static void queueServerWork(int delay, Runnable action) {
-		if (Thread.currentThread().getThreadGroup() == SidedThreadGroups.SERVER)
-			workToBeScheduled.add(new IntObjectImmutablePair<>(delay, action));
-	}
+			for (var entry : models.entrySet()) {
+				if (entry.getKey().id().getNamespace().equals(MODID) && entry.getKey().id().getPath().equals("symbol_frame")) {
+					toWrap.add(entry);
+				}
+			}
 
-	@SubscribeEvent
-	public void tick(ServerTickEvent.Post event) {
-		int currentTick = event.getServer().getTickCount();
-		IntObjectPair<Runnable> work;
-		while ((work = workToBeScheduled.poll()) != null) {
-			workQueue.add(new TickTask(currentTick + work.leftInt(), work.right()));
-		}
-		while (!workQueue.isEmpty() && currentTick >= workQueue.peek().getTick()) {
-			workQueue.poll().run();
+			for (var entry : toWrap) {
+				SymbolFrameBakedModel wrapped = new SymbolFrameBakedModel(entry.getValue());
+				models.put(entry.getKey(), wrapped);
+			}
 		}
 	}
 }

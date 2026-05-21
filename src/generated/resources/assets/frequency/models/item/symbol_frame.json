@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:block/symbol_frame",
+  "textures": {
+    "s070": "frequency:block/symbols/symbol_creeperhead"
+  }
+}

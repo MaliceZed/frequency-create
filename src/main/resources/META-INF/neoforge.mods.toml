@@ -29,6 +29,6 @@ description="Frequency for Create is a quality-of-life addon for the Create mod 
 [[dependencies.frequency]]
     modId="create"
     type="required"
-    versionRange="[0,)"
+    versionRange="[6.0.0,)"
     ordering="NONE"
     side="BOTH"

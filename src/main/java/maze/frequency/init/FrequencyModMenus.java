@@ -1,14 +1,20 @@
 package maze.frequency.init;
 
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import com.tterrag.registrate.util.entry.MenuEntry;
+
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.core.registries.Registries;
-import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+
 import maze.frequency.FrequencyMod;
 import maze.frequency.world.inventory.SymbolSwapMenu;
+import maze.frequency.client.gui.SymbolSwapScreen;
 
 public class FrequencyModMenus {
-	public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(Registries.MENU, FrequencyMod.MODID);
-	public static final DeferredHolder<MenuType<?>, MenuType<SymbolSwapMenu>> SYMBOL_SWAP = REGISTRY.register("symbol_swap", () -> IMenuTypeExtension.create(SymbolSwapMenu::new));
+	public static final MenuEntry<SymbolSwapMenu> SYMBOL_SWAP = FrequencyMod.REGISTRATE
+		.menu("symbol_swap",
+			(MenuType<SymbolSwapMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
+				new SymbolSwapMenu(id, inv, buf),
+			() -> SymbolSwapScreen::new)
+		.register();
 }

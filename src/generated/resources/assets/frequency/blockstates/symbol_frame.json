@@ -1,0 +1,102 @@
+{
+  "variants": {
+    "facing=down,rotation=east": {
+      "model": "frequency:block/symbol_frame",
+      "x": 90,
+      "y": 270
+    },
+    "facing=down,rotation=north": {
+      "model": "frequency:block/symbol_frame",
+      "x": 90,
+      "y": 180
+    },
+    "facing=down,rotation=south": {
+      "model": "frequency:block/symbol_frame",
+      "x": 90
+    },
+    "facing=down,rotation=west": {
+      "model": "frequency:block/symbol_frame",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,rotation=east": {
+      "model": "frequency:block/symbol_frame",
+      "y": 90
+    },
+    "facing=east,rotation=north": {
+      "model": "frequency:block/symbol_frame",
+      "y": 90
+    },
+    "facing=east,rotation=south": {
+      "model": "frequency:block/symbol_frame",
+      "y": 90
+    },
+    "facing=east,rotation=west": {
+      "model": "frequency:block/symbol_frame",
+      "y": 90
+    },
+    "facing=north,rotation=east": {
+      "model": "frequency:block/symbol_frame"
+    },
+    "facing=north,rotation=north": {
+      "model": "frequency:block/symbol_frame"
+    },
+    "facing=north,rotation=south": {
+      "model": "frequency:block/symbol_frame"
+    },
+    "facing=north,rotation=west": {
+      "model": "frequency:block/symbol_frame"
+    },
+    "facing=south,rotation=east": {
+      "model": "frequency:block/symbol_frame",
+      "y": 180
+    },
+    "facing=south,rotation=north": {
+      "model": "frequency:block/symbol_frame",
+      "y": 180
+    },
+    "facing=south,rotation=south": {
+      "model": "frequency:block/symbol_frame",
+      "y": 180
+    },
+    "facing=south,rotation=west": {
+      "model": "frequency:block/symbol_frame",
+      "y": 180
+    },
+    "facing=up,rotation=east": {
+      "model": "frequency:block/symbol_frame",
+      "x": 270,
+      "y": 270
+    },
+    "facing=up,rotation=north": {
+      "model": "frequency:block/symbol_frame",
+      "x": 270,
+      "y": 180
+    },
+    "facing=up,rotation=south": {
+      "model": "frequency:block/symbol_frame",
+      "x": 270
+    },
+    "facing=up,rotation=west": {
+      "model": "frequency:block/symbol_frame",
+      "x": 270,
+      "y": 90
+    },
+    "facing=west,rotation=east": {
+      "model": "frequency:block/symbol_frame",
+      "y": 270
+    },
+    "facing=west,rotation=north": {
+      "model": "frequency:block/symbol_frame",
+      "y": 270
+    },
+    "facing=west,rotation=south": {
+      "model": "frequency:block/symbol_frame",
+      "y": 270
+    },
+    "facing=west,rotation=west": {
+      "model": "frequency:block/symbol_frame",
+      "y": 270
+    }
+  }
+}

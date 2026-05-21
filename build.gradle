@@ -3,10 +3,18 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.141'
 }
 
-version = '0.1.2'
+repositories {
+    maven { url = "https://maven.tterrag.com/" }
+    maven { url = "https://maven.ithundxr.dev/snapshots" }
+    maven { url = "https://maven.createmod.net" }
+}
+
+version = '0.1.3'
 base.archivesName = "${project.mod_id}-${project.minecraft_version}-neoforge"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 neoForge {
     version = "21.1.190"
@@ -14,9 +22,14 @@ neoForge {
     runs {
         client {
             client()
+            programArguments.addAll '--username', project.findProperty('username') ?: 'MaliceZed'
         }
         server {
             server()
+        }
+        data {
+            data()
+            programArguments.addAll('--mod', project.mod_id, '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath)
         }
 
         configureEach {
@@ -30,6 +43,12 @@ neoForge {
             sourceSet sourceSets.main
         }
     }
+}
+
+dependencies {
+	compileOnly "com.tterrag.registrate:Registrate:MC1.21-1.3.0+62"
+	// Create is a runtime dependency (defined in neoforge.mods.toml)
+	// Compile-time integration uses reflection in CreateCompat
 }
 
 tasks.withType(JavaCompile).configureEach {

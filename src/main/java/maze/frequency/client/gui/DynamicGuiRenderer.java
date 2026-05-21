@@ -7,7 +7,7 @@ public class DynamicGuiRenderer {
 	private static final int MIN_WIDTH = 190;
 
 	private static final int CORNER_WIDTH = 3;
-	private static final int HEADER_HEIGHT = 16;
+	static final int HEADER_HEIGHT = 16;
 	private static final int BOTTOM_HEIGHT = 2;
 	private static final int EDGE_WIDTH = 3;
 	private static final int EDGE_HEIGHT = 16;
@@ -18,7 +18,7 @@ public class DynamicGuiRenderer {
 	private static final int BACKGROUND_TILE_SIZE = 16;
 	private static final int SLOT_SIZE = 20;
 
-	private static final ResourceLocation ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/symbol_swap.png");
+	static final ResourceLocation ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/symbol_swap.png");
 	private static final int ATLAS_WIDTH = 64;
 	private static final int ATLAS_HEIGHT = 64;
 

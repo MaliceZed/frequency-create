@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:item/base/symbol_base",
+  "textures": {
+    "symbol": "frequency:item/symbols/symbol_0"
+  }
+}
