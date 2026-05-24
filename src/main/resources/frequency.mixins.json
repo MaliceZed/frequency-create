@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "maze.frequency.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "frequency.mixins.refmap.json",
+  "client": [
+    "ValueBoxRendererMixin",
+    "DepotRendererMixin",
+    "BeltRendererMixin"
+  ]
+}

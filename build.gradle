@@ -9,7 +9,7 @@ repositories {
     maven { url = "https://maven.createmod.net" }
 }
 
-version = '0.1.3'
+version = '0.1.5'
 base.archivesName = "${project.mod_id}-${project.minecraft_version}-neoforge"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

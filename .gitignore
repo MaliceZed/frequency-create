@@ -17,6 +17,7 @@ build+run.bat
 .settings/
 
 # Runtime
+src/generated/resources/.cache/
 run/saves/
 run/logs/
 run/crash-reports/

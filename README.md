@@ -4,7 +4,7 @@
 
 <img src="https://img.shields.io/badge/Minecraft-1.21.1-green">
 <img src="https://img.shields.io/badge/NeoForge-21.1.190+-bf6134">
-<img src="https://img.shields.io/badge/Version-0.1.3-orange">
+<img src="https://img.shields.io/badge/Version-0.1.5-orange">
 
 ## 📖 Overview
 

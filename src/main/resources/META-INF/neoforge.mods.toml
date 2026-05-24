@@ -11,6 +11,7 @@ logoFile="logo.png"
 credits="Create mod"
 authors="MaZe"
 description="Frequency for Create is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies."
+enumExtensions="META-INF/enumextensions.json"
 
 [[dependencies.frequency]]
     modId="neoforge"
@@ -32,3 +33,6 @@ description="Frequency for Create is a quality-of-life addon for the Create mod 
     versionRange="[6.0.0,)"
     ordering="NONE"
     side="BOTH"
+
+[[mixins]]
+config="frequency.mixins.json"
