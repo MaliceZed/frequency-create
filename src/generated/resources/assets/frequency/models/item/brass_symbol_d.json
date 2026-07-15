@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:item/base/brass_symbol_base",
+  "textures": {
+    "symbol": "frequency:item/brass_symbols/symbol_d"
+  }
+}

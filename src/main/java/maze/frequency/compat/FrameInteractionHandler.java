@@ -1,7 +1,6 @@
 package maze.frequency.compat;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -14,12 +13,29 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import maze.frequency.block.ISectionDirtyHandler;
+import maze.frequency.block.ServerSectionDirtyHandler;
 import maze.frequency.block.SymbolFrameBlockEntity;
 import maze.frequency.init.FrequencyModBlocks;
 import maze.frequency.init.FrequencyModItems;
+import maze.frequency.item.BaseSymbolItem;
 import maze.frequency.network.FrameUpdatePacket;
 
 public class FrameInteractionHandler {
+
+    /**
+     * Section dirty handler. Defaults to server no-op; replaced with client
+     * implementation during client setup (see ClientSectionDirtyHandler).
+     */
+    private static ISectionDirtyHandler dirtyHandler = ServerSectionDirtyHandler.INSTANCE;
+
+    /**
+     * Sets the section dirty handler (used on the client side).
+     * Called during client initialization.
+     */
+    public static void setDirtyHandler(ISectionDirtyHandler handler) {
+        dirtyHandler = handler;
+    }
 
     public static void register() {
         NeoForge.EVENT_BUS.addListener(FrameInteractionHandler::onRightClickBlock);
@@ -40,10 +56,9 @@ public class FrameInteractionHandler {
         ItemStack stack = event.getItemStack();
         if (stack.isEmpty()) return;
 
-        ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(stack.getItem());
         Player player = event.getEntity();
 
-        if (itemId.equals(WRENCH_ID)) {
+        if (isWrench(stack)) {
             if (player.isShiftKeyDown()) {
                 if (!level.isClientSide) {
                     ItemStack frameStack = new ItemStack(FrequencyModBlocks.SYMBOL_FRAME_ITEM.get());
@@ -66,7 +81,8 @@ public class FrameInteractionHandler {
                     frameBE.setSymbolName(symbolName);
                     frameBE.requestModelDataUpdate();
                 }
-                maze.frequency.client.FrameClientHandler.markSectionDirty(pos);
+                // Use the abstract handler instead of reflection
+                dirtyHandler.markSectionDirty(pos);
                 PacketDistributor.sendToServer(new FrameUpdatePacket(pos, symbolName));
             }
             event.setCanceled(true);
@@ -76,11 +92,29 @@ public class FrameInteractionHandler {
 
     private static String getSymbolFromStack(ItemStack stack) {
         if (stack.isEmpty()) return null;
-        var id = BuiltInRegistries.ITEM.getKey(stack.getItem());
-        if (!id.getNamespace().equals("frequency")) return null;
-        String path = id.getPath();
-        if (!path.startsWith("symbol_") || path.equals("incomplete_symbol")) return null;
-        if (FrequencyModItems.getSymbol(path) == null) return null;
-        return path;
+        if (!(stack.getItem() instanceof BaseSymbolItem symbolItem)) return null;
+        String originalName = symbolItem.getSymbolName();
+        String name;
+
+        if (originalName.startsWith("brass_")) {
+            name = originalName.substring(6); // "brass_symbol_a" -> "symbol_a"
+            if (FrequencyModItems.getSymbol(originalName) == null) return null;
+        } else if (originalName.startsWith("andesite_")) {
+            name = originalName.substring(9); // "andesite_symbol_a" -> "symbol_a"
+            if (FrequencyModItems.getAndesiteSymbol(originalName) == null) return null;
+        } else if (originalName.startsWith("copper_")) {
+            name = originalName.substring(7); // "copper_symbol_a" -> "symbol_a"
+            if (FrequencyModItems.getCopperSymbol(originalName) == null) return null;
+        } else {
+            return null;
+        }
+        return name;
+    }
+
+    private static boolean isWrench(ItemStack stack) {
+        if (stack.isEmpty()) return false;
+        return stack.getItemHolder().unwrapKey()
+                .map(key -> key.location().equals(WRENCH_ID))
+                .orElse(false);
     }
 }

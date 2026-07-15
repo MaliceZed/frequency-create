@@ -9,15 +9,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.inventory.MenuType;
 
 import maze.frequency.world.inventory.SymbolSwapMenu;
 
-public class BaseSymbolItem extends Item {
-	private final String symbolName;
+import java.util.List;
+import java.util.function.Supplier;
 
-	public BaseSymbolItem(Item.Properties properties, String symbolName) {
+import maze.frequency.item.ISymbolItem;
+
+public class BaseSymbolItem extends Item implements ISymbolItem {
+	private final String symbolName;
+	private final Supplier<MenuType<?>> menuType;
+	private final Supplier<List<ItemStack>> symbolLoader;
+
+	public BaseSymbolItem(Item.Properties properties, String symbolName, Supplier<MenuType<?>> menuType, Supplier<List<ItemStack>> symbolLoader) {
 		super(properties);
 		this.symbolName = symbolName;
+		this.menuType = menuType;
+		this.symbolLoader = symbolLoader;
+	}
+
+	public String getSymbolName() {
+		return symbolName;
 	}
 
 	@Override
@@ -28,7 +42,7 @@ public class BaseSymbolItem extends Item {
 			int slot = hand == InteractionHand.MAIN_HAND ? player.getInventory().selected : 40;
 
 			serverPlayer.openMenu(new SimpleMenuProvider(
-				(id, playerInventory, p) -> new SymbolSwapMenu(id, playerInventory, itemStack, slot),
+				(id, playerInventory, p) -> new SymbolSwapMenu(menuType.get(), id, playerInventory, itemStack, slot, symbolLoader),
 				Component.translatable("gui.frequency.symbol_swap.title")
 			), buf -> {
 				ItemStack.STREAM_CODEC.encode(buf, itemStack);

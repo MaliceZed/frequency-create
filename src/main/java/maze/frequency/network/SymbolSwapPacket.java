@@ -1,6 +1,6 @@
 package maze.frequency.network;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +11,7 @@ import maze.frequency.world.inventory.SymbolSwapMenu;
 
 public record SymbolSwapPacket(int symbolIndex) implements CustomPacketPayload {
 	public static final Type<SymbolSwapPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "symbol_swap"));
-	public static final StreamCodec<FriendlyByteBuf, SymbolSwapPacket> STREAM_CODEC = StreamCodec.composite(
+	public static final StreamCodec<RegistryFriendlyByteBuf, SymbolSwapPacket> STREAM_CODEC = StreamCodec.composite(
 		net.minecraft.network.codec.ByteBufCodecs.VAR_INT,
 		SymbolSwapPacket::symbolIndex,
 		SymbolSwapPacket::new

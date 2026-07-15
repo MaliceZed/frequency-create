@@ -1,6 +1,7 @@
 package maze.frequency.world.inventory;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -10,37 +11,41 @@ import maze.frequency.init.FrequencyModMenus;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public class SymbolSwapMenu extends AbstractContainerMenu {
 	private final Player player;
 	private final ItemStack heldItem;
 	private final int heldSlot;
-	private final List<ItemStack> availableSymbols;
+	private final List<ItemStack> availableSymbols = new ArrayList<>();
 
-	public SymbolSwapMenu(int id, Inventory playerInventory, RegistryFriendlyByteBuf extraData) {
-		this(id, playerInventory,
-			ItemStack.STREAM_CODEC.decode(extraData),
-			extraData.readInt());
-	}
-
-	public SymbolSwapMenu(int id, Inventory playerInventory, ItemStack heldItem, int heldSlot) {
-		super(FrequencyModMenus.SYMBOL_SWAP.get(), id);
+	// Основной конструктор (для открытия меню)
+	public SymbolSwapMenu(MenuType<?> menuType, int id, Inventory playerInventory, ItemStack stack, int heldSlot, Supplier<List<ItemStack>> symbolLoader) {
+		super(menuType, id);
 		this.player = playerInventory.player;
-		this.heldItem = heldItem;
+		this.heldItem = stack;
 		this.heldSlot = heldSlot;
-		this.availableSymbols = new ArrayList<>();
-
-		loadAvailableSymbols();
+		this.availableSymbols.addAll(symbolLoader.get());
 	}
 
-	private void loadAvailableSymbols() {
-		for (var symbol : FrequencyModItems.ALL_SYMBOLS) {
-			availableSymbols.add(new ItemStack(symbol.get()));
-		}
+	// Сетевой конструктор (вызывается MenuType фабрикой)
+	public SymbolSwapMenu(MenuType<?> menuType, int id, Inventory playerInventory, RegistryFriendlyByteBuf buf) {
+		this(menuType, id, playerInventory,
+			ItemStack.STREAM_CODEC.decode(buf),
+			buf.readInt(),
+			menuType == FrequencyModMenus.BRASS_SYMBOL_SWAP.get()
+				? FrequencyModItems::getAllBrassSymbolStacks
+				: menuType == FrequencyModMenus.ANDESITE_SYMBOL_SWAP.get()
+					? FrequencyModItems::getAllAndesiteSymbolStacks
+					: FrequencyModItems::getAllCopperSymbolStacks);
 	}
 
 	public List<ItemStack> getAvailableSymbols() {
 		return availableSymbols;
+	}
+
+	public ItemStack getHeldItem() {
+		return heldItem;
 	}
 
 	public void swapSymbol(int symbolIndex) {

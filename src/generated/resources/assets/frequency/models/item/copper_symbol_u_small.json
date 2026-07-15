@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:item/base/copper_symbol_base",
+  "textures": {
+    "symbol": "frequency:item/copper_symbols/symbol_u_small"
+  }
+}

@@ -11,6 +11,12 @@
       "name": "FREQUENCY_SURFACE",
       "constructor": "(ILjava/lang/String;Ljava/lang/String;)V",
       "parameters": [ -1, "frequency:surface", null ]
+    },
+    {
+      "enum": "net/minecraft/world/item/ItemDisplayContext",
+      "name": "FREQUENCY_TABLE_CLOTH",
+      "constructor": "(ILjava/lang/String;Ljava/lang/String;)V",
+      "parameters": [ -1, "frequency:table_cloth", null ]
     }
   ]
 }

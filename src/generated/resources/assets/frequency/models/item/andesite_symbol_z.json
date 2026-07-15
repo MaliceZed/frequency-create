@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:item/base/andesite_symbol_base",
+  "textures": {
+    "symbol": "frequency:item/andesite_symbols/symbol_z"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "create:brass_sheet"
+    },
+    "N": {
+      "tag": "c:nuggets/copper"
+    }
+  },
+  "pattern": [
+    "N",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frequency:brass_symbol_empty"
+  }
+}

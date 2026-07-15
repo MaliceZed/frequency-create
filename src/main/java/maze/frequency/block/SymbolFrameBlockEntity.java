@@ -11,23 +11,51 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-
-import net.neoforged.neoforge.client.model.data.ModelData;
-
-import maze.frequency.client.model.SymbolFrameModelData;
-import maze.frequency.init.FrequencyModBlocks;
-import maze.frequency.client.FrameClientHandler;
-
 import net.minecraft.world.entity.player.Player;
 
-public class SymbolFrameBlockEntity extends BlockEntity {
+import maze.frequency.init.FrequencyModBlocks;
+
+public class SymbolFrameBlockEntity extends BlockEntity implements ISymbolFrameData {
     private static final String TAG_SYMBOL = "symbol";
     private String symbolName = "symbol_empty";
-    private ModelData modelData;
+    /** Client-only: stores ModelData; null on server to avoid class loading issues. */
+    private Object modelData;
+
+    /**
+     * Client-only model data factory. Set during client initialization.
+     * Null on server to avoid class loading issues.
+     */
+    @javax.annotation.Nullable
+    private static java.util.function.Function<String, Object> modelDataFactory = null;
+
+    /**
+     * Client-only section dirty handler. Set during client initialization.
+     * Null on server to avoid class loading issues.
+     */
+    @javax.annotation.Nullable
+    private static java.util.function.Consumer<net.minecraft.core.BlockPos> sectionDirtyHandler = null;
+
+    /**
+     * Registers the client-side model data factory.
+     * Must only be called from client initialization (e.g. SymbolFrameClientHelper.init()).
+     */
+    @net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
+    public static void setModelDataFactory(java.util.function.Function<String, Object> factory) {
+        modelDataFactory = factory;
+    }
+
+    /**
+     * Registers the client-side section dirty handler.
+     * Must only be called from client initialization (e.g. SymbolFrameClientHelper.init()).
+     */
+    @net.neoforged.api.distmarker.OnlyIn(net.neoforged.api.distmarker.Dist.CLIENT)
+    public static void setSectionDirtyHandler(java.util.function.Consumer<net.minecraft.core.BlockPos> handler) {
+        sectionDirtyHandler = handler;
+    }
 
     public SymbolFrameBlockEntity(BlockPos pos, BlockState state) {
         super(FrequencyModBlocks.SYMBOL_FRAME_BE.get(), pos, state);
-        this.modelData = ModelData.builder().with(SymbolFrameModelData.SYMBOL_PROPERTY, symbolName).build();
+        // modelData is lazily created on client via getModelData()
     }
 
     public String getSymbolName() {
@@ -40,7 +68,10 @@ public class SymbolFrameBlockEntity extends BlockEntity {
 
     public void setSymbolName(String name, Player excludePlayer) {
         this.symbolName = name;
-        this.modelData = ModelData.builder().with(SymbolFrameModelData.SYMBOL_PROPERTY, symbolName).build();
+        // Only update model data on the client side (server doesn't need it)
+        if (level != null && level.isClientSide && modelDataFactory != null) {
+            this.modelData = modelDataFactory.apply(symbolName);
+        }
         setChanged();
         if (level != null && !level.isClientSide && level instanceof ServerLevel serverLevel) {
             BlockState state = getBlockState();
@@ -53,9 +84,14 @@ public class SymbolFrameBlockEntity extends BlockEntity {
         }
     }
 
+    // Note: getModelData() returns a client-only type (ModelData). 
+    // It is only called from the client rendering pipeline, so it's safe.
     @Override
-    public ModelData getModelData() {
-        return modelData;
+    public net.neoforged.neoforge.client.model.data.ModelData getModelData() {
+        if (modelData == null && modelDataFactory != null) {
+            modelData = modelDataFactory.apply(symbolName);
+        }
+        return (net.neoforged.neoforge.client.model.data.ModelData) modelData;
     }
 
     @Override
@@ -69,7 +105,10 @@ public class SymbolFrameBlockEntity extends BlockEntity {
         super.loadAdditional(tag, registries);
         if (tag.contains(TAG_SYMBOL)) {
             symbolName = tag.getString(TAG_SYMBOL);
-            modelData = ModelData.builder().with(SymbolFrameModelData.SYMBOL_PROPERTY, symbolName).build();
+            // Only recreate model data on the client side
+            if (level != null && level.isClientSide && modelDataFactory != null) {
+                modelData = modelDataFactory.apply(symbolName);
+            }
         }
     }
 
@@ -92,10 +131,15 @@ public class SymbolFrameBlockEntity extends BlockEntity {
             String oldName = symbolName;
             symbolName = tag.getString(TAG_SYMBOL);
             if (!symbolName.equals(oldName)) {
-                modelData = ModelData.builder().with(SymbolFrameModelData.SYMBOL_PROPERTY, symbolName).build();
-                requestModelDataUpdate();
+                // This callback only fires on the client, but guard to be safe
                 if (level != null && level.isClientSide) {
-                    FrameClientHandler.markSectionDirty(worldPosition);
+                    if (modelDataFactory != null) {
+                        modelData = modelDataFactory.apply(symbolName);
+                    }
+                    requestModelDataUpdate();
+                    if (sectionDirtyHandler != null) {
+                        sectionDirtyHandler.accept(worldPosition);
+                    }
                 }
             }
         }

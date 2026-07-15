@@ -8,6 +8,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 public final class FrequencyDisplayContexts {
     public static final ItemDisplayContext REDSTONE_LINK = ItemDisplayContext.valueOf("FREQUENCY_REDSTONE_LINK");
     public static final ItemDisplayContext SURFACE = ItemDisplayContext.valueOf("FREQUENCY_SURFACE");
+    public static final ItemDisplayContext TABLE_CLOTH = ItemDisplayContext.valueOf("FREQUENCY_TABLE_CLOTH");
 
     private FrequencyDisplayContexts() {}
 }

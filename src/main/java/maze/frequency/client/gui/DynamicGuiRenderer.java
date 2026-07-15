@@ -56,33 +56,53 @@ public class DynamicGuiRenderer {
 		return HEADER_HEIGHT + contentHeight + BOTTOM_HEIGHT;
 	}
 
+	// --- Default methods (use ATLAS) ---
+
 	public static void renderGui(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+		renderGui(guiGraphics, x, y, width, height, ATLAS);
+	}
+
+	public static void renderSlot(GuiGraphics guiGraphics, int x, int y) {
+		renderSlot(guiGraphics, x, y, ATLAS);
+	}
+
+	public static void renderSlotHover(GuiGraphics guiGraphics, int x, int y) {
+		renderSlotHover(guiGraphics, x, y, ATLAS);
+	}
+
+	// --- Overloaded methods with custom atlas ---
+
+	public static void renderGui(GuiGraphics guiGraphics, int x, int y, int width, int height, ResourceLocation atlas) {
 		int contentWidth = width - CORNER_WIDTH * 2;
 		int contentHeight = height - HEADER_HEIGHT - BOTTOM_HEIGHT;
 
-		renderHeader(guiGraphics, x, y, width);
-
-		renderContent(guiGraphics, x, y + HEADER_HEIGHT, width, contentHeight);
-
-		renderBottom(guiGraphics, x, y + HEADER_HEIGHT + contentHeight, width);
+		renderHeader(guiGraphics, x, y, width, atlas);
+		renderContent(guiGraphics, x, y + HEADER_HEIGHT, width, contentHeight, atlas);
+		renderBottom(guiGraphics, x, y + HEADER_HEIGHT + contentHeight, width, atlas);
 	}
 
-	private static void renderHeader(GuiGraphics guiGraphics, int x, int y, int width) {
+	public static void renderSlot(GuiGraphics guiGraphics, int x, int y, ResourceLocation atlas) {
+		guiGraphics.blit(atlas, x, y, SLOT_U, SLOT_V, SLOT_SIZE, SLOT_SIZE, ATLAS_WIDTH, ATLAS_HEIGHT);
+	}
 
-		guiGraphics.blit(ATLAS, x, y, CORNER_TOP_LEFT_U, CORNER_TOP_LEFT_V, CORNER_WIDTH, HEADER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+	public static void renderSlotHover(GuiGraphics guiGraphics, int x, int y, ResourceLocation atlas) {
+		guiGraphics.blit(atlas, x, y, SLOT_HOVER_U, SLOT_HOVER_V, SLOT_SIZE, SLOT_SIZE, ATLAS_WIDTH, ATLAS_HEIGHT);
+	}
+
+	private static void renderHeader(GuiGraphics guiGraphics, int x, int y, int width, ResourceLocation atlas) {
+		guiGraphics.blit(atlas, x, y, CORNER_TOP_LEFT_U, CORNER_TOP_LEFT_V, CORNER_WIDTH, HEADER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
 		int centerWidth = width - CORNER_WIDTH * 2;
 		int centerX = x + CORNER_WIDTH;
-		blitStretched(guiGraphics, ATLAS, centerX, y, centerWidth, HEADER_HEIGHT, HEADER_CENTER_U, HEADER_CENTER_V, HEADER_CENTER_WIDTH, HEADER_CENTER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+		blitStretched(guiGraphics, atlas, centerX, y, centerWidth, HEADER_HEIGHT, HEADER_CENTER_U, HEADER_CENTER_V, HEADER_CENTER_WIDTH, HEADER_CENTER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
-		guiGraphics.blit(ATLAS, x + width - CORNER_WIDTH, y, CORNER_TOP_RIGHT_U, CORNER_TOP_RIGHT_V, CORNER_WIDTH, HEADER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+		guiGraphics.blit(atlas, x + width - CORNER_WIDTH, y, CORNER_TOP_RIGHT_U, CORNER_TOP_RIGHT_V, CORNER_WIDTH, HEADER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 	}
 
-	private static void renderContent(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+	private static void renderContent(GuiGraphics guiGraphics, int x, int y, int width, int height, ResourceLocation atlas) {
+		blitStretched(guiGraphics, atlas, x, y, EDGE_WIDTH, height, EDGE_LEFT_U, EDGE_LEFT_V, EDGE_WIDTH, EDGE_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
-		blitStretched(guiGraphics, ATLAS, x, y, EDGE_WIDTH, height, EDGE_LEFT_U, EDGE_LEFT_V, EDGE_WIDTH, EDGE_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
-
-		blitStretched(guiGraphics, ATLAS, x + width - EDGE_WIDTH, y, EDGE_WIDTH, height, EDGE_RIGHT_U, EDGE_RIGHT_V, EDGE_WIDTH, EDGE_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+		blitStretched(guiGraphics, atlas, x + width - EDGE_WIDTH, y, EDGE_WIDTH, height, EDGE_RIGHT_U, EDGE_RIGHT_V, EDGE_WIDTH, EDGE_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
 		int contentWidth = width - EDGE_WIDTH * 2;
 		int contentX = x + EDGE_WIDTH;
@@ -90,31 +110,22 @@ public class DynamicGuiRenderer {
 			int drawHeight = Math.min(BACKGROUND_TILE_SIZE, height - j);
 			for (int i = 0; i < contentWidth; i += BACKGROUND_TILE_SIZE) {
 				int drawWidth = Math.min(BACKGROUND_TILE_SIZE, contentWidth - i);
-				guiGraphics.blit(ATLAS, contentX + i, y + j, BACKGROUND_U, BACKGROUND_V, drawWidth, drawHeight, ATLAS_WIDTH, ATLAS_HEIGHT);
+				guiGraphics.blit(atlas, contentX + i, y + j, BACKGROUND_U, BACKGROUND_V, drawWidth, drawHeight, ATLAS_WIDTH, ATLAS_HEIGHT);
 			}
 		}
 	}
 
-	private static void renderBottom(GuiGraphics guiGraphics, int x, int y, int width) {
-
-		guiGraphics.blit(ATLAS, x, y, CORNER_BOTTOM_LEFT_U, CORNER_BOTTOM_LEFT_V, CORNER_WIDTH, BOTTOM_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+	private static void renderBottom(GuiGraphics guiGraphics, int x, int y, int width, ResourceLocation atlas) {
+		guiGraphics.blit(atlas, x, y, CORNER_BOTTOM_LEFT_U, CORNER_BOTTOM_LEFT_V, CORNER_WIDTH, BOTTOM_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
 		int centerWidth = width - CORNER_WIDTH * 2;
 		int centerX = x + CORNER_WIDTH;
-		blitStretched(guiGraphics, ATLAS, centerX, y, centerWidth, BOTTOM_HEIGHT, BOTTOM_CENTER_U, BOTTOM_CENTER_V, BOTTOM_CENTER_WIDTH, BOTTOM_CENTER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+		blitStretched(guiGraphics, atlas, centerX, y, centerWidth, BOTTOM_HEIGHT, BOTTOM_CENTER_U, BOTTOM_CENTER_V, BOTTOM_CENTER_WIDTH, BOTTOM_CENTER_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 
-		guiGraphics.blit(ATLAS, x + width - CORNER_WIDTH, y, CORNER_BOTTOM_RIGHT_U, CORNER_BOTTOM_RIGHT_V, CORNER_WIDTH, BOTTOM_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
+		guiGraphics.blit(atlas, x + width - CORNER_WIDTH, y, CORNER_BOTTOM_RIGHT_U, CORNER_BOTTOM_RIGHT_V, CORNER_WIDTH, BOTTOM_HEIGHT, ATLAS_WIDTH, ATLAS_HEIGHT);
 	}
 
 	private static void blitStretched(GuiGraphics guiGraphics, ResourceLocation texture, int x, int y, int width, int height, int u, int v, int textureWidth, int textureHeight, int atlasWidth, int atlasHeight) {
 		guiGraphics.blit(texture, x, y, width, height, u, v, textureWidth, textureHeight, atlasWidth, atlasHeight);
-	}
-
-	public static void renderSlot(GuiGraphics guiGraphics, int x, int y) {
-		guiGraphics.blit(ATLAS, x, y, SLOT_U, SLOT_V, SLOT_SIZE, SLOT_SIZE, ATLAS_WIDTH, ATLAS_HEIGHT);
-	}
-
-	public static void renderSlotHover(GuiGraphics guiGraphics, int x, int y) {
-		guiGraphics.blit(ATLAS, x, y, SLOT_HOVER_U, SLOT_HOVER_V, SLOT_SIZE, SLOT_SIZE, ATLAS_WIDTH, ATLAS_HEIGHT);
 	}
 }

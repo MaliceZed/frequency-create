@@ -2,14 +2,24 @@ package maze.frequency.compat;
 
 import maze.frequency.init.FrequencyModItems;
 import maze.frequency.init.FrequencyModBlocks;
+import com.mojang.logging.LogUtils;
 import net.minecraft.world.item.Item;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.ModList;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+/**
+ * Client-only tooltip integration with Create.
+ * Uses reflection to access Create internals; all client-only code is guarded by @OnlyIn.
+ */
+@OnlyIn(Dist.CLIENT)
 public class CreateTooltipCompat {
+    private static final Logger LOGGER = LogUtils.getLogger();
     private static boolean initialized = false;
 
     public static void init() {
@@ -35,11 +45,58 @@ public class CreateTooltipCompat {
             Method useKeyMethod = idc.getMethod("useKey", net.minecraft.world.level.ItemLike.class, String.class);
 
             String sharedKey = "item.frequency.symbol";
-            for (var holder : FrequencyModItems.ALL_SYMBOLS) {
+            // Brass (латунные) символы
+            for (var holder : FrequencyModItems.ALL_BRASS_SYMBOLS) {
                 Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
                 Object modifier = ctor.newInstance(item, standardCreate);
                 regMethod.invoke(registry, item, modifier);
                 useKeyMethod.invoke(null, item, sharedKey);
+            }
+
+            // Andesite (андезитовые) символы
+            for (var holder : FrequencyModItems.ALL_ANDESITE_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
+                Object modifier = ctor.newInstance(item, standardCreate);
+                regMethod.invoke(registry, item, modifier);
+                useKeyMethod.invoke(null, item, sharedKey);
+            }
+
+            // Copper (медные) символы
+            for (var holder : FrequencyModItems.ALL_COPPER_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
+                Object modifier = ctor.newInstance(item, standardCreate);
+                regMethod.invoke(registry, item, modifier);
+                useKeyMethod.invoke(null, item, sharedKey);
+            }
+
+            // Liquid symbols — own tooltip key with summary + swap + fluid reading
+            String liquidKey = "item.frequency.liquid_symbol";
+            for (var holder : FrequencyModItems.ALL_BRASS_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) {
+                    Object modifier = ctor.newInstance(item, standardCreate);
+                    regMethod.invoke(registry, item, modifier);
+                    useKeyMethod.invoke(null, item, liquidKey);
+                }
+            }
+            for (var holder : FrequencyModItems.ALL_ANDESITE_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) {
+                    Object modifier = ctor.newInstance(item, standardCreate);
+                    regMethod.invoke(registry, item, modifier);
+                    useKeyMethod.invoke(null, item, liquidKey);
+                }
+            }
+            for (var holder : FrequencyModItems.ALL_COPPER_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) {
+                    Object modifier = ctor.newInstance(item, standardCreate);
+                    regMethod.invoke(registry, item, modifier);
+                    useKeyMethod.invoke(null, item, liquidKey);
+                }
             }
 
             // Symbol Frame — uses its own description ID (block.frequency.symbol_frame.tooltip.*)
@@ -47,7 +104,7 @@ public class CreateTooltipCompat {
             Object frameModifier = ctor.newInstance(frameItem, standardCreate);
             regMethod.invoke(registry, frameItem, frameModifier);
         } catch (Throwable t) {
-            // Create not fully loaded — skip tooltip integration
+            LOGGER.error("Failed to initialize Create tooltip compatibility", t);
         }
     }
 }

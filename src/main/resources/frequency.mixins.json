@@ -4,9 +4,15 @@
   "package": "maze.frequency.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "frequency.mixins.refmap.json",
+  "mixins": [
+    "FrequencyAccessor",
+    "FrequencyFluidDataMixin"
+  ],
   "client": [
     "ValueBoxRendererMixin",
     "DepotRendererMixin",
-    "BeltRendererMixin"
+    "BeltRendererMixin",
+    "TableClothRendererMixin",
+    "FluidSymbolItemRendererMixin"
   ]
 }

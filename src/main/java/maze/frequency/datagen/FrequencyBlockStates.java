@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import maze.frequency.FrequencyMod;
 import maze.frequency.block.SymbolFrameBlock;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

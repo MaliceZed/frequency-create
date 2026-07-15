@@ -1,41 +1,31 @@
-<p align="center"><img src="./src/main/resources/logo.png" alt="Logo" width="200"></p>
+![Logo](./docs/text_logo.png)
+<br>
+<p align="center" style="text-align: center;">
+	<a href="https://modrinth.com/mod/frequency-create"><img src="./docs/modrinth.png" alt="Modrinth"></a>
+	<a href="https://www.curseforge.com/minecraft/mc-mods/frequency-create"><img src="./docs/curseforge.png" alt="CurseForge"></a>
+	<a href="https://github.com/MaliceZed/frequency-create"><img src="./docs/github.png" alt="GitHub"></a>
+</p>
+<img src="./docs/divider.png" alt="Divider" style="margin: 10px 0px 10px 0px">
+<img src="./docs/about.png" alt="About" style="margin: 5px 10px;">
 
-<h1 align="center">Frequency for Create<br>
+***Frequency for Create*** is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies.
 
-<img src="https://img.shields.io/badge/Minecraft-1.21.1-green">
-<img src="https://img.shields.io/badge/NeoForge-21.1.190+-bf6134">
-<img src="https://img.shields.io/badge/Version-0.1.5-orange">
+<img src="./docs/divider.png" alt="Divider" style="margin: 10px 0px 10px 0px">
+<img src="./docs/features.png" alt="Features" style="margin: 5px 10px">
 
-## 📖 Overview
+This mod adds **3 sets of 78 symbols** each:
+- **10 Digit Symbols**
+- **52 Letter Symbols**
+- **8 Arrow Symbols**
+- **2 Custom Symbols**
+- **Symbol for Fluid**
+- **Empty Symbol**
 
-Frequency for Create is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies.
+<details><summary>RMB with a symbol opens a GUI to change it:</summary>
+<p align="center"><img src="./docs/gui.png" alt="Swap GUI" style="margin: 10px 10px 10px 10px"></p>
+</details>
 
-## ✨ Features
+<img src="./docs/divider.png" alt="Divider" style="margin: 30px 0px 10px 0px">
+<img src="./docs/support.png" alt="Support" style="margin: 5px 10px">
 
-### 🔢 Complete Symbol Set
-- **10 Digit Symbols** (0-9) - For numeric frequencies
-- **52 Letter Symbols** (A-Z) - For alphabetic frequencies  
-- **8 Arrow Symbols** (↑↓←→) - For directional indicators
-- **1 Empty Symbol** - For clearing frequency slots
-- **2 Custom Symbols** - Creeper and Skull
-
-### 🎨 Intuitive GUI
-Right-click any symbol item to open an elegant swap interface where you can:
-- Browse all available symbols organized by category
-- Instantly swap your held symbol with any other
-- See clear visual categories: Digits, Letters, Symbols
-
-## 🎮 How to Use
-
-1. Craft empty symbol item
-2. Right-click symbol to open the swap GUI
-3. Click on any symbol to swap your current item
-4. Use symbols to configure your Redstone Link frequencies
-
-## 📞 Support
-
-Found a bug or have a suggestion? Please [open an issue](https://github.com/MaliceZed/frequency-create/issues)!
-
----
-
-*Simplify your Create contraptions with Frequency for Create!*
+Found a ***bug*** or have a ***suggestion***? Please [open an issue](https://github.com/MaliceZed/frequency-create/issues)!

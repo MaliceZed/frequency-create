@@ -1,7 +1,7 @@
 package maze.frequency.network;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +19,7 @@ public record FrameUpdatePacket(BlockPos pos, String symbolName) implements Cust
     public static final Type<FrameUpdatePacket> TYPE = new Type<>(
         ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "frame_update"));
 
-    public static final StreamCodec<FriendlyByteBuf, FrameUpdatePacket> STREAM_CODEC = StreamCodec.of(
+    public static final StreamCodec<RegistryFriendlyByteBuf, FrameUpdatePacket> STREAM_CODEC = StreamCodec.of(
         (buf, packet) -> {
             buf.writeBlockPos(packet.pos);
             buf.writeUtf(packet.symbolName);
@@ -36,7 +36,7 @@ public record FrameUpdatePacket(BlockPos pos, String symbolName) implements Cust
         context.enqueueWork(() -> {
             if (context.player() instanceof ServerPlayer serverPlayer) {
                 String name = packet.symbolName();
-                if (!name.startsWith("symbol_") || FrequencyModItems.getSymbol(name) == null) return;
+                if (!name.startsWith("symbol_") || FrequencyModItems.getSymbol("brass_" + name) == null) return;
 
                 Level level = serverPlayer.serverLevel();
                 BlockEntity be = level.getBlockEntity(packet.pos());

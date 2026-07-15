@@ -34,5 +34,8 @@ enumExtensions="META-INF/enumextensions.json"
     ordering="NONE"
     side="BOTH"
 
+[[dataFixers]]
+dataFixerVersion = 1
+
 [[mixins]]
 config="frequency.mixins.json"

@@ -12,14 +12,14 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import maze.frequency.client.model.FrequencyDisplayContexts;
-import maze.frequency.item.BaseSymbolItem;
+import maze.frequency.item.ISymbolItem;
 
-@Mixin(targets = "com.simibubi.create.content.kinetics.belt.BeltRenderer")
+@Mixin(targets = "com.simibubi.create.content.kinetics.belt.BeltRenderer", remap = false)
 @OnlyIn(Dist.CLIENT)
 public abstract class BeltRendererMixin {
 
     @Unique
-    private static Boolean frequency$isSymbolItem = false;
+    private static final ThreadLocal<Boolean> frequency$isSymbolItem = ThreadLocal.withInitial(() -> false);
 
     @ModifyArg(
         method = "renderItem",
@@ -30,7 +30,7 @@ public abstract class BeltRendererMixin {
         index = 0
     )
     private static ItemStack frequency$checkStack(ItemStack stack) {
-        frequency$isSymbolItem = stack.getItem() instanceof BaseSymbolItem;
+        frequency$isSymbolItem.set(stack.getItem() instanceof ISymbolItem);
         return stack;
     }
 
@@ -43,6 +43,6 @@ public abstract class BeltRendererMixin {
         index = 1
     )
     private static ItemDisplayContext frequency$modifyContext(ItemDisplayContext context) {
-        return frequency$isSymbolItem ? FrequencyDisplayContexts.SURFACE : context;
+        return frequency$isSymbolItem.get() ? FrequencyDisplayContexts.SURFACE : context;
     }
 }

@@ -1,0 +1,18 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "frequency:font/creeper.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": ["\uE000"]
+    },
+    {
+      "type": "bitmap",
+      "file": "frequency:font/arrows.png",
+      "ascent": 7,
+      "height": 8,
+      "chars": ["\uE001\uE002\uE003\uE004"]
+    }
+  ]
+}

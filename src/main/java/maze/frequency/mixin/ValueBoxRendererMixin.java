@@ -17,18 +17,18 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import maze.frequency.client.model.FrequencyDisplayContexts;
-import maze.frequency.item.BaseSymbolItem;
+import maze.frequency.item.ISymbolItem;
 
-@Mixin(targets = "com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxRenderer")
+@Mixin(targets = "com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxRenderer", remap = false)
 @OnlyIn(Dist.CLIENT)
 public abstract class ValueBoxRendererMixin {
 
     @Unique
-    private static final ThreadLocal<Boolean> frequency$isSymbolItem = ThreadLocal.withInitial(() -> false);
+    private static boolean frequency$isSymbolItem = false;
 
     @Inject(method = "renderItemIntoValueBox", at = @At("HEAD"))
     private static void frequency$checkItem(ItemStack filter, PoseStack ms, MultiBufferSource buffer, int light, int overlay, CallbackInfo ci) {
-        frequency$isSymbolItem.set(filter.getItem() instanceof BaseSymbolItem);
+        frequency$isSymbolItem = filter.getItem() instanceof ISymbolItem;
     }
 
     @ModifyArg(
@@ -40,6 +40,6 @@ public abstract class ValueBoxRendererMixin {
         index = 1
     )
     private static ItemDisplayContext frequency$modifyContext(ItemDisplayContext context) {
-        return frequency$isSymbolItem.get() ? FrequencyDisplayContexts.REDSTONE_LINK : context;
+        return frequency$isSymbolItem ? FrequencyDisplayContexts.REDSTONE_LINK : context;
     }
 }

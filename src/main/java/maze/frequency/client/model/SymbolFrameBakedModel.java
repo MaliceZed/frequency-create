@@ -27,6 +27,9 @@ public class SymbolFrameBakedModel extends BakedModelWrapper<BakedModel> {
     private TextureAtlasSprite defaultSprite;
     private boolean spritesLoaded = false;
 
+    private String lastSymbolName = "";
+    private final Map<Direction, List<BakedQuad>> cachedQuads = new HashMap<>();
+
     public SymbolFrameBakedModel(BakedModel original) {
         super(original);
     }
@@ -37,10 +40,13 @@ public class SymbolFrameBakedModel extends BakedModelWrapper<BakedModel> {
             if (spritesLoaded) return;
             this.symbolSprites = new HashMap<>();
             TextureAtlas atlas = Minecraft.getInstance().getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS);
+
             for (String name : FrequencyModItems.SYMBOL_NAMES) {
-                ResourceLocation tex = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "block/symbols/" + name);
-                symbolSprites.put(name, atlas.getSprite(tex));
+                String baseName = name.startsWith("brass_") ? name.substring(6) : name;
+                ResourceLocation tex = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "block/symbols/" + baseName);
+                symbolSprites.put(baseName, atlas.getSprite(tex));
             }
+
             defaultSprite = symbolSprites.get("symbol_empty");
             spritesLoaded = true;
         }
@@ -54,13 +60,27 @@ public class SymbolFrameBakedModel extends BakedModelWrapper<BakedModel> {
             return super.getQuads(state, side, rand, data, renderType);
         }
 
+        // Reset cache if the symbol has changed
+        if (!lastSymbolName.equals(symbol)) {
+            cachedQuads.clear();
+            lastSymbolName = symbol;
+        }
+
+        // Return cached result if available
+        if (cachedQuads.containsKey(side)) {
+            return cachedQuads.get(side);
+        }
+
         TextureAtlasSprite targetSprite = symbolSprites.get(symbol);
         if (targetSprite == null) {
             return super.getQuads(state, side, rand, data, renderType);
         }
 
         List<BakedQuad> original = super.getQuads(state, side, rand, data, renderType);
-        if (original.isEmpty()) return original;
+        if (original.isEmpty()) {
+            cachedQuads.put(side, original);
+            return original;
+        }
 
         List<BakedQuad> result = new java.util.ArrayList<>(original.size());
         for (BakedQuad quad : original) {
@@ -71,6 +91,8 @@ public class SymbolFrameBakedModel extends BakedModelWrapper<BakedModel> {
                 result.add(quad);
             }
         }
+
+        cachedQuads.put(side, result);
         return result;
     }
 

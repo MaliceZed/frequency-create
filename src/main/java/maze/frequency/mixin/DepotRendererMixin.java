@@ -12,14 +12,15 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import maze.frequency.client.model.FrequencyDisplayContexts;
-import maze.frequency.item.BaseSymbolItem;
+import maze.frequency.item.ISymbolItem;
+import maze.frequency.client.SymbolRenderContext;
 
-@Mixin(targets = "com.simibubi.create.content.logistics.depot.DepotRenderer")
+@Mixin(targets = "com.simibubi.create.content.logistics.depot.DepotRenderer", remap = false)
 @OnlyIn(Dist.CLIENT)
 public abstract class DepotRendererMixin {
 
     @Unique
-    private static Boolean frequency$isSymbolItem = false;
+    private static final ThreadLocal<Boolean> frequency$isSymbolItem = ThreadLocal.withInitial(() -> false);
 
     @ModifyArg(
         method = "renderItem",
@@ -30,7 +31,7 @@ public abstract class DepotRendererMixin {
         index = 0
     )
     private static ItemStack frequency$checkStack(ItemStack stack) {
-        frequency$isSymbolItem = stack.getItem() instanceof BaseSymbolItem;
+        frequency$isSymbolItem.set(stack.getItem() instanceof ISymbolItem);
         return stack;
     }
 
@@ -43,6 +44,9 @@ public abstract class DepotRendererMixin {
         index = 1
     )
     private static ItemDisplayContext frequency$modifyContext(ItemDisplayContext context) {
-        return frequency$isSymbolItem ? FrequencyDisplayContexts.SURFACE : context;
+        if (frequency$isSymbolItem.get()) {
+            return SymbolRenderContext.TABLE_CLOTH.get() ? FrequencyDisplayContexts.TABLE_CLOTH : FrequencyDisplayContexts.SURFACE;
+        }
+        return context;
     }
 }
