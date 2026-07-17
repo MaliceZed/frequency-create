@@ -1,40 +1,60 @@
 {
+  // ===== JEI / Categories =====
   "jei.category.frequency.symbol_swap": "Symbol Swapping",
   "category.frequency.symbol_swapping": "Symbol Swapping",
+
+  // ===== Creative Tab =====
   "item_group.frequency.frequency_create_tab": "Frequency Create",
-  "item.frequency.symbol_empty": "Empty Symbol",
-  "item.frequency.brass_symbol_empty": "Empty symbol",
-  "item.frequency.brass_symbol_liquid": "Symbol for fluid",
-  "item.frequency.brass_symbol_liquid.tooltip.contains": "Contains: %s",
-  "item.frequency.andesite_symbol_empty": "Empty symbol",
-  "item.frequency.andesite_symbol_liquid": "Symbol for fluid",
-  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Contains: %s",
-  "item.frequency.copper_symbol_empty": "Empty symbol",
-  "item.frequency.copper_symbol_liquid": "Symbol for fluid",
-  "item.frequency.copper_symbol_liquid.tooltip.contains": "Contains: %s",
-  "gui.frequency.symbol_swap.title": "Swap",
-  "gui.frequency.category.digits": "Digits",
-  "gui.frequency.category.letters": "Letters",
-  "gui.frequency.capital": "Capital",
-  "gui.frequency.small": "Small",
-  "gui.frequency.category.special": "Special",
+
+  // ===== Blocks =====
   "block.frequency.symbol_frame": "Symbol Frame",
   "block.frequency.symbol_frame.tooltip.summary": "A _frame_ you can use to mark your storages, builds, mechanisms and more.",
   "block.frequency.symbol_frame.tooltip.condition1": "R-Click with a symbol",
   "block.frequency.symbol_frame.tooltip.behaviour1": "_Sets_ the displayed symbol.",
   "block.frequency.symbol_frame.tooltip.condition2": "R-Click",
   "block.frequency.symbol_frame.tooltip.behaviour2": "If a _functional block_ is behind the frame - the player _interacts_ with it.",
+
+  // ===== Items: Symbols (Empty) =====
+  "item.frequency.symbol_empty": "Empty Symbol",
+  "item.frequency.brass_symbol_empty": "Empty symbol",
+  "item.frequency.andesite_symbol_empty": "Empty symbol",
+  "item.frequency.copper_symbol_empty": "Empty symbol",
+
+  // ===== Items: Symbols (Liquid) =====
+  "item.frequency.brass_symbol_liquid": "Symbol for fluid",
+  "item.frequency.brass_symbol_liquid.tooltip.contains": "Contains: %s",
+  "item.frequency.andesite_symbol_liquid": "Symbol for fluid",
+  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Contains: %s",
+  "item.frequency.copper_symbol_liquid": "Symbol for fluid",
+  "item.frequency.copper_symbol_liquid.tooltip.contains": "Contains: %s",
+
+  // ===== Items: Tooltips (Regular Symbol) =====
   "item.frequency.symbol.tooltip.summary": "A symbol item that's perfect for adjusting frequencies. Maybe.",
   "item.frequency.symbol.tooltip.condition1": "R-Click",
   "item.frequency.symbol.tooltip.behaviour1": "_Opens_ a menu to _swap_ the symbol.",
+
+  // ===== Items: Tooltips (Liquid Symbol) =====
+  "item.frequency.liquid_symbol.tooltip.summary": "A symbol item that's perfect for adjusting frequencies. Maybe.",
+  "item.frequency.liquid_symbol.tooltip.condition1": "R-Click",
+  "item.frequency.liquid_symbol.tooltip.behaviour1": "_Opens_ a menu to _swap_ the symbol.",
+  "item.frequency.liquid_symbol.tooltip.condition2": "R-Click on fluid or tank",
+  "item.frequency.liquid_symbol.tooltip.behaviour2": "Stores _fluid data_ in the symbol",
+
+  // ===== GUI =====
+  "gui.frequency.symbol_swap.title": "Swap",
+  "gui.frequency.andesite_symbol_swap.title": "Andesite Symbol Swap",
+  "gui.frequency.category.digits": "Digits",
+  "gui.frequency.category.letters": "Letters",
+  "gui.frequency.capital": "Capital",
+  "gui.frequency.small": "Small",
+  "gui.frequency.category.special": "Special",
+  "gui.frequency.category.math": "Math",
+
+  // ===== Startup Message =====
   "message.frequency.startup.title": "§6[Frequency] §eMod is in development!",
   "message.frequency.startup.description": "§fIf you found a bug or have a suggestion, write on GitHub:",
   "message.frequency.startup.github_hover": "§aOpen GitHub Issues",
-  "gui.frequency.andesite_symbol_swap.title": "Andesite Symbol Swap",
-  "gui.frequency.category.math": "Math",
-  "item.frequency.liquid_symbol.tooltip.behaviour1": "_Opens_ a menu to _swap_ the symbol.",
-  "item.frequency.liquid_symbol.tooltip.behaviour2": "Stores _fluid data_ in the symbol",
-  "item.frequency.liquid_symbol.tooltip.condition1": "R-Click",
-  "item.frequency.liquid_symbol.tooltip.condition2": "R-Click on fluid or tank",
-  "item.frequency.liquid_symbol.tooltip.summary": "A symbol item that's perfect for adjusting frequencies. Maybe."
+  "message.frequency.startup.open_github": "§a[Open GitHub]§r",
+  "message.frequency.startup.disable_message": "§7[Disable this message]§r",
+  "message.frequency.startup.disable_hover": "§cClick to disable this message permanently"
 }

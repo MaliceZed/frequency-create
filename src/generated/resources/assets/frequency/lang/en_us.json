@@ -269,6 +269,9 @@
   "item_group.frequency.frequency_create_tab": "Frequency Create",
   "jei.category.frequency.symbol_swap": "Symbol Swapping",
   "message.frequency.startup.description": "§fIf you found a bug or have a suggestion, write on GitHub:",
+  "message.frequency.startup.disable_hover": "§cClick to disable this message permanently",
+  "message.frequency.startup.disable_message": "§7[Disable this message]§r",
   "message.frequency.startup.github_hover": "§aOpen GitHub Issues",
+  "message.frequency.startup.open_github": "§a[Open GitHub]§r",
   "message.frequency.startup.title": "§6[Frequency] §eMod is in development!"
 }

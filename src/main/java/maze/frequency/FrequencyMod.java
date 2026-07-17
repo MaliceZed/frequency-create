@@ -19,16 +19,22 @@ import maze.frequency.network.FrameUpdatePacket;
 
 import maze.frequency.datagen.DataGenerators;
 import maze.frequency.compat.FrameInteractionHandler;
+import maze.frequency.config.FrequencyConfig;
+import maze.frequency.client.StartupToggleCommand;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 @Mod("frequency")
 public class FrequencyMod {
     public static final String MODID = "frequency";
     public static final Registrate REGISTRATE = Registrate.create(MODID);
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    public FrequencyMod(IEventBus modEventBus) {
+    public FrequencyMod(IEventBus modEventBus, ModContainer container) {
         modEventBus.addListener(this::registerNetworking);
         modEventBus.addListener(DataGenerators::gatherData);
+        NeoForge.EVENT_BUS.addListener(FrequencyMod::registerCommands);
 
         FrequencyModItems.ITEMS.register(modEventBus);
         FrequencyModTabs.TABS.register(modEventBus);
@@ -46,6 +52,9 @@ public class FrequencyMod {
 
         // Register game event handlers (Create wrench, symbol frame interaction)
         FrameInteractionHandler.register();
+
+        // Register client config
+        container.registerConfig(ModConfig.Type.CLIENT, FrequencyConfig.SPEC);
     }
 
     private void registerNetworking(final RegisterPayloadHandlersEvent event) {
@@ -63,5 +72,9 @@ public class FrequencyMod {
             FrameUpdatePacket::handle
         );
 
+    }
+
+    public static void registerCommands(RegisterCommandsEvent event) {
+        StartupToggleCommand.register(event.getDispatcher());
     }
 }

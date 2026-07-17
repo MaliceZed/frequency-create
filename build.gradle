@@ -13,7 +13,7 @@ repositories {
     maven { url = "https://maven.terraformersmc.com/releases" } // EMI
 }
 
-version = '0.1.6'
+version = '0.1.6a'
 base.archivesName = "${project.mod_id}-${project.minecraft_version}-neoforge"
 
 ext {

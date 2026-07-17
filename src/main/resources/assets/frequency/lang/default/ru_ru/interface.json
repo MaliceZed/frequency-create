@@ -1,40 +1,60 @@
 {
+  // ===== JEI / Categories =====
   "jei.category.frequency.symbol_swap": "Смена символов",
   "category.frequency.symbol_swapping": "Смена символов",
+
+  // ===== Creative Tab =====
   "item_group.frequency.frequency_create_tab": "Frequency Create",
-  "item.frequency.symbol_empty": "Пустой символ",
-  "item.frequency.brass_symbol_empty": "Пустой символ",
-  "item.frequency.brass_symbol_liquid": "Символ для жидкости",
-  "item.frequency.brass_symbol_liquid.tooltip.contains": "Внутри: %s",
-  "item.frequency.andesite_symbol_empty": "Пустой символ",
-  "item.frequency.andesite_symbol_liquid": "Символ для жидкости",
-  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Внутри: %s",
-  "item.frequency.copper_symbol_empty": "Пустой символ",
-  "item.frequency.copper_symbol_liquid": "Символ для жидкости",
-  "item.frequency.copper_symbol_liquid.tooltip.contains": "Внутри: %s",
-  "gui.frequency.symbol_swap.title": "Обмен",
-  "gui.frequency.category.digits": "Цифры",
-  "gui.frequency.category.letters": "Буквы",
-  "gui.frequency.capital": "Заглавные",
-  "gui.frequency.small": "Прописные",
-  "gui.frequency.category.special": "Специальные",
+
+  // ===== Blocks =====
   "block.frequency.symbol_frame": "Рамка для символа",
   "block.frequency.symbol_frame.tooltip.summary": "_Рамка_, которой вы можете обозначить ваши склады, постройки, механизмы и многое другое.",
   "block.frequency.symbol_frame.tooltip.condition1": "При ПКМ с символом",
   "block.frequency.symbol_frame.tooltip.behaviour1": "_Устанавливает_ отображаемый символ.",
   "block.frequency.symbol_frame.tooltip.condition2": "При ПКМ",
   "block.frequency.symbol_frame.tooltip.behaviour2": "Если за рамкой _функциональный блок_ - игрок _взаимодействует_ с ним.",
+
+  // ===== Items: Symbols (Empty) =====
+  "item.frequency.symbol_empty": "Пустой символ",
+  "item.frequency.brass_symbol_empty": "Пустой символ",
+  "item.frequency.andesite_symbol_empty": "Пустой символ",
+  "item.frequency.copper_symbol_empty": "Пустой символ",
+
+  // ===== Items: Symbols (Liquid) =====
+  "item.frequency.brass_symbol_liquid": "Символ для жидкости",
+  "item.frequency.brass_symbol_liquid.tooltip.contains": "Внутри: %s",
+  "item.frequency.andesite_symbol_liquid": "Символ для жидкости",
+  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Внутри: %s",
+  "item.frequency.copper_symbol_liquid": "Символ для жидкости",
+  "item.frequency.copper_symbol_liquid.tooltip.contains": "Внутри: %s",
+
+  // ===== Items: Tooltips (Regular Symbol) =====
   "item.frequency.symbol.tooltip.summary": "Предмет символа, который идеально подходит для настройки частот. Наверное.",
   "item.frequency.symbol.tooltip.condition1": "При ПКМ",
   "item.frequency.symbol.tooltip.behaviour1": "_Открывает_ меню для _смены_ символа.",
+
+  // ===== Items: Tooltips (Liquid Symbol) =====
+  "item.frequency.liquid_symbol.tooltip.summary": "Предмет символа, который идеально подходит для настройки частот. Наверное.",
+  "item.frequency.liquid_symbol.tooltip.condition1": "При ПКМ",
+  "item.frequency.liquid_symbol.tooltip.behaviour1": "_Открывает_ меню для _смены_ символа.",
+  "item.frequency.liquid_symbol.tooltip.condition2": "При ПКМ по жидкости или баку",
+  "item.frequency.liquid_symbol.tooltip.behaviour2": "Помещает _данные о жидкости_ в символ",
+
+  // ===== GUI =====
+  "gui.frequency.symbol_swap.title": "Обмен",
+  "gui.frequency.andesite_symbol_swap.title": "Андезитовые символы",
+  "gui.frequency.category.digits": "Цифры",
+  "gui.frequency.category.letters": "Буквы",
+  "gui.frequency.capital": "Заглавные",
+  "gui.frequency.small": "Прописные",
+  "gui.frequency.category.special": "Специальные",
+  "gui.frequency.category.math": "Математические",
+
+  // ===== Startup Message =====
   "message.frequency.startup.title": "§6[Frequency] §eМод находится в стадии разработки!",
   "message.frequency.startup.description": "§fЕсли вы нашли баг или у вас есть предложение, напишите на GitHub:",
   "message.frequency.startup.github_hover": "§aОткрыть GitHub Issues",
-  "gui.frequency.andesite_symbol_swap.title": "Андезитовые символы",
-  "gui.frequency.category.math": "Математические",
-  "item.frequency.liquid_symbol.tooltip.behaviour1": "_Открывает_ меню для _смены_ символа.",
-  "item.frequency.liquid_symbol.tooltip.behaviour2": "Помещает _данные о жидкости_ в символ",
-  "item.frequency.liquid_symbol.tooltip.condition1": "При ПКМ",
-  "item.frequency.liquid_symbol.tooltip.condition2": "При ПКМ по жидкости или баку",
-  "item.frequency.liquid_symbol.tooltip.summary": "Предмет символа, который идеально подходит для настройки частот. Наверное."
+  "message.frequency.startup.open_github": "§a[Открыть GitHub]§r",
+  "message.frequency.startup.disable_message": "§7[Отключить это сообщение]§r",
+  "message.frequency.startup.disable_hover": "§cНажмите, чтобы навсегда отключить это сообщение"
 }

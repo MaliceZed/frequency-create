@@ -8,7 +8,7 @@
 <img src="./docs/divider.png" alt="Divider" style="margin: 10px 0px 10px 0px">
 <img src="./docs/about.png" alt="About" style="margin: 5px 10px;">
 
-***Frequency for Create*** is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies.
+***Frequency Create*** is a quality-of-life addon for the Create mod that adds a set of symbol items for configuring Redstone Link frequencies.
 
 <img src="./docs/divider.png" alt="Divider" style="margin: 10px 0px 10px 0px">
 <img src="./docs/features.png" alt="Features" style="margin: 5px 10px">

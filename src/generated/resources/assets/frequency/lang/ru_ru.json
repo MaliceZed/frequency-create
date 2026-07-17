@@ -269,6 +269,9 @@
   "item_group.frequency.frequency_create_tab": "Frequency Create",
   "jei.category.frequency.symbol_swap": "Смена символов",
   "message.frequency.startup.description": "§fЕсли вы нашли баг или у вас есть предложение, напишите на GitHub:",
+  "message.frequency.startup.disable_hover": "§cНажмите, чтобы навсегда отключить это сообщение",
+  "message.frequency.startup.disable_message": "§7[Отключить это сообщение]§r",
   "message.frequency.startup.github_hover": "§aОткрыть GitHub Issues",
+  "message.frequency.startup.open_github": "§a[Открыть GitHub]§r",
   "message.frequency.startup.title": "§6[Frequency] §eМод находится в стадии разработки!"
 }
