@@ -27,12 +27,10 @@ This mod adds **3 sets of 78 symbols** each:
 </details>
 
 ---
-<img src="./docs/logic_combinator.png" width="150px" style="float: left; margin: 0px 10px 0px 0px">
-<br>
+<img src="./docs/logic_combinator.png" width="128px">
 
 **Logic Combinator**
 Allows performing logical operations with signals and outputting the result on another frequency.
-<br>
 
 <img src="./docs/divider.png" alt="Divider" style="margin: 20px 0px 10px 0px">
 <img src="./docs/support.png" alt="Support" style="margin: 5px 10px">
