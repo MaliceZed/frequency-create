@@ -6,11 +6,14 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 import maze.frequency.FrequencyMod;
 import maze.frequency.world.inventory.SymbolSwapMenu;
-import maze.frequency.client.gui.SymbolSwapScreen;
+import maze.frequency.client.gui.BrassSymbolSwapScreen;
+import maze.frequency.client.gui.AndesiteSymbolSwapScreen;
+import maze.frequency.client.gui.CopperSymbolSwapScreen;
+import maze.frequency.world.inventory.LogicCombinatorMenu;
+import maze.frequency.client.gui.LogicCombinatorScreen;
 
 
 public class FrequencyModMenus {
@@ -19,7 +22,7 @@ public class FrequencyModMenus {
 			(MenuType<SymbolSwapMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
 				new SymbolSwapMenu(type, id, inv, buf),
 			() -> (SymbolSwapMenu menu, Inventory inv, Component title) ->
-				new SymbolSwapScreen(menu, inv, title))
+				new BrassSymbolSwapScreen(menu, inv, title))
 		.register();
 
 	public static final MenuEntry<SymbolSwapMenu> ANDESITE_SYMBOL_SWAP = FrequencyMod.REGISTRATE
@@ -27,9 +30,7 @@ public class FrequencyModMenus {
 			(MenuType<SymbolSwapMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
 				new SymbolSwapMenu(type, id, inv, buf),
 			() -> (SymbolSwapMenu menu, Inventory inv, Component title) ->
-				new SymbolSwapScreen(menu, inv, title, 
-					ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/andesite_symbol_swap.png"),
-					0x333333, "andesite_symbol_"))
+				new AndesiteSymbolSwapScreen(menu, inv, title))
 		.register();
 
 	public static final MenuEntry<SymbolSwapMenu> COPPER_SYMBOL_SWAP = FrequencyMod.REGISTRATE
@@ -37,8 +38,14 @@ public class FrequencyModMenus {
 			(MenuType<SymbolSwapMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
 				new SymbolSwapMenu(type, id, inv, buf),
 			() -> (SymbolSwapMenu menu, Inventory inv, Component title) ->
-				new SymbolSwapScreen(menu, inv, title, 
-					ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/copper_symbol_swap.png"),
-					0x6B2A1A, "copper_symbol_"))
+				new CopperSymbolSwapScreen(menu, inv, title))
+		.register();
+
+	public static final MenuEntry<LogicCombinatorMenu> LOGIC_COMBINATOR = FrequencyMod.REGISTRATE
+		.menu("logic_combinator",
+			(MenuType<LogicCombinatorMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
+				new LogicCombinatorMenu(type, id, inv, buf),
+			() -> (LogicCombinatorMenu menu, Inventory inv, Component title) ->
+				new LogicCombinatorScreen(menu, inv, title))
 		.register();
 }

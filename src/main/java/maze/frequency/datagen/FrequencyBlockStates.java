@@ -9,7 +9,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 
 import maze.frequency.FrequencyMod;
-import maze.frequency.block.SymbolFrameBlock;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,10 +22,11 @@ public class FrequencyBlockStates implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        JsonObject variants = new JsonObject();
-        ResourceLocation model = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "block/symbol_frame");
+        // === SYMBOL FRAME ===
+        JsonObject symbolFrameVariants = new JsonObject();
+        ResourceLocation sfModel = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "block/symbol_frame");
 
-        List<Direction> facings = List.of(
+        List<Direction> sfFacings = List.of(
             Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST,
             Direction.UP, Direction.DOWN
         );
@@ -34,12 +34,11 @@ public class FrequencyBlockStates implements DataProvider {
             Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
         );
 
-        for (Direction facing : facings) {
+        for (Direction facing : sfFacings) {
             for (Direction rotation : rotations) {
                 String key = "facing=" + facing.getName() + ",rotation=" + rotation.getName();
-
                 JsonObject variant = new JsonObject();
-                variant.addProperty("model", model.toString());
+                variant.addProperty("model", sfModel.toString());
 
                 int xRot = 0;
                 int yRot = 0;
@@ -57,17 +56,99 @@ public class FrequencyBlockStates implements DataProvider {
                 if (xRot != 0) variant.addProperty("x", xRot);
                 if (yRot != 0) variant.addProperty("y", yRot);
 
-                variants.add(key, variant);
+                symbolFrameVariants.add(key, variant);
             }
         }
 
-        // Blockstate JSON with 24 variants
-        JsonObject blockstate = new JsonObject();
-        blockstate.add("variants", variants);
+        JsonObject symbolFrameBlockstate = new JsonObject();
+        symbolFrameBlockstate.add("variants", symbolFrameVariants);
+        ResourceLocation sfPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "blockstates/symbol_frame");
+        var sfOut = output.getOutputFolder().resolve("assets/" + sfPath.getNamespace() + "/" + sfPath.getPath() + ".json");
+        CompletableFuture<?> sfFuture = DataProvider.saveStable(cache, symbolFrameBlockstate, sfOut);
 
-        ResourceLocation outPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "blockstates/symbol_frame");
-        var path = output.getOutputFolder().resolve("assets/" + outPath.getNamespace() + "/" + outPath.getPath() + ".json");
-        return DataProvider.saveStable(cache, blockstate, path);
+        // === LOGIC COMBINATOR ===
+        JsonObject lcVariants = new JsonObject();
+        List<Direction> hFacings = List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
+        boolean[] bools = {false, true};
+
+        for (Direction facing : hFacings) {
+            for (boolean input1 : bools) {
+                for (boolean input2 : bools) {
+                    for (boolean output : bools) {
+                        String key = "facing=" + facing.getName()
+                            + ",input1=" + input1
+                            + ",input2=" + input2
+                            + ",output=" + output
+                            + ",single=false";
+
+                        String suffix = (input1 ? "1" : "0") + (output ? "1" : "0") + (input2 ? "1" : "0");
+                        ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
+                            FrequencyMod.MODID, "block/logic_combinator/logic_combinator_" + suffix);
+
+                        JsonObject variant = new JsonObject();
+                        variant.addProperty("model", model.toString());
+                        int yRot = rotationToY(facing);
+                        if (yRot != 0) variant.addProperty("y", yRot);
+
+                        lcVariants.add(key, variant);
+                    }
+                }
+            }
+        }
+
+        for (Direction facing : hFacings) {
+            for (boolean input1 : bools) {
+                for (boolean output : bools) {
+                    String key = "facing=" + facing.getName()
+                        + ",input1=" + input1
+                        + ",input2=false"
+                        + ",output=" + output
+                        + ",single=true";
+
+                    String suffix = (input1 ? "1" : "0") + (output ? "1" : "0");
+                    ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
+                        FrequencyMod.MODID, "block/logic_combinator/logic_combinator_s_" + suffix);
+
+                    JsonObject variant = new JsonObject();
+                    variant.addProperty("model", model.toString());
+                    int yRot = rotationToY(facing);
+                    if (yRot != 0) variant.addProperty("y", yRot);
+
+                    lcVariants.add(key, variant);
+                }
+            }
+        }
+
+        for (Direction facing : hFacings) {
+            for (boolean input1 : bools) {
+                for (boolean output : bools) {
+                    String key = "facing=" + facing.getName()
+                        + ",input1=" + input1
+                        + ",input2=true"
+                        + ",output=" + output
+                        + ",single=true";
+
+                    String suffix = (input1 ? "1" : "0") + (output ? "1" : "0");
+                    ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
+                        FrequencyMod.MODID, "block/logic_combinator/logic_combinator_s_" + suffix);
+
+                    JsonObject variant = new JsonObject();
+                    variant.addProperty("model", model.toString());
+                    int yRot = rotationToY(facing);
+                    if (yRot != 0) variant.addProperty("y", yRot);
+
+                    lcVariants.add(key, variant);
+                }
+            }
+        }
+
+        JsonObject lcBlockstate = new JsonObject();
+        lcBlockstate.add("variants", lcVariants);
+        ResourceLocation lcPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "blockstates/logic_combinator");
+        var lcOut = output.getOutputFolder().resolve("assets/" + lcPath.getNamespace() + "/" + lcPath.getPath() + ".json");
+        CompletableFuture<?> lcFuture = DataProvider.saveStable(cache, lcBlockstate, lcOut);
+
+        return CompletableFuture.allOf(sfFuture, lcFuture);
     }
 
     private static int rotationToY(Direction dir) {

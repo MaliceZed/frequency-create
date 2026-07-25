@@ -14,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 import java.util.ArrayList;
 
-public class SymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
+public abstract class BaseSymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
     private final ResourceLocation atlas;
     private final int titleColor;
     private final String prefix;
@@ -70,17 +70,13 @@ public class SymbolSwapScreen extends AbstractContainerScreen<SymbolSwapMenu> {
         int y;
     }
 
-    public SymbolSwapScreen(SymbolSwapMenu menu, Inventory playerInventory, Component title,
+    protected BaseSymbolSwapScreen(SymbolSwapMenu menu, Inventory playerInventory, Component title,
                             ResourceLocation atlas, int titleColor, String prefix) {
         super(menu, playerInventory, title);
         this.atlas = atlas;
         this.titleColor = titleColor;
         this.prefix = prefix;
         this.inventoryLabelY = 10000;
-    }
-
-    public SymbolSwapScreen(SymbolSwapMenu menu, Inventory playerInventory, Component title) {
-        this(menu, playerInventory, title, DynamicGuiRenderer.ATLAS, 0x582424, "brass_symbol_");
     }
 
     private int getRowStartX(CategoryRow row) {

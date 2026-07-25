@@ -19,7 +19,7 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 	private final int heldSlot;
 	private final List<ItemStack> availableSymbols = new ArrayList<>();
 
-	// Основной конструктор (для открытия меню)
+	// Main constructor (for opening the menu)
 	public SymbolSwapMenu(MenuType<?> menuType, int id, Inventory playerInventory, ItemStack stack, int heldSlot, Supplier<List<ItemStack>> symbolLoader) {
 		super(menuType, id);
 		this.player = playerInventory.player;
@@ -28,7 +28,7 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 		this.availableSymbols.addAll(symbolLoader.get());
 	}
 
-	// Сетевой конструктор (вызывается MenuType фабрикой)
+	// Network constructor (called by MenuType factory)
 	public SymbolSwapMenu(MenuType<?> menuType, int id, Inventory playerInventory, RegistryFriendlyByteBuf buf) {
 		this(menuType, id, playerInventory,
 			ItemStack.STREAM_CODEC.decode(buf),

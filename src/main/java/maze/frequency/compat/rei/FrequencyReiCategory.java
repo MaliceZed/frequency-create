@@ -74,48 +74,48 @@ public class FrequencyReiCategory implements DisplayCategory<FrequencyReiDisplay
         int w = getDisplayWidth(display);
         int h = getDisplayHeight();
 
-        // Рамка рецепта через 9-slice текстуру recipecontainer.png
+        // Recipe border using 9-slice texture recipecontainer.png
         ResourceLocation REI_CONTAINER = ResourceLocation.fromNamespaceAndPath("roughlyenoughitems", "textures/gui/recipecontainer.png");
         widgets.add(Widgets.createDrawableWidget((draw, mouseX, mouseY, delta) -> {
             int x = startPoint.x;
             int y = startPoint.y;
             int corner = 8;
 
-            // Верхний левый угол
+            // Top-left corner
             draw.blit(REI_CONTAINER, x, y, corner, corner, 106, 124, corner, corner, 256, 256);
-            // Верхний правый угол
+            // Top-right corner
             draw.blit(REI_CONTAINER, x + w - corner, y, corner, corner, 248, 124, corner, corner, 256, 256);
-            // Нижний левый угол
+            // Bottom-left corner
             draw.blit(REI_CONTAINER, x, y + h - corner, corner, corner, 106, 182, corner, corner, 256, 256);
-            // Нижний правый угол
+            // Bottom-right corner
             draw.blit(REI_CONTAINER, x + w - corner, y + h - corner, corner, corner, 248, 182, corner, corner, 256, 256);
 
-            // Верхняя граница
+            // Top edge
             draw.blit(REI_CONTAINER, x + corner, y, w - 2 * corner, corner, 114, 124, 134, corner, 256, 256);
-            // Нижняя граница
+            // Bottom edge
             draw.blit(REI_CONTAINER, x + corner, y + h - corner, w - 2 * corner, corner, 114, 182, 134, corner, 256, 256);
-            // Левая граница
+            // Left edge
             draw.blit(REI_CONTAINER, x, y + corner, corner, h - 2 * corner, 106, 132, corner, 50, 256, 256);
-            // Правая граница
+            // Right edge
             draw.blit(REI_CONTAINER, x + w - corner, y + corner, corner, h - 2 * corner, 248, 132, corner, 50, 256, 256);
-            // Центр
+            // Center
             draw.blit(REI_CONTAINER, x + corner, y + corner, w - 2 * corner, h - 2 * corner, 114, 132, 134, 50, 256, 256);
         }));
 
-        // Input слот
+        // Input slot
         widgets.add(Widgets.createSlot(new Point(startPoint.x + INPUT_X, startPoint.y + INPUT_Y))
             .entries(List.of(display.getInputEntry()))
             .markInput()
         );
 
-        // Стрелка
+        // Arrow
         widgets.add(Widgets.createLabel(new Point(startPoint.x + ARROW_X + 9, startPoint.y + ARROW_Y + 9),
                 Component.literal("\u21D4"))
             .noShadow()
             .color(0xFF404040, 0xFF404040)
         );
 
-        // Кастомный виджет для сетки со скроллбаром
+        // Custom widget for grid with scrollbar
         widgets.add(new ScrollableGridWidget(
             startPoint.x + GRID_X,
             startPoint.y + GRID_Y,

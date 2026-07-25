@@ -2,6 +2,7 @@ package maze.frequency.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import maze.frequency.client.gui.BaseSymbolSwapScreen;
 import maze.frequency.data.component.FluidData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -32,6 +33,9 @@ public class FluidSymbolItemRendererMixin {
         // Check if this is our liquid symbol item
         FluidData fluidData = stack.get(FluidData.TYPE);
         if (fluidData == null) return;
+
+        // Skip fluid overlay only in SymbolSwap GUI, show in inventory/world
+        if (Minecraft.getInstance().screen instanceof BaseSymbolSwapScreen) return;
 
         Fluid fluid = BuiltInRegistries.FLUID.get(fluidData.fluid());
         if (fluid == null) return;

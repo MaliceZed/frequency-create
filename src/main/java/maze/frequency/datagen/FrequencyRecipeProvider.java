@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -67,5 +68,18 @@ public class FrequencyRecipeProvider extends RecipeProvider {
             .define('C', Ingredient.of(AllItems.COPPER_SHEET.get()))
             .unlockedBy("has_copper", has(AllItems.COPPER_SHEET.get()))
             .save(consumer);
+
+        // Logic Combinator
+        // RTR
+        // _A_
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrequencyModBlocks.LOGIC_COMBINATOR_ITEM.get())
+            .pattern("RTR")
+            .pattern(" A ")
+            .define('R', Ingredient.of(com.simibubi.create.AllBlocks.REDSTONE_LINK.get()))
+            .define('T', Ingredient.of(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("create", "transmitter"))))
+            .define('A', Ingredient.of(com.simibubi.create.AllBlocks.ANDESITE_CASING.get()))
+            .unlockedBy("has_redstone_link", has(com.simibubi.create.AllBlocks.REDSTONE_LINK.get()))
+            .save(consumer, net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(maze.frequency.FrequencyMod.MODID, "logic_combinator"));
     }
 }

@@ -68,6 +68,13 @@ public class DataGenerators {
         generator.addProvider(true, new FrequencyBlockLoot(output));
         generator.addProvider(true, new FrequencyRecipeProvider(output, event.getLookupProvider()));
 
+        var blockTagProvider = new FrequencyBlockTagProvider(
+            output,
+            event.getLookupProvider(),
+            event.getExistingFileHelper()
+        );
+        generator.addProvider(true, blockTagProvider);
+
         generator.addProvider(true, new FrequencyItemTagProvider(
             output,
             event.getLookupProvider(),
@@ -97,16 +104,19 @@ public class DataGenerators {
     private static void autoGenerateItemTranslations(BiConsumer<String, String> consumer, Set<String> added, boolean english) {
         String prefix = english ? "Symbol " : "Символ ";
         for (String name : FrequencyModItems.SYMBOL_NAMES) {
+            if (name.endsWith("_symbol_empty")) continue;
             String key = "item.frequency." + name;
             if (added.contains(key)) continue;
             consumer.accept(key, prefix + FrequencyModItems.displayChar(name));
         }
         for (String name : FrequencyModItems.ANDESITE_SYMBOL_NAMES) {
+            if (name.endsWith("_symbol_empty")) continue;
             String key = "item.frequency." + name;
             if (added.contains(key)) continue;
             consumer.accept(key, prefix + FrequencyModItems.displayChar(name));
         }
         for (String name : FrequencyModItems.COPPER_SYMBOL_NAMES) {
+            if (name.endsWith("_symbol_empty")) continue;
             String key = "item.frequency." + name;
             if (added.contains(key)) continue;
             consumer.accept(key, prefix + FrequencyModItems.displayChar(name));

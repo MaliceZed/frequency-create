@@ -102,4 +102,22 @@ public class LiquidSymbolItem extends BaseSymbolItem {
         stack.set(FrequencyModComponents.FLUID_DATA.get(), new FluidData(fluidId));
     }
 
+    @Override
+    public Component getName(ItemStack stack) {
+        FluidData fluidData = stack.get(FrequencyModComponents.FLUID_DATA.get());
+        if (fluidData != null) {
+            Fluid fluid = net.minecraft.core.registries.BuiltInRegistries.FLUID.get(fluidData.fluid());
+            if (fluid != null) {
+                Component fluidName = fluid.defaultFluidState().getFluidType().getDescription();
+                return Component.translatable("item.frequency.symbol_liquid.filled", fluidName);
+            }
+        }
+        return super.getName(stack);
+    }
+
+    @Override
+    public String getDescriptionId() {
+        return "item.frequency.symbol_liquid";
+    }
+
 }

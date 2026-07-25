@@ -26,7 +26,7 @@ public class FrequencyItemModels implements DataProvider {
 		List<String> copperSymbols = FrequencyModItems.COPPER_SYMBOL_NAMES;
 
 		@SuppressWarnings("unchecked")
-		CompletableFuture<?>[] futures = new CompletableFuture[symbols.size() + andesiteSymbols.size() + copperSymbols.size() + 1];
+		CompletableFuture<?>[] futures = new CompletableFuture[symbols.size() + andesiteSymbols.size() + copperSymbols.size() + 2];
 		for (int i = 0; i < symbols.size(); i++) {
 			String symbol = symbols.get(i);
 			JsonObject model = new JsonObject();
@@ -74,6 +74,13 @@ public class FrequencyItemModels implements DataProvider {
 		ResourceLocation framePath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/symbol_frame");
 		var frameFile = output.getOutputFolder().resolve("assets/" + framePath.getNamespace() + "/" + framePath.getPath() + ".json");
 		futures[symbols.size() + andesiteSymbols.size() + copperSymbols.size()] = DataProvider.saveStable(cache, frameModel, frameFile);
+
+		// Logic Combinator — parent = block model _000
+		JsonObject logicCombinatorModel = new JsonObject();
+		logicCombinatorModel.addProperty("parent", FrequencyMod.MODID + ":block/logic_combinator/logic_combinator_000");
+		ResourceLocation logicCombinatorPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/logic_combinator");
+		var logicCombinatorFile = output.getOutputFolder().resolve("assets/" + logicCombinatorPath.getNamespace() + "/" + logicCombinatorPath.getPath() + ".json");
+		futures[symbols.size() + andesiteSymbols.size() + copperSymbols.size() + 1] = DataProvider.saveStable(cache, logicCombinatorModel, logicCombinatorFile);
 
 		return CompletableFuture.allOf(futures);
 	}

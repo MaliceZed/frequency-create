@@ -1,0 +1,244 @@
+{
+  "variants": {
+    "facing=east,input1=false,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_000",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_010",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_001",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_011",
+      "y": 90
+    },
+    "facing=east,input1=false,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_100",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_110",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_101",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_111",
+      "y": 90
+    },
+    "facing=east,input1=true,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 90
+    },
+    "facing=north,input1=false,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_000"
+    },
+    "facing=north,input1=false,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00"
+    },
+    "facing=north,input1=false,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_010"
+    },
+    "facing=north,input1=false,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01"
+    },
+    "facing=north,input1=false,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_001"
+    },
+    "facing=north,input1=false,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00"
+    },
+    "facing=north,input1=false,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_011"
+    },
+    "facing=north,input1=false,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01"
+    },
+    "facing=north,input1=true,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_100"
+    },
+    "facing=north,input1=true,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10"
+    },
+    "facing=north,input1=true,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_110"
+    },
+    "facing=north,input1=true,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11"
+    },
+    "facing=north,input1=true,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_101"
+    },
+    "facing=north,input1=true,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10"
+    },
+    "facing=north,input1=true,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_111"
+    },
+    "facing=north,input1=true,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11"
+    },
+    "facing=south,input1=false,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_000",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_010",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_001",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_011",
+      "y": 180
+    },
+    "facing=south,input1=false,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_100",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_110",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_101",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_111",
+      "y": 180
+    },
+    "facing=south,input1=true,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 180
+    },
+    "facing=west,input1=false,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_000",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_010",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_001",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_011",
+      "y": 270
+    },
+    "facing=west,input1=false,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=false,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_100",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=false,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=false,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_110",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=false,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=true,output=false,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_101",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=true,output=false,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=true,output=true,single=false": {
+      "model": "frequency:block/logic_combinator/logic_combinator_111",
+      "y": 270
+    },
+    "facing=west,input1=true,input2=true,output=true,single=true": {
+      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
+      "y": 270
+    }
+  }
+}

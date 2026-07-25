@@ -18,7 +18,13 @@ public class DynamicGuiRenderer {
 	private static final int BACKGROUND_TILE_SIZE = 16;
 	private static final int SLOT_SIZE = 20;
 
-	static final ResourceLocation ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/symbol_swap.png");
+	public static final ResourceLocation BRASS_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/brass_symbol_swap.png");
+	public static final ResourceLocation ANDESITE_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/andesite_symbol_swap.png");
+	public static final ResourceLocation COPPER_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/copper_symbol_swap.png");
+
+	/** @deprecated Use {@link #BRASS_ATLAS} instead */
+	@Deprecated
+	static final ResourceLocation ATLAS = BRASS_ATLAS;
 	private static final int ATLAS_WIDTH = 64;
 	private static final int ATLAS_HEIGHT = 64;
 
@@ -56,18 +62,18 @@ public class DynamicGuiRenderer {
 		return HEADER_HEIGHT + contentHeight + BOTTOM_HEIGHT;
 	}
 
-	// --- Default methods (use ATLAS) ---
+	// --- Default methods (use BRASS_ATLAS) ---
 
 	public static void renderGui(GuiGraphics guiGraphics, int x, int y, int width, int height) {
-		renderGui(guiGraphics, x, y, width, height, ATLAS);
+		renderGui(guiGraphics, x, y, width, height, BRASS_ATLAS);
 	}
 
 	public static void renderSlot(GuiGraphics guiGraphics, int x, int y) {
-		renderSlot(guiGraphics, x, y, ATLAS);
+		renderSlot(guiGraphics, x, y, BRASS_ATLAS);
 	}
 
 	public static void renderSlotHover(GuiGraphics guiGraphics, int x, int y) {
-		renderSlotHover(guiGraphics, x, y, ATLAS);
+		renderSlotHover(guiGraphics, x, y, BRASS_ATLAS);
 	}
 
 	// --- Overloaded methods with custom atlas ---

@@ -13,20 +13,20 @@
   "block.frequency.symbol_frame.tooltip.behaviour1": "_Sets_ the displayed symbol.",
   "block.frequency.symbol_frame.tooltip.condition2": "R-Click",
   "block.frequency.symbol_frame.tooltip.behaviour2": "If a _functional block_ is behind the frame - the player _interacts_ with it.",
+  "block.frequency.logic_combinator": "Logic Combinator",
+  "block.frequency.logic_combinator.tooltip.summary": "Allows performing _logical operations_ with signals and outputting the result on _another frequency_.",
+  "block.frequency.logic_combinator.tooltip.condition1": "R-Click with an item in hand on a Slot",
+  "block.frequency.logic_combinator.tooltip.behaviour1": "_Sets_ the item as a frequency.",
+  "block.frequency.logic_combinator.tooltip.condition2": "R-Click while sneaking on Combinator",
+  "block.frequency.logic_combinator.tooltip.behaviour2": "Opens the _settings interface_ for modes",
 
   // ===== Items: Symbols (Empty) =====
   "item.frequency.symbol_empty": "Empty Symbol",
-  "item.frequency.brass_symbol_empty": "Empty symbol",
-  "item.frequency.andesite_symbol_empty": "Empty symbol",
-  "item.frequency.copper_symbol_empty": "Empty symbol",
 
   // ===== Items: Symbols (Liquid) =====
-  "item.frequency.brass_symbol_liquid": "Symbol for fluid",
-  "item.frequency.brass_symbol_liquid.tooltip.contains": "Contains: %s",
-  "item.frequency.andesite_symbol_liquid": "Symbol for fluid",
-  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Contains: %s",
-  "item.frequency.copper_symbol_liquid": "Symbol for fluid",
-  "item.frequency.copper_symbol_liquid.tooltip.contains": "Contains: %s",
+  "item.frequency.symbol_liquid": "Symbol For Fluid",
+  "item.frequency.symbol_liquid.tooltip.contains": "Contains: %s",
+  "item.frequency.symbol_liquid.filled": "Symbol (%s)",
 
   // ===== Items: Tooltips (Regular Symbol) =====
   "item.frequency.symbol.tooltip.summary": "A symbol item that's perfect for adjusting frequencies. Maybe.",
@@ -49,6 +49,8 @@
   "gui.frequency.small": "Small",
   "gui.frequency.category.special": "Special",
   "gui.frequency.category.math": "Math",
+  "gui.frequency.logic_combinator.title": "Logic Combinator",
+  "gui.frequency.logic_combinator.mode": "Mode",
 
   // ===== Startup Message =====
   "message.frequency.startup.title": "§6[Frequency] §eMod is in development!",
@@ -56,5 +58,15 @@
   "message.frequency.startup.github_hover": "§aOpen GitHub Issues",
   "message.frequency.startup.open_github": "§a[Open GitHub]§r",
   "message.frequency.startup.disable_message": "§7[Disable this message]§r",
-  "message.frequency.startup.disable_hover": "§cClick to disable this message permanently"
+  "message.frequency.startup.disable_hover": "§cClick to disable this message permanently",
+
+  // ===== Tooltip: Frequency Pairs =====
+  "frequency.tooltip.pair1_first": "First Input - Frequency #1",
+  "frequency.tooltip.pair1_second": "First Input - Frequency #2",
+  "frequency.tooltip.pair2_first": "Output - Frequency #1",
+  "frequency.tooltip.pair2_second": "Output - Frequency #2",
+  "frequency.tooltip.pair3_first": "Second Input - Frequency #1",
+  "frequency.tooltip.pair3_second": "Second Input - Frequency #2",
+  "frequency.tooltip.click_to_set": "Click with item to set",
+  "frequency.tooltip.click_to_replace": "Click with item to replace"
 }

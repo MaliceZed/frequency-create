@@ -26,15 +26,15 @@ import dev.emi.emi.api.widget.WidgetHolder;
 import maze.frequency.FrequencyMod;
 
 /**
- * EMI рецепт для отображения каталога всех Frequency символов.
+ * EMI recipe for displaying the catalog of all Frequency symbols.
  * <p>
- * Один рецепт, все символы в виде прокручиваемой сетки 6×3.
- * Внутренний виджет {@link ScrollableGridWidget} реализует всю логику
- * рендера, скролла и drag-перетаскивания ползунка.
+ * Single recipe, all symbols displayed in a scrollable 6x3 grid.
+ * Inner widget {@link ScrollableGridWidget} handles all rendering, scrolling,
+ * and drag logic for the thumb.
  */
 public class FrequencyEmiRecipe implements EmiRecipe {
 
-    // ── Константы сетки ─────────────────────────────────────────────────────
+    // ── Grid constants ─────────────────────────────────────────────────────
 
     private static final int COLS = 6;
     private static final int ROWS = 3;
@@ -42,24 +42,24 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     private static final int SLOT_SIZE = 18;
     private static final int PADDING = 2;
 
-    // Сетка output (первый ряд) — отцентрована по вертикали
+    // Output grid (first row) — vertically centered
     private static final int GRID_X = 38;
     private static final int GRID_Y = 0;
 
-    // Input слот (symbol_empty) — на уровне 2 ряда (GRID_Y + 20)
+    // Input slot (symbol_empty) — at row 2 level (GRID_Y + 20)
     private static final int INPUT_X = 0;
     private static final int INPUT_Y = GRID_Y + (SLOT_SIZE + PADDING); // 10 + 20 = 30
 
-    // Стрелка — на уровне 2 ряда (напротив input слота)
+    // Arrow — at row 2 level (opposite the input slot)
     private static final int ARROW_X = 19;
     private static final int ARROW_Y = INPUT_Y; // 30
 
-    // Скроллбар
+    // Scrollbar
     private static final int SCROLLBAR_X = GRID_X + COLS * (SLOT_SIZE + PADDING) + 2; // 38 + 120 + 2 = 160
     private static final int SCROLLBAR_W = 8;
     private static final int SCROLLBAR_H = ROWS * (SLOT_SIZE + PADDING) - PADDING; // 3 * 20 - 2 = 58
 
-    // ── Размер всего рецепта ────────────────────────────────────────────────
+    // ── Full recipe dimensions ────────────────────────────────────────────────
 
     private static final int DISPLAY_WIDTH = SCROLLBAR_X + SCROLLBAR_W;
     private static final int DISPLAY_HEIGHT = GRID_Y + SCROLLBAR_H;
@@ -67,29 +67,29 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     public static final int RECIPE_WIDTH = DISPLAY_WIDTH;
     public static final int RECIPE_HEIGHT = DISPLAY_HEIGHT;
 
-    // ── Текстура слота ──────────────────────────────────────────────────────
+    // ── Slot texture ──────────────────────────────────────────────────────
 
     private static final ResourceLocation SLOT_BACKGROUND =
             ResourceLocation.withDefaultNamespace("container/slot");
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Статические поля для drag и внешнего скролла
+    //  Static fields for drag and external scroll
     // ═══════════════════════════════════════════════════════════════════════
 
-    /** Ссылка на «активный» экземпляр рецепта (последний созданный). */
+    /** Reference to the "active" recipe instance (last created). */
     public static FrequencyEmiRecipe ACTIVE_RECIPE = null;
 
-    /** Идёт ли перетаскивание ползунка. */
+    /** Whether the scrollbar thumb is being dragged. */
     public static boolean DRAGGING = false;
 
-    /** Y мыши (относительно рецепта) на момент начала drag. */
+    /** Mouse Y (relative to recipe) at the start of drag. */
     public static int DRAG_START_Y = 0;
 
-    /** scrollOffset на момент начала drag. */
+    /** scrollOffset at the start of drag. */
     public static int DRAG_START_SCROLL = 0;
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Поля экземпляра
+    //  Instance fields
     // ═══════════════════════════════════════════════════════════════════════
 
     private final EmiStack inputStack;
@@ -99,7 +99,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     private int scrollOffset;
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Конструктор
+    //  Constructor
     // ═══════════════════════════════════════════════════════════════════════
 
     public FrequencyEmiRecipe(EmiStack inputStack, List<EmiStack> allSymbols) {
@@ -147,21 +147,21 @@ public class FrequencyEmiRecipe implements EmiRecipe {
 
     @Override
     public void addWidgets(WidgetHolder widgets) {
-        // Input слот (symbol_empty)
+        // Input slot (symbol_empty)
         widgets.addSlot(inputStack, INPUT_X, INPUT_Y).drawBack(true);
 
-        // Кастомный виджет сетки со скроллбаром
+        // Custom grid widget with scrollbar
         widgets.add(new ScrollableGridWidget());
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Скролл (вызывается из FrequencyEmiScrollHandler)
+    //  Scroll (called from FrequencyEmiScrollHandler)
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
-     * Прокрутить сетку на {@code delta} строк (отрицательное — вверх).
+     * Scroll the grid by {@code delta} rows (negative = up).
      *
-     * @return true, если позиция изменилась
+     * @return true if the position changed
      */
     public boolean scrollBy(int delta) {
         int newOffset = scrollOffset + delta;
@@ -171,9 +171,8 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     }
 
     /**
-     * Проверить, находится ли точка ({@code relX}, {@code relY}) над областью
-     * скроллбара. Координаты относительные (относительно левого верхнего угла
-     * рецепта).
+     * Check if the point ({@code relX}, {@code relY}) is over the scrollbar area.
+     * Coordinates are relative to the recipe's top-left corner.
      */
     public boolean isMouseOverScrollbar(int relX, int relY) {
         return relX >= SCROLLBAR_X
@@ -183,7 +182,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Внутренний класс — кастомный виджет сетки со скроллбаром
+    //  Inner class — custom grid widget with scrollbar
     // ═══════════════════════════════════════════════════════════════════════
 
     private class ScrollableGridWidget extends Widget {
@@ -198,7 +197,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
 
         @Override
         public void render(GuiGraphics draw, int mouseX, int mouseY, float delta) {
-            // ── Рисуем фон и слоты ──────────────────────────────────────
+            // ── Draw background and slots ──────────────────────────────────
             for (int row = 0; row < ROWS; row++) {
                 int symbolRow = scrollOffset + row;
                 for (int col = 0; col < COLS; col++) {
@@ -208,47 +207,47 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                     int x = GRID_X + col * (SLOT_SIZE + PADDING);
                     int y = GRID_Y + row * (SLOT_SIZE + PADDING);
 
-                    // Фон слота
+                    // Slot background
                     draw.blitSprite(SLOT_BACKGROUND, x, y, SLOT_SIZE, SLOT_SIZE);
 
-                    // Предмет внутри слота (смещение +1px для лучшего позиционирования)
+                    // Item inside slot (+1px offset for better positioning)
                     EmiStack stack = allSymbols.get(index);
                     stack.render(draw, x + 1, y + 1, delta);
                 }
             }
 
-            // Рисуем стрелку преобразования
-            String arrow = "⇔";
+            // Draw conversion arrow
+            String arrow = "\u21D4";
             int textWidth = Minecraft.getInstance().font.width(arrow);
             int textX = ARROW_X + (18 - textWidth) / 2;
             int textY = ARROW_Y + 1 + (18 - Minecraft.getInstance().font.lineHeight) / 2;
             draw.drawString(Minecraft.getInstance().font, arrow, textX, textY, 0xFF404040, false);
 
-            // ── Скроллбар ───────────────────────────────────────────────
+            // ── Scrollbar ───────────────────────────────────────────────
             if (maxScrollOffset > 0) {
                 int scrollTrackX = SCROLLBAR_X;
                 int scrollTrackY = GRID_Y;
                 int scrollTrackH = SCROLLBAR_H;
                 
-                // Рамка скроллбара
-                // Светло-серая рамка 1px
+                // Scrollbar border
+                // Light gray 1px border
                 draw.fill(scrollTrackX - 1, scrollTrackY - 1, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY, 0xFF555555); // top
                 draw.fill(scrollTrackX - 1, scrollTrackY + scrollTrackH, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY + scrollTrackH + 1, 0xFF555555); // bottom
                 draw.fill(scrollTrackX - 1, scrollTrackY, scrollTrackX, scrollTrackY + scrollTrackH, 0xFF555555); // left
                 draw.fill(scrollTrackX + SCROLLBAR_W, scrollTrackY, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY + scrollTrackH, 0xFF555555); // right
                 
-                // Трек (фон скроллбара) — тёмно-серый
+                // Track (scrollbar background) — dark gray
                 draw.fill(scrollTrackX, scrollTrackY, scrollTrackX + SCROLLBAR_W, scrollTrackY + scrollTrackH, 0xFF333333);
                 
-                // Ползунок
+                // Thumb
                 float scrollFraction = maxScrollOffset > 0 ? (float) scrollOffset / maxScrollOffset : 0;
                 int thumbHeight = Math.max(10, scrollTrackH / (totalRows - ROWS + 1));
                 int thumbY = scrollTrackY + (int) (scrollFraction * (scrollTrackH - thumbHeight));
                 
-                // Ползунок — светло-серый с более светлой серединой
+                // Thumb — light gray with a lighter center
                 draw.fill(scrollTrackX, thumbY, scrollTrackX + SCROLLBAR_W, thumbY + thumbHeight, 0xFF888888);
                 
-                // Grips — три горизонтальные линии на ползунке
+                // Grips — three horizontal lines on the thumb
                 if (thumbHeight >= 8) {
                     int gripCenter = thumbY + thumbHeight / 2;
                     for (int gripOffset = -3; gripOffset <= 3; gripOffset += 3) {
@@ -257,13 +256,13 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                     }
                 }
                 
-                // ── Drag-перетаскивание ─────────────────────────────────
+                // ── Drag handling ─────────────────────────────────────────
                 if (DRAGGING) {
                     long window = Minecraft.getInstance().getWindow().getWindow();
                     boolean leftDown = GLFW.glfwGetMouseButton(window,
                             GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
                     if (leftDown) {
-                        // mouseX, mouseY — относительные (относительно рецепта)
+                        // mouseX, mouseY are relative to the recipe
                         int deltaY = mouseY - DRAG_START_Y;
                         int movableRange = scrollTrackH - thumbHeight;
                         if (movableRange > 0) {
@@ -277,7 +276,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                             }
                         }
                     } else {
-                        // Кнопка отпущена — завершаем drag
+                        // Button released — end drag
                         DRAGGING = false;
                     }
                 }
@@ -289,7 +288,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
             if (button != 0) return false;
 
             if (isMouseOverScrollbar(mouseX, mouseY) && maxScrollOffset > 0) {
-                // Вычисляем позицию ползунка
+                // Calculate thumb position
                 int thumbHeight = Math.max(10,
                         SCROLLBAR_H / (totalRows - ROWS + 1));
                 float scrollFraction = (float) scrollOffset / maxScrollOffset;
@@ -297,21 +296,21 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                         + (int) (scrollFraction * (SCROLLBAR_H - thumbHeight));
 
                 if (mouseY >= thumbY && mouseY < thumbY + thumbHeight) {
-                    // Клик на ползунке — начинаем drag
+                    // Click on thumb — start drag
                     DRAGGING = true;
                     DRAG_START_Y = mouseY;
                     DRAG_START_SCROLL = scrollOffset;
                 } else if (mouseY < thumbY) {
-                    // Выше ползунка — страницу вверх
+                    // Above thumb — page up
                     scrollOffset = Math.max(0, scrollOffset - ROWS);
                 } else {
-                    // Ниже ползунка — страницу вниз
+                    // Below thumb — page down
                     scrollOffset = Math.min(maxScrollOffset, scrollOffset + ROWS);
                 }
                 return true;
             }
 
-            // ── Клик на предмет — показать рецепты/использования ──────
+            // ── Click on item — show recipes/usages ──────
             for (int row = 0; row < ROWS; row++) {
                 int symbolRow = scrollOffset + row;
                 for (int col = 0; col < COLS; col++) {

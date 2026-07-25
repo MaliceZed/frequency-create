@@ -45,7 +45,7 @@ public class CreateTooltipCompat {
             Method useKeyMethod = idc.getMethod("useKey", net.minecraft.world.level.ItemLike.class, String.class);
 
             String sharedKey = "item.frequency.symbol";
-            // Brass (латунные) символы
+            // Brass symbols
             for (var holder : FrequencyModItems.ALL_BRASS_SYMBOLS) {
                 Item item = holder.get();
                 if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
@@ -54,7 +54,7 @@ public class CreateTooltipCompat {
                 useKeyMethod.invoke(null, item, sharedKey);
             }
 
-            // Andesite (андезитовые) символы
+            // Andesite symbols
             for (var holder : FrequencyModItems.ALL_ANDESITE_SYMBOLS) {
                 Item item = holder.get();
                 if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
@@ -63,7 +63,7 @@ public class CreateTooltipCompat {
                 useKeyMethod.invoke(null, item, sharedKey);
             }
 
-            // Copper (медные) символы
+            // Copper symbols
             for (var holder : FrequencyModItems.ALL_COPPER_SYMBOLS) {
                 Item item = holder.get();
                 if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
@@ -103,6 +103,11 @@ public class CreateTooltipCompat {
             Item frameItem = FrequencyModBlocks.SYMBOL_FRAME_ITEM.get();
             Object frameModifier = ctor.newInstance(frameItem, standardCreate);
             regMethod.invoke(registry, frameItem, frameModifier);
+
+            // Logic Combinator
+            Item combinatorItem = FrequencyModBlocks.LOGIC_COMBINATOR_ITEM.get();
+            Object combinatorModifier = ctor.newInstance(combinatorItem, standardCreate);
+            regMethod.invoke(registry, combinatorItem, combinatorModifier);
         } catch (Throwable t) {
             LOGGER.error("Failed to initialize Create tooltip compatibility", t);
         }

@@ -1,8 +1,6 @@
 package maze.frequency;
 
 import com.tterrag.registrate.Registrate;
-import org.slf4j.Logger;
-import com.mojang.logging.LogUtils;
 
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -10,12 +8,14 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.bus.api.IEventBus;
 
 import maze.frequency.init.FrequencyModBlocks;
+import maze.frequency.init.FrequencyModBlockEntities;
 import maze.frequency.init.FrequencyModComponents;
 import maze.frequency.init.FrequencyModItems;
 import maze.frequency.init.FrequencyModTabs;
 import maze.frequency.init.FrequencyModMenus;
 import maze.frequency.network.SymbolSwapPacket;
 import maze.frequency.network.FrameUpdatePacket;
+import maze.frequency.network.GateModeChangePacket;
 
 import maze.frequency.datagen.DataGenerators;
 import maze.frequency.compat.FrameInteractionHandler;
@@ -30,7 +30,6 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
 public class FrequencyMod {
     public static final String MODID = "frequency";
     public static final Registrate REGISTRATE = Registrate.create(MODID);
-    public static final Logger LOGGER = LogUtils.getLogger();
     public FrequencyMod(IEventBus modEventBus, ModContainer container) {
         modEventBus.addListener(this::registerNetworking);
         modEventBus.addListener(DataGenerators::gatherData);
@@ -39,7 +38,7 @@ public class FrequencyMod {
         FrequencyModItems.ITEMS.register(modEventBus);
         FrequencyModTabs.TABS.register(modEventBus);
         FrequencyModBlocks.BLOCKS.register(modEventBus);
-        FrequencyModBlocks.BLOCK_ENTITIES.register(modEventBus);
+        FrequencyModBlockEntities.BLOCK_ENTITY_TYPES.register(modEventBus);
         FrequencyModBlocks.ITEMS.register(modEventBus);
         FrequencyModComponents.COMPONENTS.register(modEventBus);
 
@@ -49,6 +48,7 @@ public class FrequencyMod {
         FrequencyModMenus.BRASS_SYMBOL_SWAP.getClass();
         FrequencyModMenus.ANDESITE_SYMBOL_SWAP.getClass();
         FrequencyModBlocks.BLOCKS.getClass();
+        FrequencyModBlockEntities.register();
 
         // Register game event handlers (Create wrench, symbol frame interaction)
         FrameInteractionHandler.register();
@@ -70,6 +70,12 @@ public class FrequencyMod {
             FrameUpdatePacket.TYPE,
             FrameUpdatePacket.STREAM_CODEC,
             FrameUpdatePacket::handle
+        );
+
+        registrar.playBidirectional(
+            GateModeChangePacket.TYPE,
+            GateModeChangePacket.STREAM_CODEC,
+            GateModeChangePacket::handle
         );
 
     }

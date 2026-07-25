@@ -35,6 +35,14 @@ public class BaseSymbolItem extends Item implements ISymbolItem {
 	}
 
 	@Override
+	public String getDescriptionId() {
+		if (symbolName != null && symbolName.endsWith("empty")) {
+			return "item.frequency.symbol_empty";
+		}
+		return super.getDescriptionId();
+	}
+
+	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack itemStack = player.getItemInHand(hand);
 

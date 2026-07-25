@@ -13,20 +13,20 @@
   "block.frequency.symbol_frame.tooltip.behaviour1": "_Устанавливает_ отображаемый символ.",
   "block.frequency.symbol_frame.tooltip.condition2": "При ПКМ",
   "block.frequency.symbol_frame.tooltip.behaviour2": "Если за рамкой _функциональный блок_ - игрок _взаимодействует_ с ним.",
+  "block.frequency.logic_combinator": "Логический комбинатор",
+  "block.frequency.logic_combinator.tooltip.summary": "Позволяет проводить _логические операции_ с сигналами и выводить результат на _другую частоту_.",
+  "block.frequency.logic_combinator.tooltip.condition1": "ПКМ с предметом в руке по Слоту",
+  "block.frequency.logic_combinator.tooltip.behaviour1": "_Устанавливает_ предмет как частоту.",
+  "block.frequency.logic_combinator.tooltip.condition2": "ПКМ крадучись по Комбинатору",
+  "block.frequency.logic_combinator.tooltip.behaviour2": "Открывает _интерфейс настройки_ режимов",
 
   // ===== Items: Symbols (Empty) =====
-  "item.frequency.symbol_empty": "Пустой символ",
-  "item.frequency.brass_symbol_empty": "Пустой символ",
-  "item.frequency.andesite_symbol_empty": "Пустой символ",
-  "item.frequency.copper_symbol_empty": "Пустой символ",
+  "item.frequency.symbol_empty": "Пустой Символ",
 
   // ===== Items: Symbols (Liquid) =====
-  "item.frequency.brass_symbol_liquid": "Символ для жидкости",
-  "item.frequency.brass_symbol_liquid.tooltip.contains": "Внутри: %s",
-  "item.frequency.andesite_symbol_liquid": "Символ для жидкости",
-  "item.frequency.andesite_symbol_liquid.tooltip.contains": "Внутри: %s",
-  "item.frequency.copper_symbol_liquid": "Символ для жидкости",
-  "item.frequency.copper_symbol_liquid.tooltip.contains": "Внутри: %s",
+  "item.frequency.symbol_liquid": "Символ Для Жидкости",
+  "item.frequency.symbol_liquid.tooltip.contains": "Внутри: %s",
+  "item.frequency.symbol_liquid.filled": "Символ (%s)",
 
   // ===== Items: Tooltips (Regular Symbol) =====
   "item.frequency.symbol.tooltip.summary": "Предмет символа, который идеально подходит для настройки частот. Наверное.",
@@ -49,6 +49,8 @@
   "gui.frequency.small": "Прописные",
   "gui.frequency.category.special": "Специальные",
   "gui.frequency.category.math": "Математические",
+  "gui.frequency.logic_combinator.title": "Логический Комбинатор",
+  "gui.frequency.logic_combinator.mode": "Режим",
 
   // ===== Startup Message =====
   "message.frequency.startup.title": "§6[Frequency] §eМод находится в стадии разработки!",
@@ -56,5 +58,15 @@
   "message.frequency.startup.github_hover": "§aОткрыть GitHub Issues",
   "message.frequency.startup.open_github": "§a[Открыть GitHub]§r",
   "message.frequency.startup.disable_message": "§7[Отключить это сообщение]§r",
-  "message.frequency.startup.disable_hover": "§cНажмите, чтобы навсегда отключить это сообщение"
+  "message.frequency.startup.disable_hover": "§cНажмите, чтобы навсегда отключить это сообщение",
+
+  // ===== Tooltip: Frequency Pairs =====
+  "frequency.tooltip.pair1_first": "Первый вход - Частота #1",
+  "frequency.tooltip.pair1_second": "Первый вход - Частота #2",
+  "frequency.tooltip.pair2_first": "Выход - Частота #1",
+  "frequency.tooltip.pair2_second": "Выход - Частота #2",
+  "frequency.tooltip.pair3_first": "Второй вход - Частота #1",
+  "frequency.tooltip.pair3_second": "Второй вход - Частота #2",
+  "frequency.tooltip.click_to_set": "Кликните с предметом в руке для установки",
+  "frequency.tooltip.click_to_replace": "Кликните с предметом в руке для замены"
 }

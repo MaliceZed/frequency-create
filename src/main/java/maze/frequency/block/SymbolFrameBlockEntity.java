@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.player.Player;
 
-import maze.frequency.init.FrequencyModBlocks;
+import maze.frequency.init.FrequencyModBlockEntities;
 
 public class SymbolFrameBlockEntity extends BlockEntity implements ISymbolFrameData {
     private static final String TAG_SYMBOL = "symbol";
@@ -54,7 +54,7 @@ public class SymbolFrameBlockEntity extends BlockEntity implements ISymbolFrameD
     }
 
     public SymbolFrameBlockEntity(BlockPos pos, BlockState state) {
-        super(FrequencyModBlocks.SYMBOL_FRAME_BE.get(), pos, state);
+        super(FrequencyModBlockEntities.SYMBOL_FRAME.get(), pos, state);
         // modelData is lazily created on client via getModelData()
     }
 

@@ -30,7 +30,7 @@ public class ScrollableGridWidget extends Widget {
 
     private int scrollOffset;
 
-    // Drag состояние
+    // Drag state
     private boolean dragging = false;
     private int dragStartY = 0;
     private int dragStartScroll = 0;
@@ -60,7 +60,7 @@ public class ScrollableGridWidget extends Widget {
 
     @Override
     public void render(GuiGraphics draw, Rectangle bounds, int mouseX, int mouseY, float delta) {
-        // Рисуем слоты
+        // Draw slots
         for (int row = 0; row < ROWS; row++) {
             int symbolRow = scrollOffset + row;
             for (int col = 0; col < COLS; col++) {
@@ -70,32 +70,32 @@ public class ScrollableGridWidget extends Widget {
                 int slotX = x + col * (SLOT_SIZE + PADDING);
                 int slotY = y + row * (SLOT_SIZE + PADDING);
 
-                // Фон слота
+                // Slot background
                 draw.blitSprite(SLOT_BACKGROUND, slotX, slotY, SLOT_SIZE, SLOT_SIZE);
 
-                // Предмет с отступом 1px
+                // Item with 1px offset
                 EntryStack<ItemStack> entry = allSymbols.get(index);
                 entry.render(draw, new Rectangle(slotX + 1, slotY + 1, 16, 16), 0, 0, delta);
             }
         }
 
-        // Рисуем скроллбар, если нужно
+        // Draw scrollbar if needed
         if (maxScrollOffset > 0) {
             int gridWidth = COLS * (SLOT_SIZE + PADDING) - PADDING; // 6*20-2 = 118
             int scrollTrackX = x + gridWidth + 2; // x + 120
             int scrollTrackY = y;
             int scrollTrackH = ROWS * (SLOT_SIZE + PADDING) - PADDING;
 
-            // Рамка скроллбара
+            // Scrollbar border
             draw.fill(scrollTrackX - 1, scrollTrackY - 1, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY, 0xFF555555);
             draw.fill(scrollTrackX - 1, scrollTrackY + scrollTrackH, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY + scrollTrackH + 1, 0xFF555555);
             draw.fill(scrollTrackX - 1, scrollTrackY, scrollTrackX, scrollTrackY + scrollTrackH, 0xFF555555);
             draw.fill(scrollTrackX + SCROLLBAR_W, scrollTrackY, scrollTrackX + SCROLLBAR_W + 1, scrollTrackY + scrollTrackH, 0xFF555555);
 
-            // Трек
+            // Track
             draw.fill(scrollTrackX, scrollTrackY, scrollTrackX + SCROLLBAR_W, scrollTrackY + scrollTrackH, 0xFF333333);
 
-            // Ползунок
+            // Thumb
             float scrollFraction = maxScrollOffset > 0 ? (float) scrollOffset / maxScrollOffset : 0;
             int thumbHeight = Math.max(10, scrollTrackH / (totalRows - ROWS + 1));
             int thumbY = scrollTrackY + (int) (scrollFraction * (scrollTrackH - thumbHeight));
@@ -111,7 +111,7 @@ public class ScrollableGridWidget extends Widget {
                 }
             }
 
-            // Drag обработка
+            // Drag handling
             if (dragging) {
                 long window = Minecraft.getInstance().getWindow().getWindow();
                 boolean leftDown = GLFW.glfwGetMouseButton(window, GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
@@ -141,7 +141,7 @@ public class ScrollableGridWidget extends Widget {
             int scrollTrackY = y;
             int scrollTrackH = ROWS * (SLOT_SIZE + PADDING) - PADDING;
 
-            // Проверяем, что клик на скроллбаре
+            // Check that click is on the scrollbar
             if (mouseX >= scrollTrackX && mouseX <= scrollTrackX + SCROLLBAR_W &&
                 mouseY >= scrollTrackY && mouseY <= scrollTrackY + scrollTrackH) {
 
@@ -150,13 +150,13 @@ public class ScrollableGridWidget extends Widget {
                 int thumbY = scrollTrackY + (int) (scrollFraction * (scrollTrackH - thumbHeight));
 
                 if (mouseY < thumbY) {
-                    // Выше ползунка — скролл вверх на страницу
+                    // Above thumb — scroll up one page
                     scrollOffset = Math.max(0, scrollOffset - ROWS);
                 } else if (mouseY > thumbY + thumbHeight) {
-                    // Ниже ползунка — скролл вниз на страницу
+                    // Below thumb — scroll down one page
                     scrollOffset = Math.min(maxScrollOffset, scrollOffset + ROWS);
                 } else {
-                    // На ползунке — начинаем drag
+                    // On thumb — start drag
                     dragging = true;
                     dragStartY = (int) mouseY;
                     dragStartScroll = scrollOffset;

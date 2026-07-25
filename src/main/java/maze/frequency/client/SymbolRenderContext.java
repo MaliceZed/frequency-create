@@ -1,8 +1,8 @@
 package maze.frequency.client;
 
 /**
- * ThreadLocal-флаг для переключения контекста рендеринга символов.
- * Устанавливается TableClothRendererMixin и проверяется DepotRendererMixin.
+ * ThreadLocal flag for switching the symbol rendering context.
+ * Set by TableClothRendererMixin and checked by DepotRendererMixin.
  */
 public final class SymbolRenderContext {
     public static final ThreadLocal<Boolean> TABLE_CLOTH = ThreadLocal.withInitial(() -> false);
