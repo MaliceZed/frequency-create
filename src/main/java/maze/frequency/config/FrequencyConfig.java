@@ -10,5 +10,9 @@ public class FrequencyConfig {
             .comment("Set to false to disable the startup welcome message")
             .define("enableStartupMessage", true);
 
+    public static final ModConfigSpec.ConfigValue<Boolean> ENABLE_VERSION_CHECK = BUILDER
+            .comment("Set to false to disable the automatic version check")
+            .define("enableVersionCheck", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 }

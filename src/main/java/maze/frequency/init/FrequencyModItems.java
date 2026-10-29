@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import maze.frequency.item.AndesiteBaseSymbolItem;
 import maze.frequency.item.BrassBaseSymbolItem;
+import maze.frequency.item.CreativeBaseSymbolItem;
 import maze.frequency.item.LiquidSymbolItem;
 import maze.frequency.item.CopperBaseSymbolItem;
 import maze.frequency.init.FrequencyModMenus;
@@ -27,6 +28,8 @@ public class FrequencyModItems {
     public static final DeferredRegister<Item> ITEMS =
         DeferredRegister.create(Registries.ITEM, FrequencyMod.MODID);
 
+    // Brass symbol names: digits 1-9,0; letters a-z; letters a-z + _small; arrows;
+    // diagonal arrows (darrow); skull; creeperhead; empty; math operators.
     public static final List<String> SYMBOL_NAMES = List.of(
         "brass_symbol_1", "brass_symbol_2", "brass_symbol_3", "brass_symbol_4", "brass_symbol_5",
         "brass_symbol_6", "brass_symbol_7", "brass_symbol_8", "brass_symbol_9", "brass_symbol_0",
@@ -44,17 +47,12 @@ public class FrequencyModItems {
         "brass_symbol_z_small",
         "brass_symbol_up_arrow", "brass_symbol_down_arrow", "brass_symbol_left_arrow", "brass_symbol_right_arrow",
         "brass_symbol_darrow_up", "brass_symbol_darrow_down", "brass_symbol_darrow_left", "brass_symbol_darrow_right",
-        "brass_symbol_skull",
-        "brass_symbol_creeperhead",
-        "brass_symbol_empty",
-        "brass_symbol_math_add",
-        "brass_symbol_math_subtract",
-        "brass_symbol_math_divide",
-        "brass_symbol_math_multiply",
-        "brass_symbol_math_equal",
-        "brass_symbol_math_percent"
+        "brass_symbol_skull", "brass_symbol_cog", "brass_symbol_creeperhead", "brass_symbol_empty",
+        "brass_symbol_math_add", "brass_symbol_math_subtract", "brass_symbol_math_divide",
+        "brass_symbol_math_multiply", "brass_symbol_math_equal", "brass_symbol_math_percent"
     );
 
+    // Andesite symbol names: identical structure to SYMBOL_NAMES.
     public static final List<String> ANDESITE_SYMBOL_NAMES = List.of(
         "andesite_symbol_1", "andesite_symbol_2", "andesite_symbol_3", "andesite_symbol_4", "andesite_symbol_5",
         "andesite_symbol_6", "andesite_symbol_7", "andesite_symbol_8", "andesite_symbol_9", "andesite_symbol_0",
@@ -72,17 +70,12 @@ public class FrequencyModItems {
         "andesite_symbol_z_small",
         "andesite_symbol_up_arrow", "andesite_symbol_down_arrow", "andesite_symbol_left_arrow", "andesite_symbol_right_arrow",
         "andesite_symbol_darrow_up", "andesite_symbol_darrow_down", "andesite_symbol_darrow_left", "andesite_symbol_darrow_right",
-        "andesite_symbol_skull",
-        "andesite_symbol_creeperhead",
-        "andesite_symbol_empty",
-        "andesite_symbol_math_add",
-        "andesite_symbol_math_subtract",
-        "andesite_symbol_math_divide",
-        "andesite_symbol_math_multiply",
-        "andesite_symbol_math_equal",
-        "andesite_symbol_math_percent"
+        "andesite_symbol_skull", "andesite_symbol_cog", "andesite_symbol_creeperhead", "andesite_symbol_empty",
+        "andesite_symbol_math_add", "andesite_symbol_math_subtract", "andesite_symbol_math_divide",
+        "andesite_symbol_math_multiply", "andesite_symbol_math_equal", "andesite_symbol_math_percent"
     );
 
+    // Copper symbol names: identical structure to SYMBOL_NAMES.
     public static final List<String> COPPER_SYMBOL_NAMES = List.of(
         "copper_symbol_1", "copper_symbol_2", "copper_symbol_3", "copper_symbol_4", "copper_symbol_5",
         "copper_symbol_6", "copper_symbol_7", "copper_symbol_8", "copper_symbol_9", "copper_symbol_0",
@@ -100,15 +93,32 @@ public class FrequencyModItems {
         "copper_symbol_z_small",
         "copper_symbol_up_arrow", "copper_symbol_down_arrow", "copper_symbol_left_arrow", "copper_symbol_right_arrow",
         "copper_symbol_darrow_up", "copper_symbol_darrow_down", "copper_symbol_darrow_left", "copper_symbol_darrow_right",
-        "copper_symbol_skull",
-        "copper_symbol_creeperhead",
-        "copper_symbol_empty",
-        "copper_symbol_math_add",
-        "copper_symbol_math_subtract",
-        "copper_symbol_math_divide",
-        "copper_symbol_math_multiply",
-        "copper_symbol_math_equal",
-        "copper_symbol_math_percent"
+        "copper_symbol_skull", "copper_symbol_cog", "copper_symbol_creeperhead", "copper_symbol_empty",
+        "copper_symbol_math_add", "copper_symbol_math_subtract", "copper_symbol_math_divide",
+        "copper_symbol_math_multiply", "copper_symbol_math_equal", "copper_symbol_math_percent"
+    );
+
+    // Creative symbol names: identical structure to SYMBOL_NAMES.
+    public static final List<String> CREATIVE_SYMBOL_NAMES = List.of(
+        "creative_symbol_1", "creative_symbol_2", "creative_symbol_3", "creative_symbol_4", "creative_symbol_5",
+        "creative_symbol_6", "creative_symbol_7", "creative_symbol_8", "creative_symbol_9", "creative_symbol_0",
+        "creative_symbol_a", "creative_symbol_b", "creative_symbol_c", "creative_symbol_d", "creative_symbol_e",
+        "creative_symbol_f", "creative_symbol_g", "creative_symbol_h", "creative_symbol_i", "creative_symbol_j",
+        "creative_symbol_k", "creative_symbol_l", "creative_symbol_m", "creative_symbol_n", "creative_symbol_o",
+        "creative_symbol_p", "creative_symbol_q", "creative_symbol_r", "creative_symbol_s", "creative_symbol_t",
+        "creative_symbol_u", "creative_symbol_v", "creative_symbol_w", "creative_symbol_x", "creative_symbol_y",
+        "creative_symbol_z",
+        "creative_symbol_a_small", "creative_symbol_b_small", "creative_symbol_c_small", "creative_symbol_d_small", "creative_symbol_e_small",
+        "creative_symbol_f_small", "creative_symbol_g_small", "creative_symbol_h_small", "creative_symbol_i_small", "creative_symbol_j_small",
+        "creative_symbol_k_small", "creative_symbol_l_small", "creative_symbol_m_small", "creative_symbol_n_small", "creative_symbol_o_small",
+        "creative_symbol_p_small", "creative_symbol_q_small", "creative_symbol_r_small", "creative_symbol_s_small", "creative_symbol_t_small",
+        "creative_symbol_u_small", "creative_symbol_v_small", "creative_symbol_w_small", "creative_symbol_x_small", "creative_symbol_y_small",
+        "creative_symbol_z_small",
+        "creative_symbol_up_arrow", "creative_symbol_down_arrow", "creative_symbol_left_arrow", "creative_symbol_right_arrow",
+        "creative_symbol_darrow_up", "creative_symbol_darrow_down", "creative_symbol_darrow_left", "creative_symbol_darrow_right",
+        "creative_symbol_skull", "creative_symbol_cog", "creative_symbol_creeperhead", "creative_symbol_empty",
+        "creative_symbol_math_add", "creative_symbol_math_subtract", "creative_symbol_math_divide",
+        "creative_symbol_math_multiply", "creative_symbol_math_equal", "creative_symbol_math_percent"
     );
 
     private static final Map<String, DeferredHolder<Item, ? extends Item>> BRASS_SYMBOLS = new HashMap<>();
@@ -117,9 +127,12 @@ public class FrequencyModItems {
     public static final List<DeferredHolder<Item, ? extends Item>> ALL_ANDESITE_SYMBOLS = new ArrayList<>();
     private static final Map<String, DeferredHolder<Item, ? extends Item>> COPPER_SYMBOLS = new HashMap<>();
     public static final List<DeferredHolder<Item, ? extends Item>> ALL_COPPER_SYMBOLS = new ArrayList<>();
+    private static final Map<String, DeferredHolder<Item, ? extends Item>> CREATIVE_SYMBOLS = new HashMap<>();
+    public static final List<DeferredHolder<Item, ? extends Item>> ALL_CREATIVE_SYMBOLS = new ArrayList<>();
     private static List<ItemStack> allBrassSymbolStacks = null;
     private static List<ItemStack> allAndesiteSymbolStacks = null;
     private static List<ItemStack> allCopperSymbolStacks = null;
+    private static List<ItemStack> allCreativeSymbolStacks = null;
 
     public static final DeferredHolder<Item, LiquidSymbolItem> BRASS_SYMBOL_LIQUID = ITEMS.register("brass_symbol_liquid",
         () -> new LiquidSymbolItem(new Item.Properties().stacksTo(8), FrequencyModMenus.BRASS_SYMBOL_SWAP::get, FrequencyModItems::getAllBrassSymbolStacks));
@@ -129,6 +142,9 @@ public class FrequencyModItems {
 
     public static final DeferredHolder<Item, LiquidSymbolItem> COPPER_SYMBOL_LIQUID = ITEMS.register("copper_symbol_liquid",
         () -> new LiquidSymbolItem(new Item.Properties().stacksTo(8), FrequencyModMenus.COPPER_SYMBOL_SWAP::get, FrequencyModItems::getAllCopperSymbolStacks));
+
+    public static final DeferredHolder<Item, LiquidSymbolItem> CREATIVE_SYMBOL_LIQUID = ITEMS.register("creative_symbol_liquid",
+        () -> new LiquidSymbolItem(new Item.Properties().stacksTo(8), FrequencyModMenus.CREATIVE_SYMBOL_SWAP::get, FrequencyModItems::getAllCreativeSymbolStacks));
 
     static {
         Item.Properties props = new Item.Properties().stacksTo(8);
@@ -150,6 +166,12 @@ public class FrequencyModItems {
             COPPER_SYMBOLS.put(name, entry);
             ALL_COPPER_SYMBOLS.add(entry);
         }
+        for (String name : CREATIVE_SYMBOL_NAMES) {
+            DeferredHolder<Item, ? extends Item> entry = ITEMS.register(name,
+                () -> new CreativeBaseSymbolItem(props, name));
+            CREATIVE_SYMBOLS.put(name, entry);
+            ALL_CREATIVE_SYMBOLS.add(entry);
+        }
         // Register aliases for old symbol_* names -> new brass_symbol_* names
         for (String name : SYMBOL_NAMES) {
             if (name.startsWith("brass_")) {
@@ -161,7 +183,7 @@ public class FrequencyModItems {
             }
         }
 
-        // ── Liquid symbols in ALL lists (before empty for correct GUI position) ──
+        // Liquid symbols in ALL lists (before empty for correct GUI position)
         for (int i = 0; i < ALL_BRASS_SYMBOLS.size(); i++) {
             if (ALL_BRASS_SYMBOLS.get(i).getKey().location().getPath().equals("brass_symbol_empty")) {
                 ALL_BRASS_SYMBOLS.add(i, BRASS_SYMBOL_LIQUID);
@@ -180,6 +202,12 @@ public class FrequencyModItems {
                 break;
             }
         }
+        for (int i = 0; i < ALL_CREATIVE_SYMBOLS.size(); i++) {
+            if (ALL_CREATIVE_SYMBOLS.get(i).getKey().location().getPath().equals("creative_symbol_empty")) {
+                ALL_CREATIVE_SYMBOLS.add(i, CREATIVE_SYMBOL_LIQUID);
+                break;
+            }
+        }
     }
 
     public static List<ItemStack> getAllBrassSymbolStacks() {
@@ -191,9 +219,7 @@ public class FrequencyModItems {
         return allBrassSymbolStacks;
     }
 
-    public static DeferredHolder<Item, ? extends Item> getSymbol(String name) {
-        return BRASS_SYMBOLS.get(name);
-    }
+    public static DeferredHolder<Item, ? extends Item> getSymbol(String name) { return BRASS_SYMBOLS.get(name); }
 
     public static List<ItemStack> getAllAndesiteSymbolStacks() {
         if (allAndesiteSymbolStacks == null) {
@@ -204,9 +230,7 @@ public class FrequencyModItems {
         return allAndesiteSymbolStacks;
     }
 
-    public static DeferredHolder<Item, ? extends Item> getAndesiteSymbol(String name) {
-        return ANDESITE_SYMBOLS.get(name);
-    }
+    public static DeferredHolder<Item, ? extends Item> getAndesiteSymbol(String name) { return ANDESITE_SYMBOLS.get(name); }
 
     public static List<ItemStack> getAllCopperSymbolStacks() {
         if (allCopperSymbolStacks == null) {
@@ -217,9 +241,18 @@ public class FrequencyModItems {
         return allCopperSymbolStacks;
     }
 
-    public static DeferredHolder<Item, ? extends Item> getCopperSymbol(String name) {
-        return COPPER_SYMBOLS.get(name);
+    public static DeferredHolder<Item, ? extends Item> getCopperSymbol(String name) { return COPPER_SYMBOLS.get(name); }
+
+    public static List<ItemStack> getAllCreativeSymbolStacks() {
+        if (allCreativeSymbolStacks == null) {
+            allCreativeSymbolStacks = ALL_CREATIVE_SYMBOLS.stream()
+                .map(holder -> new ItemStack(holder.get()))
+                .toList();
+        }
+        return allCreativeSymbolStacks;
     }
+
+    public static DeferredHolder<Item, ? extends Item> getCreativeSymbol(String name) { return CREATIVE_SYMBOLS.get(name); }
 
     private static final Pattern SMALL_SYMBOL_PATTERN = Pattern.compile("[a-z]_small");
 
@@ -227,6 +260,8 @@ public class FrequencyModItems {
         String suffix;
         if (name.startsWith("copper_symbol_")) {
             suffix = name.substring("copper_symbol_".length());
+        } else if (name.startsWith("creative_symbol_")) {
+            suffix = name.substring("creative_symbol_".length());
         } else if (name.startsWith("andesite_symbol_")) {
             suffix = name.substring("andesite_symbol_".length());
         } else if (name.startsWith("brass_symbol_")) {
@@ -252,6 +287,7 @@ public class FrequencyModItems {
             case "darrow_right" -> "\uE004";
             case "skull" -> "☠";
             case "creeperhead" -> "\uE000";
+            case "cog" -> "\uE005";
             case "math_add" -> "+";
             case "math_subtract" -> "-";
             case "math_divide" -> "/";

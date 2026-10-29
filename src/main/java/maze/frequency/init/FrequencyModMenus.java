@@ -12,6 +12,7 @@ import maze.frequency.world.inventory.SymbolSwapMenu;
 import maze.frequency.client.gui.BrassSymbolSwapScreen;
 import maze.frequency.client.gui.AndesiteSymbolSwapScreen;
 import maze.frequency.client.gui.CopperSymbolSwapScreen;
+import maze.frequency.client.gui.CreativeSymbolSwapScreen;
 import maze.frequency.world.inventory.LogicCombinatorMenu;
 import maze.frequency.client.gui.LogicCombinatorScreen;
 
@@ -39,6 +40,14 @@ public class FrequencyModMenus {
 				new SymbolSwapMenu(type, id, inv, buf),
 			() -> (SymbolSwapMenu menu, Inventory inv, Component title) ->
 				new CopperSymbolSwapScreen(menu, inv, title))
+		.register();
+
+	public static final MenuEntry<SymbolSwapMenu> CREATIVE_SYMBOL_SWAP = FrequencyMod.REGISTRATE
+		.menu("creative_symbol_swap",
+			(MenuType<SymbolSwapMenu> type, int id, Inventory inv, RegistryFriendlyByteBuf buf) ->
+				new SymbolSwapMenu(type, id, inv, buf),
+			() -> (SymbolSwapMenu menu, Inventory inv, Component title) ->
+				new CreativeSymbolSwapScreen(menu, inv, title))
 		.register();
 
 	public static final MenuEntry<LogicCombinatorMenu> LOGIC_COMBINATOR = FrequencyMod.REGISTRATE

@@ -13,7 +13,7 @@ repositories {
     maven { url = "https://maven.terraformersmc.com/releases" } // EMI
 }
 
-version = '0.2.0'
+version = '0.2.1'
 base.archivesName = "${project.mod_id}-${project.minecraft_version}-neoforge"
 
 ext {
@@ -67,11 +67,11 @@ dependencies {
 	// JEI  — https://www.curseforge.com/minecraft/mc-mods/jei
 	compileOnly "mezz.jei:jei-1.21.1-common-api:19.27.0.340"
 	compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.27.0.340"
-	runtimeOnly "mezz.jei:jei-1.21.1-neoforge:19.27.0.340"
+	//runtimeOnly "mezz.jei:jei-1.21.1-neoforge:19.27.0.340"
 	//
 	// EMI  — https://www.curseforge.com/minecraft/mc-mods/emi
 	compileOnly "dev.emi:emi-neoforge:1.1.14+1.21.1:api"
-	// runtimeOnly "dev.emi:emi-neoforge:1.1.14+1.21.1"
+	runtimeOnly "dev.emi:emi-neoforge:1.1.14+1.21.1"
 	//
 	// REI  — https://www.curseforge.com/minecraft/mc-mods/roughly-enough-items
 	compileOnly "me.shedaniel:RoughlyEnoughItems-api-neoforge:${rei_version}"

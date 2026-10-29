@@ -13,6 +13,7 @@
     "DepotRendererMixin",
     "BeltRendererMixin",
     "TableClothRendererMixin",
-    "FluidSymbolItemRendererMixin"
+    "FluidSymbolItemRendererMixin",
+    "ChatComponentMixin"
   ]
 }

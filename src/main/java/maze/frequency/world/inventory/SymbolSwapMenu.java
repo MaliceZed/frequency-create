@@ -37,7 +37,9 @@ public class SymbolSwapMenu extends AbstractContainerMenu {
 				? FrequencyModItems::getAllBrassSymbolStacks
 				: menuType == FrequencyModMenus.ANDESITE_SYMBOL_SWAP.get()
 					? FrequencyModItems::getAllAndesiteSymbolStacks
-					: FrequencyModItems::getAllCopperSymbolStacks);
+					: menuType == FrequencyModMenus.CREATIVE_SYMBOL_SWAP.get()
+						? FrequencyModItems::getAllCreativeSymbolStacks
+						: FrequencyModItems::getAllCopperSymbolStacks);
 	}
 
 	public List<ItemStack> getAvailableSymbols() {

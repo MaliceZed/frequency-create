@@ -17,7 +17,7 @@ This mod adds **3 sets of 78 symbols** each:
 - **10 Digit Symbols**
 - **52 Letter Symbols**
 - **8 Arrow Symbols**
-- **2 Custom Symbols**
+- **3 Custom Symbols**
 - **Symbol for Fluid**
 - **Empty Symbol**
 

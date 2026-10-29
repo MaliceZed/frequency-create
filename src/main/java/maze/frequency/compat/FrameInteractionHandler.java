@@ -105,6 +105,9 @@ public class FrameInteractionHandler {
         } else if (originalName.startsWith("copper_")) {
             name = originalName.substring(7); // "copper_symbol_a" -> "symbol_a"
             if (FrequencyModItems.getCopperSymbol(originalName) == null) return null;
+        } else if (originalName.startsWith("creative_")) {
+            name = originalName.substring(9); // "creative_symbol_a" -> "symbol_a"
+            if (FrequencyModItems.getCreativeSymbol(originalName) == null) return null;
         } else {
             return null;
         }

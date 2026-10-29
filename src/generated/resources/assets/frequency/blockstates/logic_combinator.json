@@ -1,244 +1,320 @@
 {
-  "variants": {
-    "facing=east,input1=false,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_000",
-      "y": 90
+  "multipart": [
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/chassi"
+      },
+      "when": {
+        "facing": "north"
+      }
     },
-    "facing=east,input1=false,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_off"
+      },
+      "when": {
+        "facing": "north",
+        "input1": "false"
+      }
     },
-    "facing=east,input1=false,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_010",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_on"
+      },
+      "when": {
+        "facing": "north",
+        "input1": "true"
+      }
     },
-    "facing=east,input1=false,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_off"
+      },
+      "when": {
+        "facing": "north",
+        "output": "false"
+      }
     },
-    "facing=east,input1=false,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_001",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_on"
+      },
+      "when": {
+        "facing": "north",
+        "output": "true"
+      }
     },
-    "facing=east,input1=false,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_disabled"
+      },
+      "when": {
+        "facing": "north",
+        "single": "true"
+      }
     },
-    "facing=east,input1=false,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_011",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_off"
+      },
+      "when": {
+        "facing": "north",
+        "input2": "false",
+        "single": "false"
+      }
     },
-    "facing=east,input1=false,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_on"
+      },
+      "when": {
+        "facing": "north",
+        "input2": "true",
+        "single": "false"
+      }
     },
-    "facing=east,input1=true,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_100",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/chassi",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
     },
-    "facing=east,input1=true,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_off",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "input1": "false"
+      }
     },
-    "facing=east,input1=true,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_110",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "input1": "true"
+      }
     },
-    "facing=east,input1=true,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_off",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "output": "false"
+      }
     },
-    "facing=east,input1=true,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_101",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "output": "true"
+      }
     },
-    "facing=east,input1=true,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_disabled",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "single": "true"
+      }
     },
-    "facing=east,input1=true,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_111",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_off",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "input2": "false",
+        "single": "false"
+      }
     },
-    "facing=east,input1=true,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 90
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_on",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "input2": "true",
+        "single": "false"
+      }
     },
-    "facing=north,input1=false,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_000"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/chassi",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
     },
-    "facing=north,input1=false,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_off",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "input1": "false"
+      }
     },
-    "facing=north,input1=false,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_010"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "input1": "true"
+      }
     },
-    "facing=north,input1=false,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_off",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "output": "false"
+      }
     },
-    "facing=north,input1=false,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_001"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "output": "true"
+      }
     },
-    "facing=north,input1=false,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_disabled",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "single": "true"
+      }
     },
-    "facing=north,input1=false,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_011"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_off",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "input2": "false",
+        "single": "false"
+      }
     },
-    "facing=north,input1=false,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_on",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "input2": "true",
+        "single": "false"
+      }
     },
-    "facing=north,input1=true,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_100"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/chassi",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
     },
-    "facing=north,input1=true,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_off",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "input1": "false"
+      }
     },
-    "facing=north,input1=true,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_110"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input1_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "input1": "true"
+      }
     },
-    "facing=north,input1=true,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_off",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "output": "false"
+      }
     },
-    "facing=north,input1=true,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_101"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/output_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "output": "true"
+      }
     },
-    "facing=north,input1=true,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_disabled",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "single": "true"
+      }
     },
-    "facing=north,input1=true,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_111"
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_off",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "input2": "false",
+        "single": "false"
+      }
     },
-    "facing=north,input1=true,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11"
-    },
-    "facing=south,input1=false,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_000",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_010",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_001",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_011",
-      "y": 180
-    },
-    "facing=south,input1=false,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_100",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_110",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_101",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_111",
-      "y": 180
-    },
-    "facing=south,input1=true,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 180
-    },
-    "facing=west,input1=false,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_000",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_010",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_001",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_00",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_011",
-      "y": 270
-    },
-    "facing=west,input1=false,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_01",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=false,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_100",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=false,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=false,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_110",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=false,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=true,output=false,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_101",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=true,output=false,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_10",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=true,output=true,single=false": {
-      "model": "frequency:block/logic_combinator/logic_combinator_111",
-      "y": 270
-    },
-    "facing=west,input1=true,input2=true,output=true,single=true": {
-      "model": "frequency:block/logic_combinator/logic_combinator_s_11",
-      "y": 270
+    {
+      "apply": {
+        "model": "frequency:block/logic_combinator/input2_on",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "input2": "true",
+        "single": "false"
+      }
     }
-  }
+  ]
 }

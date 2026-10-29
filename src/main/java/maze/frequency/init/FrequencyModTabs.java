@@ -22,6 +22,7 @@ public class FrequencyModTabs {
 				output.accept(FrequencyModItems.getSymbol("brass_symbol_empty").get().getDefaultInstance());
 				output.accept(FrequencyModItems.getAndesiteSymbol("andesite_symbol_empty").get().getDefaultInstance());
 				output.accept(FrequencyModItems.getCopperSymbol("copper_symbol_empty").get().getDefaultInstance());
+				output.accept(FrequencyModItems.getCreativeSymbol("creative_symbol_empty").get().getDefaultInstance());
 				output.accept(FrequencyModBlocks.SYMBOL_FRAME_ITEM.get().getDefaultInstance());
 				output.accept(FrequencyModBlocks.LOGIC_COMBINATOR_ITEM.get().getDefaultInstance());
 			})

@@ -24,9 +24,10 @@ public class FrequencyItemModels implements DataProvider {
 		List<String> symbols = new ArrayList<>(FrequencyModItems.SYMBOL_NAMES);
 		List<String> andesiteSymbols = FrequencyModItems.ANDESITE_SYMBOL_NAMES;
 		List<String> copperSymbols = FrequencyModItems.COPPER_SYMBOL_NAMES;
+		List<String> creativeSymbols = FrequencyModItems.CREATIVE_SYMBOL_NAMES;
 
-		@SuppressWarnings("unchecked")
-		CompletableFuture<?>[] futures = new CompletableFuture[symbols.size() + andesiteSymbols.size() + copperSymbols.size() + 2];
+		List<CompletableFuture<?>> futures = new ArrayList<>();
+
 		for (int i = 0; i < symbols.size(); i++) {
 			String symbol = symbols.get(i);
 			JsonObject model = new JsonObject();
@@ -37,7 +38,7 @@ public class FrequencyItemModels implements DataProvider {
 
 			ResourceLocation outputPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/" + symbol);
 			var path = output.getOutputFolder().resolve("assets/" + outputPath.getNamespace() + "/" + outputPath.getPath() + ".json");
-			futures[i] = DataProvider.saveStable(cache, model, path);
+			futures.add(DataProvider.saveStable(cache, model, path));
 		}
 
 		for (int i = 0; i < andesiteSymbols.size(); i++) {
@@ -50,7 +51,7 @@ public class FrequencyItemModels implements DataProvider {
 
 			ResourceLocation outputPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/" + symbol);
 			var path = output.getOutputFolder().resolve("assets/" + outputPath.getNamespace() + "/" + outputPath.getPath() + ".json");
-			futures[symbols.size() + i] = DataProvider.saveStable(cache, model, path);
+			futures.add(DataProvider.saveStable(cache, model, path));
 		}
 
 		for (int i = 0; i < copperSymbols.size(); i++) {
@@ -63,7 +64,20 @@ public class FrequencyItemModels implements DataProvider {
 
 			ResourceLocation outputPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/" + symbol);
 			var path = output.getOutputFolder().resolve("assets/" + outputPath.getNamespace() + "/" + outputPath.getPath() + ".json");
-			futures[symbols.size() + andesiteSymbols.size() + i] = DataProvider.saveStable(cache, model, path);
+			futures.add(DataProvider.saveStable(cache, model, path));
+		}
+
+		for (int i = 0; i < creativeSymbols.size(); i++) {
+			String symbol = creativeSymbols.get(i);
+			JsonObject model = new JsonObject();
+			model.addProperty("parent", FrequencyMod.MODID + ":item/base/creative_symbol_base");
+			JsonObject textures = new JsonObject();
+			textures.addProperty("symbol", FrequencyMod.MODID + ":item/creative_symbols/" + symbol.substring("creative_".length()));
+			model.add("textures", textures);
+
+			ResourceLocation outputPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/" + symbol);
+			var path = output.getOutputFolder().resolve("assets/" + outputPath.getNamespace() + "/" + outputPath.getPath() + ".json");
+			futures.add(DataProvider.saveStable(cache, model, path));
 		}
 
 		JsonObject frameModel = new JsonObject();
@@ -73,16 +87,16 @@ public class FrequencyItemModels implements DataProvider {
 		frameModel.add("textures", frameTextures);
 		ResourceLocation framePath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/symbol_frame");
 		var frameFile = output.getOutputFolder().resolve("assets/" + framePath.getNamespace() + "/" + framePath.getPath() + ".json");
-		futures[symbols.size() + andesiteSymbols.size() + copperSymbols.size()] = DataProvider.saveStable(cache, frameModel, frameFile);
+		futures.add(DataProvider.saveStable(cache, frameModel, frameFile));
 
-		// Logic Combinator — parent = block model _000
+		// Logic Combinator — модель блока для инвентаря
 		JsonObject logicCombinatorModel = new JsonObject();
-		logicCombinatorModel.addProperty("parent", FrequencyMod.MODID + ":block/logic_combinator/logic_combinator_000");
+		logicCombinatorModel.addProperty("parent", FrequencyMod.MODID + ":block/logic_combinator/logic_combinator");
 		ResourceLocation logicCombinatorPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "models/item/logic_combinator");
 		var logicCombinatorFile = output.getOutputFolder().resolve("assets/" + logicCombinatorPath.getNamespace() + "/" + logicCombinatorPath.getPath() + ".json");
-		futures[symbols.size() + andesiteSymbols.size() + copperSymbols.size() + 1] = DataProvider.saveStable(cache, logicCombinatorModel, logicCombinatorFile);
+		futures.add(DataProvider.saveStable(cache, logicCombinatorModel, logicCombinatorFile));
 
-		return CompletableFuture.allOf(futures);
+		return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
 	}
 
 	@Override

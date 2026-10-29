@@ -11,6 +11,7 @@ public class FrequencyTags {
         public static final TagKey<Item> ANDESITE_SYMBOLS = tag("andesite_symbols");
         public static final TagKey<Item> BRASS_SYMBOLS = tag("brass_symbols");
         public static final TagKey<Item> COPPER_SYMBOLS = tag("copper_symbols");
+        public static final TagKey<Item> CREATIVE_SYMBOLS = tag("creative_symbols");
 
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, name));

@@ -1,0 +1,6 @@
+{
+  "parent": "frequency:item/base/creative_symbol_base",
+  "textures": {
+    "symbol": "frequency:item/creative_symbols/symbol_k"
+  }
+}

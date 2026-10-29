@@ -59,6 +59,17 @@
   "message.frequency.startup.open_github": "§a[Open GitHub]§r",
   "message.frequency.startup.disable_message": "§7[Disable this message]§r",
   "message.frequency.startup.disable_hover": "§cClick to disable this message permanently",
+  "message.frequency.startup.disabled": "§6[Frequency] §fStartup message disabled.",
+
+  // ===== Version Check =====
+  "message.frequency.version_check.title": "§6[Frequency] §eA new version is available!",
+  "message.frequency.version_check.curseforge": "§a[CurseForge]",
+  "message.frequency.version_check.curseforge_hover": "§aOpen CurseForge",
+  "message.frequency.version_check.modrinth": "§b[Modrinth]",
+  "message.frequency.version_check.modrinth_hover": "§bOpen Modrinth",
+  "message.frequency.version_check.disable_message": "§7[Disable update checks]§r",
+  "message.frequency.version_check.disable_hover": "§cClick to disable update checks permanently",
+  "message.frequency.version_check.disabled": "§6[Frequency] §fUpdate checks disabled.",
 
   // ===== Tooltip: Frequency Pairs =====
   "frequency.tooltip.pair1_first": "First Input - Frequency #1",

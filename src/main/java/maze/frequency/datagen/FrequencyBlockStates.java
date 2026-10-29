@@ -1,5 +1,6 @@
 package maze.frequency.datagen;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.Direction;
@@ -67,88 +68,84 @@ public class FrequencyBlockStates implements DataProvider {
         CompletableFuture<?> sfFuture = DataProvider.saveStable(cache, symbolFrameBlockstate, sfOut);
 
         // === LOGIC COMBINATOR ===
-        JsonObject lcVariants = new JsonObject();
+        JsonArray lcMultipart = new JsonArray();
         List<Direction> hFacings = List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
         boolean[] bools = {false, true};
 
         for (Direction facing : hFacings) {
+            // Корпус и шесть блоков частот присутствуют при любом состоянии входов и выхода.
+            addLogicCombinatorPart(lcMultipart, facing, "chassi");
+
+            // Антенна входа 1 выбирается по состоянию input1.
             for (boolean input1 : bools) {
-                for (boolean input2 : bools) {
-                    for (boolean output : bools) {
-                        String key = "facing=" + facing.getName()
-                            + ",input1=" + input1
-                            + ",input2=" + input2
-                            + ",output=" + output
-                            + ",single=false";
-
-                        String suffix = (input1 ? "1" : "0") + (output ? "1" : "0") + (input2 ? "1" : "0");
-                        ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
-                            FrequencyMod.MODID, "block/logic_combinator/logic_combinator_" + suffix);
-
-                        JsonObject variant = new JsonObject();
-                        variant.addProperty("model", model.toString());
-                        int yRot = rotationToY(facing);
-                        if (yRot != 0) variant.addProperty("y", yRot);
-
-                        lcVariants.add(key, variant);
-                    }
-                }
+                addLogicCombinatorPart(
+                    lcMultipart,
+                    facing,
+                    input1 ? "input1_on" : "input1_off",
+                    "input1",
+                    Boolean.toString(input1)
+                );
             }
-        }
 
-        for (Direction facing : hFacings) {
-            for (boolean input1 : bools) {
-                for (boolean output : bools) {
-                    String key = "facing=" + facing.getName()
-                        + ",input1=" + input1
-                        + ",input2=false"
-                        + ",output=" + output
-                        + ",single=true";
-
-                    String suffix = (input1 ? "1" : "0") + (output ? "1" : "0");
-                    ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
-                        FrequencyMod.MODID, "block/logic_combinator/logic_combinator_s_" + suffix);
-
-                    JsonObject variant = new JsonObject();
-                    variant.addProperty("model", model.toString());
-                    int yRot = rotationToY(facing);
-                    if (yRot != 0) variant.addProperty("y", yRot);
-
-                    lcVariants.add(key, variant);
-                }
+            // Антенна выхода выбирается по состоянию output.
+            for (boolean output : bools) {
+                addLogicCombinatorPart(
+                    lcMultipart,
+                    facing,
+                    output ? "output_on" : "output_off",
+                    "output",
+                    Boolean.toString(output)
+                );
             }
-        }
 
-        for (Direction facing : hFacings) {
-            for (boolean input1 : bools) {
-                for (boolean output : bools) {
-                    String key = "facing=" + facing.getName()
-                        + ",input1=" + input1
-                        + ",input2=true"
-                        + ",output=" + output
-                        + ",single=true";
+            // В одиночном режиме вход 2 всегда отображается погашенным.
+            addLogicCombinatorPart(lcMultipart, facing, "input2_disabled", "single", "true");
 
-                    String suffix = (input1 ? "1" : "0") + (output ? "1" : "0");
-                    ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
-                        FrequencyMod.MODID, "block/logic_combinator/logic_combinator_s_" + suffix);
-
-                    JsonObject variant = new JsonObject();
-                    variant.addProperty("model", model.toString());
-                    int yRot = rotationToY(facing);
-                    if (yRot != 0) variant.addProperty("y", yRot);
-
-                    lcVariants.add(key, variant);
-                }
+            // В обычном режиме вход 2 выбирается по состоянию input2.
+            for (boolean input2 : bools) {
+                addLogicCombinatorPart(
+                    lcMultipart,
+                    facing,
+                    input2 ? "input2_on" : "input2_off",
+                    "single", "false",
+                    "input2", Boolean.toString(input2)
+                );
             }
         }
 
         JsonObject lcBlockstate = new JsonObject();
-        lcBlockstate.add("variants", lcVariants);
+        lcBlockstate.add("multipart", lcMultipart);
         ResourceLocation lcPath = ResourceLocation.fromNamespaceAndPath(FrequencyMod.MODID, "blockstates/logic_combinator");
         var lcOut = output.getOutputFolder().resolve("assets/" + lcPath.getNamespace() + "/" + lcPath.getPath() + ".json");
         CompletableFuture<?> lcFuture = DataProvider.saveStable(cache, lcBlockstate, lcOut);
 
         return CompletableFuture.allOf(sfFuture, lcFuture);
+    }
+
+    private static void addLogicCombinatorPart(
+        JsonArray multipart,
+        Direction facing,
+        String modelName,
+        String... whenProperties
+    ) {
+        JsonObject part = new JsonObject();
+        JsonObject when = new JsonObject();
+        when.addProperty("facing", facing.getName());
+        for (int i = 0; i < whenProperties.length; i += 2) {
+            when.addProperty(whenProperties[i], whenProperties[i + 1]);
+        }
+        part.add("when", when);
+
+        JsonObject apply = new JsonObject();
+        ResourceLocation model = ResourceLocation.fromNamespaceAndPath(
+            FrequencyMod.MODID, "block/logic_combinator/" + modelName);
+        apply.addProperty("model", model.toString());
+
+        int yRot = rotationToY(facing);
+        if (yRot != 0) apply.addProperty("y", yRot);
+
+        part.add("apply", apply);
+        multipart.add(part);
     }
 
     private static int rotationToY(Direction dir) {

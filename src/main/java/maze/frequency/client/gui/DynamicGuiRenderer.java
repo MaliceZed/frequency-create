@@ -21,6 +21,7 @@ public class DynamicGuiRenderer {
 	public static final ResourceLocation BRASS_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/brass_symbol_swap.png");
 	public static final ResourceLocation ANDESITE_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/andesite_symbol_swap.png");
 	public static final ResourceLocation COPPER_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/copper_symbol_swap.png");
+	public static final ResourceLocation CREATIVE_ATLAS = ResourceLocation.fromNamespaceAndPath("frequency", "textures/gui/creative_symbol_swap.png");
 
 	/** @deprecated Use {@link #BRASS_ATLAS} instead */
 	@Deprecated

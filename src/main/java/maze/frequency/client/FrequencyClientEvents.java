@@ -52,7 +52,8 @@ public class FrequencyClientEvents {
                 continue;
             if (id.getPath().equals("brass_symbol_liquid") ||
                 id.getPath().equals("andesite_symbol_liquid") ||
-                id.getPath().equals("copper_symbol_liquid")) {
+                id.getPath().equals("copper_symbol_liquid") ||
+                id.getPath().equals("creative_symbol_liquid")) {
                 toWrapFluid.add(entry);
             }
         }
@@ -83,6 +84,6 @@ public class FrequencyClientEvents {
                 return 0xFFFFFF;
             }
             return 0xFFFFFF;
-        }, FrequencyModItems.BRASS_SYMBOL_LIQUID.get(), FrequencyModItems.ANDESITE_SYMBOL_LIQUID.get(), FrequencyModItems.COPPER_SYMBOL_LIQUID.get());
+        }, FrequencyModItems.BRASS_SYMBOL_LIQUID.get(), FrequencyModItems.ANDESITE_SYMBOL_LIQUID.get(), FrequencyModItems.COPPER_SYMBOL_LIQUID.get(), FrequencyModItems.CREATIVE_SYMBOL_LIQUID.get());
     }
 }

@@ -29,7 +29,7 @@ public abstract class BeltRendererMixin {
         ),
         index = 0
     )
-    private static ItemStack frequency$checkStack(ItemStack stack) {
+    private ItemStack frequency$checkStack(ItemStack stack) {
         frequency$isSymbolItem.set(stack.getItem() instanceof ISymbolItem);
         return stack;
     }
@@ -42,7 +42,7 @@ public abstract class BeltRendererMixin {
         ),
         index = 1
     )
-    private static ItemDisplayContext frequency$modifyContext(ItemDisplayContext context) {
+    private ItemDisplayContext frequency$modifyContext(ItemDisplayContext context) {
         return frequency$isSymbolItem.get() ? FrequencyDisplayContexts.SURFACE : context;
     }
 }

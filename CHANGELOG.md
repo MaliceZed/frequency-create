@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-10-29
+
+### Added
+
+- Creative set of symbols
+- Cog symbol
+
+### Changed
+
+- Model of Logic Combinator
+
+### Fixed
+
+- Scroll behavior with EMI
+
 ## [0.2.0] - 2026-07-25
 
 ### Added

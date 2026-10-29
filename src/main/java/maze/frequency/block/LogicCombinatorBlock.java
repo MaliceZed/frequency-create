@@ -17,9 +17,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import org.jetbrains.annotations.Nullable;
 
-public class LogicCombinatorBlock extends Block implements EntityBlock {
+public class LogicCombinatorBlock extends Block implements EntityBlock, IWrenchable {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty INPUT1 = BooleanProperty.create("input1");
     public static final BooleanProperty INPUT2 = BooleanProperty.create("input2");
@@ -71,6 +72,16 @@ public class LogicCombinatorBlock extends Block implements EntityBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, INPUT1, INPUT2, OUTPUT, SINGLE);
+    }
+
+    @Override
+    public BlockState getRotatedBlockState(BlockState state, Direction targetDirection) {
+        Direction facing = state.getValue(FACING);
+        // Horizontal click → face that direction (opposite, since wrench click is on the face)
+        if (targetDirection.getAxis().isHorizontal())
+            return state.setValue(FACING, targetDirection.getOpposite());
+        // Vertical click → cycle clockwise
+        return state.setValue(FACING, facing.getClockWise());
     }
 
     @Nullable

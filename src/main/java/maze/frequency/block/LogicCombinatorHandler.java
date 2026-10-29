@@ -1,5 +1,6 @@
 package maze.frequency.block;
 
+import com.simibubi.create.content.equipment.wrench.WrenchItem;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 
@@ -33,6 +34,10 @@ public class LogicCombinatorHandler {
 		InteractionHand hand = event.getHand();
 
 		if (player.isSpectator())
+			return;
+
+		// If holding a wrench, let IWrenchable handle rotation/dismantle
+		if (player.getItemInHand(hand).getItem() instanceof WrenchItem)
 			return;
 
 		LogicCombinatorBehaviour behaviour = BlockEntityBehaviour.get(world, pos, LogicCombinatorBehaviour.TYPE);

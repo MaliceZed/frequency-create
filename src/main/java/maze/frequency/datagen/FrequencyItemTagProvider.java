@@ -34,11 +34,16 @@ public class FrequencyItemTagProvider extends ItemTagsProvider {
         var copperTag = tag(FrequencyTags.Items.COPPER_SYMBOLS);
         FrequencyModItems.ALL_COPPER_SYMBOLS.forEach(holder -> copperTag.add(holder.getKey()));
 
+        // Creative symbols (local tier)
+        var creativeTag = tag(FrequencyTags.Items.CREATIVE_SYMBOLS);
+        FrequencyModItems.ALL_CREATIVE_SYMBOLS.forEach(holder -> creativeTag.add(holder.getKey()));
+
         // Combined tag for all symbols
         tag(FrequencyTags.Items.SYMBOLS)
             .addTag(FrequencyTags.Items.BRASS_SYMBOLS)
             .addTag(FrequencyTags.Items.ANDESITE_SYMBOLS)
-            .addTag(FrequencyTags.Items.COPPER_SYMBOLS);
+            .addTag(FrequencyTags.Items.COPPER_SYMBOLS)
+            .addTag(FrequencyTags.Items.CREATIVE_SYMBOLS);
     }
 
     @Override

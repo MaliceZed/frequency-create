@@ -13,6 +13,13 @@
       "ascent": 7,
       "height": 8,
       "chars": ["\uE001\uE002\uE003\uE004"]
+    },
+    {
+      "type": "bitmap",
+      "file": "frequency:font/cog.png",
+      "ascent": 8,
+      "height": 8,
+      "chars": ["\uE005"]
     }
   ]
 }

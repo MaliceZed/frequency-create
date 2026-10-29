@@ -72,6 +72,15 @@ public class CreateTooltipCompat {
                 useKeyMethod.invoke(null, item, sharedKey);
             }
 
+            // Creative symbols
+            for (var holder : FrequencyModItems.ALL_CREATIVE_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) continue;
+                Object modifier = ctor.newInstance(item, standardCreate);
+                regMethod.invoke(registry, item, modifier);
+                useKeyMethod.invoke(null, item, sharedKey);
+            }
+
             // Liquid symbols — own tooltip key with summary + swap + fluid reading
             String liquidKey = "item.frequency.liquid_symbol";
             for (var holder : FrequencyModItems.ALL_BRASS_SYMBOLS) {
@@ -91,6 +100,14 @@ public class CreateTooltipCompat {
                 }
             }
             for (var holder : FrequencyModItems.ALL_COPPER_SYMBOLS) {
+                Item item = holder.get();
+                if (item instanceof maze.frequency.item.LiquidSymbolItem) {
+                    Object modifier = ctor.newInstance(item, standardCreate);
+                    regMethod.invoke(registry, item, modifier);
+                    useKeyMethod.invoke(null, item, liquidKey);
+                }
+            }
+            for (var holder : FrequencyModItems.ALL_CREATIVE_SYMBOLS) {
                 Item item = holder.get();
                 if (item instanceof maze.frequency.item.LiquidSymbolItem) {
                     Object modifier = ctor.newInstance(item, standardCreate);

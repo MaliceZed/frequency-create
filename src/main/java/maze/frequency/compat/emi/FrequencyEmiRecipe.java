@@ -38,7 +38,6 @@ public class FrequencyEmiRecipe implements EmiRecipe {
 
     private static final int COLS = 6;
     private static final int ROWS = 3;
-    private static final int VISIBLE_SLOTS = COLS * ROWS; // 18
     private static final int SLOT_SIZE = 18;
     private static final int PADDING = 2;
 
@@ -73,22 +72,6 @@ public class FrequencyEmiRecipe implements EmiRecipe {
             ResourceLocation.withDefaultNamespace("container/slot");
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Static fields for drag and external scroll
-    // ═══════════════════════════════════════════════════════════════════════
-
-    /** Reference to the "active" recipe instance (last created). */
-    public static FrequencyEmiRecipe ACTIVE_RECIPE = null;
-
-    /** Whether the scrollbar thumb is being dragged. */
-    public static boolean DRAGGING = false;
-
-    /** Mouse Y (relative to recipe) at the start of drag. */
-    public static int DRAG_START_Y = 0;
-
-    /** scrollOffset at the start of drag. */
-    public static int DRAG_START_SCROLL = 0;
-
-    // ═══════════════════════════════════════════════════════════════════════
     //  Instance fields
     // ═══════════════════════════════════════════════════════════════════════
 
@@ -108,7 +91,6 @@ public class FrequencyEmiRecipe implements EmiRecipe {
         this.totalRows = (allSymbols.size() + COLS - 1) / COLS;
         this.maxScrollOffset = Math.max(0, totalRows - ROWS);
         this.scrollOffset = 0;
-        ACTIVE_RECIPE = this;
     }
 
     // ═══════════════════════════════════════════════════════════════════════
@@ -155,7 +137,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
     }
 
     // ═══════════════════════════════════════════════════════════════════════
-    //  Scroll (called from FrequencyEmiScrollHandler)
+    //  Scroll (wheel input is routed here by FrequencyEmiScrollHandler)
     // ═══════════════════════════════════════════════════════════════════════
 
     /**
@@ -187,6 +169,11 @@ public class FrequencyEmiRecipe implements EmiRecipe {
 
     private class ScrollableGridWidget extends Widget {
 
+        // Drag state (per widget instance, not global)
+        private boolean dragging = false;
+        private int dragStartY = 0;
+        private int dragStartScroll = 0;
+
         ScrollableGridWidget() {
         }
 
@@ -195,8 +182,18 @@ public class FrequencyEmiRecipe implements EmiRecipe {
             return new Bounds(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
         }
 
+        /**
+         * Marks this instance as the currently rendered grid so the scroll
+         * handler routes wheel input here and only here.
+         */
+        private void reportRendering() {
+            FrequencyEmiScrollHandler.updateVisibleGrid(FrequencyEmiRecipe.this);
+        }
+
         @Override
         public void render(GuiGraphics draw, int mouseX, int mouseY, float delta) {
+            reportRendering();
+
             // ── Draw background and slots ──────────────────────────────────
             for (int row = 0; row < ROWS; row++) {
                 int symbolRow = scrollOffset + row;
@@ -257,19 +254,19 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                 }
                 
                 // ── Drag handling ─────────────────────────────────────────
-                if (DRAGGING) {
+                if (dragging) {
                     long window = Minecraft.getInstance().getWindow().getWindow();
                     boolean leftDown = GLFW.glfwGetMouseButton(window,
                             GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS;
                     if (leftDown) {
                         // mouseX, mouseY are relative to the recipe
-                        int deltaY = mouseY - DRAG_START_Y;
+                        int deltaY = mouseY - dragStartY;
                         int movableRange = scrollTrackH - thumbHeight;
                         if (movableRange > 0) {
                             float pctDelta = (float) deltaY / movableRange;
                             int newScroll = Math.max(0,
                                     Math.min(maxScrollOffset,
-                                            DRAG_START_SCROLL
+                                            dragStartScroll
                                                     + Math.round(pctDelta * maxScrollOffset)));
                             if (newScroll != scrollOffset) {
                                 scrollOffset = newScroll;
@@ -277,7 +274,7 @@ public class FrequencyEmiRecipe implements EmiRecipe {
                         }
                     } else {
                         // Button released — end drag
-                        DRAGGING = false;
+                        dragging = false;
                     }
                 }
             }
@@ -297,9 +294,9 @@ public class FrequencyEmiRecipe implements EmiRecipe {
 
                 if (mouseY >= thumbY && mouseY < thumbY + thumbHeight) {
                     // Click on thumb — start drag
-                    DRAGGING = true;
-                    DRAG_START_Y = mouseY;
-                    DRAG_START_SCROLL = scrollOffset;
+                    dragging = true;
+                    dragStartY = mouseY;
+                    dragStartScroll = scrollOffset;
                 } else if (mouseY < thumbY) {
                     // Above thumb — page up
                     scrollOffset = Math.max(0, scrollOffset - ROWS);

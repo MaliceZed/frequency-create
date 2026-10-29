@@ -121,5 +121,11 @@ public class DataGenerators {
             if (added.contains(key)) continue;
             consumer.accept(key, prefix + FrequencyModItems.displayChar(name));
         }
+        for (String name : FrequencyModItems.CREATIVE_SYMBOL_NAMES) {
+            if (name.endsWith("_symbol_empty")) continue;
+            String key = "item.frequency." + name;
+            if (added.contains(key)) continue;
+            consumer.accept(key, prefix + FrequencyModItems.displayChar(name));
+        }
     }
 }
